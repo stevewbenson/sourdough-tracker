@@ -52,20 +52,21 @@ input,select,textarea{font:inherit;color:var(--ink);background:var(--card);borde
 .tbar button{background:rgba(255,255,255,.22);color:#fff;border:0;border-radius:8px;padding:8px 12px;font:inherit}
 .bar{display:flex;gap:8px;margin-top:12px}.bar .btn{margin:0}.bar .btn.g{background:var(--mute);width:96px;flex:none}
 details{margin-top:6px;font-size:13px}summary{color:var(--acc);cursor:pointer}
-main{padding-bottom:90px}
+main{padding-bottom:90px;position:relative}#gear{position:absolute;top:16px;right:14px;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--card);color:var(--ink);display:none;align-items:center;justify-content:center;cursor:pointer}#gear svg{width:22px;height:22px}#sp{position:absolute;top:62px;right:14px;left:14px;max-width:340px;margin-left:auto;z-index:20;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 8px 28px rgba(0,0,0,.2)}#sp[hidden]{display:none}h1.brand{padding-right:50px;font-size:clamp(23px,7vw,32px)}h1.brand img{height:clamp(28px,8vw,36px)}
 </style>
 </head>
 <body>
 <main>
+<button id="gear" aria-label="Settings" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button><div id="sp" hidden></div>
 <div class="eyebrow" id="eyebrow"></div>
 <h1 class="brand"><img src="logo.png" alt="">Sourdough Tracker</h1>
-<div class="sub">Weights in grams, temperatures in °F.</div>
+<div class="sub" id="sub"></div>
 <div class="note" id="sync"></div>
 <div id="app"></div>
 <div id="tbar" class="tbar" style="display:none"><span id="tt"></span><button data-tx="1">Dismiss</button></div>
 </main>
 <script>
-var S={pre:500,cov:450,unc:450,hyd:75,batch:2,auto:60,fridge:16,fpl:475,ww:10,lev:20,salt:2,run:{}};
+var S={pre:500,cov:450,unc:450,hyd:75,batch:2,auto:60,fridge:16,fpl:475,ww:10,lev:20,salt:2,lb:0,tc:0,sn:'Yeasty Boys',run:{}};
 var LOG=[];
 try{var raw=localStorage.getItem('bakeboard-log');if(raw)LOG=JSON.parse(raw)||[]}catch(e){}
 try{var st=localStorage.getItem('bakeboard-set');if(st){var o=JSON.parse(st);for(var k in o)if(k!=='ticks'&&k!=='notes')S[k]=o[k]}}catch(e){}
@@ -75,15 +76,28 @@ function curSet(){var c={};for(var k in S)if(k!=='ticks'&&k!=='notes')c[k]=S[k];
 function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()))}catch(e){}}
 function save(){STS=Date.now();persist();sched()}
 function $(id){return document.getElementById(id)}
+var OZ=28.3495,spDirty=false;
+function dm(g){g=+g;if(!S.lb)return Math.round(g).toLocaleString()+' g';var o=g/OZ,lb=Math.floor(o/16+1e-9),r=Math.round((o-lb*16)*10)/10;if(r>=16){lb++;r=0}return lb?lb+' lb '+r+' oz':r+' oz'}
+function wv(g){return S.lb?Math.round(g/OZ*100)/100:g}
+function wg(v){return S.lb?Math.round(v*OZ*10)/10:v}
+function wu(){return S.lb?'oz':'g'}
+function tv(f){return S.tc?Math.round((f-32)*50/9)/10:f}
+function tf(v){return S.tc?Math.round((v*9/5+32)*10)/10:v}
+function tu(){return '°'+(S.tc?'C':'F')}
+function td(f){return tv(f)+tu()}
+function SN(){return (S.sn||'').trim()}
+function spHtml(){return '<h2 style="margin:0 0 4px">Settings</h2><div class="lbl">Starter name</div><input id="sname" maxlength="40" placeholder="Name your starter" value="'+esc(S.sn||'')+'"><div class="lbl">Weights</div>'+chips([[0,'Grams'],[1,'Pounds &amp; ounces']],S.lb?1:0,'lb')+'<div class="lbl">Temperature</div>'+chips([[0,'°F'],[1,'°C']],S.tc?1:0,'tc')+'<div class="note">In pounds &amp; ounces, recipe boxes take ounces. Saved bakes convert automatically.</div><button class="btn" id="spx" style="margin-top:12px">Done</button>'}
+document.addEventListener('click',function(e){var sp=$('sp'),g=$('gear');if(g.contains(e.target)){var o=sp.hidden;sp.hidden=!o;g.setAttribute('aria-expanded',o);if(o)sp.innerHTML=spHtml();return}if(!sp.hidden&&(e.target.id==='spx'||!sp.contains(e.target))){sp.hidden=true;g.setAttribute('aria-expanded',false)}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')$('sp').hidden=true});
 var P=null,syncing=false,again=false,stimer=null;
 function p2(n){return (n<10?'0':'')+n}
 function t12(x){var a=String(x).split(':'),h=+a[0],ap=h>=12?'PM':'AM';return (h%12||12)+':'+a[1]+' '+ap}
 function loafOld(l){var d=new Date(l.ts),q=function(a){return a.filter(Boolean).join(' · ')},has=function(x){return x!==''&&x!=null};
  var ln=[q([l.hyd+'% hydration',l.n+' loaves',l.bake,l.auto+' min autolyse']),
   q([l.st?'Mixed '+t12(l.st):'',l.sh?'shaped '+t12(l.sh):'',has(l.bulk)?'bulk '+l.bulk+' h':'',has(l.fridge)?'fridge '+l.fridge+' h':'',has(l.rise)?'perceived rise '+l.rise+'%':'']),
-  has(l.bf)?'Used (g): flour '+l.bf+', whole wheat '+l.ww+', water '+l.w+', levain '+l.lv+', salt '+l.sa:'',
-  q([has(l.temp)?'dough '+l.temp+'°F':'',has(l.rm)?'room '+l.rm+'°F':'']),
-  q([has(l.pre)?'preheat '+l.pre+'°F':'',has(l.cov)?'covered '+(has(l.cm)?l.cm:'?')+' min at '+l.cov+'°F':'',has(l.unc)?'uncovered '+(has(l.um)?l.um:'?')+' min at '+l.unc+'°F':'',has(l.it)?'internal '+l.it+'°F':''])];
+  has(l.bf)?'Used: flour '+dm(l.bf)+', whole wheat '+dm(l.ww)+', water '+dm(l.w)+', levain '+dm(l.lv)+', salt '+dm(l.sa):'',
+  q([has(l.temp)?'dough '+td(l.temp)+'':'',has(l.rm)?'room '+td(l.rm)+'':'']),
+  q([has(l.pre)?'preheat '+td(l.pre)+'':'',has(l.cov)?'covered '+(has(l.cm)?l.cm:'?')+' min at '+td(l.cov)+'':'',has(l.unc)?'uncovered '+(has(l.um)?l.um:'?')+' min at '+td(l.unc)+'':'',has(l.it)?'internal '+td(l.it)+'':''])];
  return '<div class="loaf"><div class="h"><span>'+d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})+'</span><span class="stars">'+'★'.repeat(l.rating)+'<span style="opacity:.3">'+'★'.repeat(5-l.rating)+'</span></span></div>'
   +ln.filter(Boolean).map(function(x){return '<div class="note">'+esc(x)+'</div>'}).join('')
   +(l.photo?'<img data-ph="'+l.photo+'" alt="Crumb photo" style="width:100%;border-radius:10px;margin-top:8px">':'')+(l.notes?'<div style="margin-top:6px;font-size:14px">'+esc(l.notes)+'</div>':'')+'<button class="btn s" data-del="'+l.id+'">Delete</button></div>'}
@@ -147,43 +161,43 @@ function finish(){var r=run(),a=r.act||{},f=r.f||{},t=r.ts||{},c=compute(),N=fun
  var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},e={id:Date.now(),ts:t.mx||t.au||t.lv||Date.now(),hyd:S.hyd,n:S.batch,auto:S.auto,fridge:S.fridge,bf:u('bf',rec.bf),ww:u('ww',rec.ww),w:u('w',rec.w),lv:u('lv',rec.lv),sa:u('sa',rec.sa),rec:rec,mt:N(f.mt),rm:N(f.rt),rise:N(f.rise),it:N(f.it),pre:S.pre,cov:S.cov,unc:S.unc,steps:t,rating:r.rating||4,photo:r.ph||'',notes:(r.notes||'').trim()};
  LOG.unshift(e);LOG.sort(function(a,b){return b.ts-a.ts});S.run={}}
 function loafHtml(l){if(!l.steps)return loafOld(l);var t=l.steps,has=function(x){return x!==''&&x!=null},
- u=function(k,nm){return nm+' '+l[k]+(l.rec&&l.rec[k]!==l[k]?' (recipe '+l.rec[k]+')':'')},
- ln=[l.hyd+'% hydration · '+l.n+(l.n>1?' loaves':' loaf'),'Used (g): '+[u('bf','flour'),u('ww','whole wheat'),u('w','water'),u('lv','levain'),u('sa','salt')].join(', '),
- [has(l.mt)?'dough '+l.mt+'°F at mix':'',has(l.rm)?'room '+l.rm+'°F':'',has(l.rise)?'perceived rise '+l.rise+'%':'',t.mx&&t.bk?'bulk '+du(t.mx,t.bk):'',t.fr&&t.ld?'fridge '+du(t.fr,t.ld):''].filter(Boolean).join(' · '),
- ['preheat '+l.pre+'°F',t.ld&&t.lo?'covered '+du(t.ld,t.lo)+' at '+l.cov+'°F':'',t.lo&&t.ot?'uncovered '+du(t.lo,t.ot)+' at '+l.unc+'°F':'',has(l.it)?'internal '+l.it+'°F':''].filter(Boolean).join(' · ')];
+ u=function(k,nm){return nm+' '+dm(l[k])+(l.rec&&l.rec[k]!==l[k]?' (recipe '+dm(l.rec[k])+')':'')},
+ ln=[l.hyd+'% hydration · '+l.n+(l.n>1?' loaves':' loaf'),'Used: '+[u('bf','flour'),u('ww','whole wheat'),u('w','water'),u('lv','levain'),u('sa','salt')].join(', '),
+ [has(l.mt)?'dough '+td(l.mt)+' at mix':'',has(l.rm)?'room '+td(l.rm)+'':'',has(l.rise)?'perceived rise '+l.rise+'%':'',t.mx&&t.bk?'bulk '+du(t.mx,t.bk):'',t.fr&&t.ld?'fridge '+du(t.fr,t.ld):''].filter(Boolean).join(' · '),
+ ['preheat '+td(l.pre)+'',t.ld&&t.lo?'covered '+du(t.ld,t.lo)+' at '+td(l.cov)+'':'',t.lo&&t.ot?'uncovered '+du(t.lo,t.ot)+' at '+td(l.unc)+'':'',has(l.it)?'internal '+td(l.it)+'':''].filter(Boolean).join(' · ')];
  return '<div class=\"loaf\"><div class=\"h\"><span>'+new Date(l.ts).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})+'</span><span class=\"stars\">'+'★'.repeat(l.rating)+'<span style=\"opacity:.3\">'+'★'.repeat(5-l.rating)+'</span></span></div>'
  +ln.filter(Boolean).map(function(x){return '<div class=\"note\">'+esc(x)+'</div>'}).join('')
  +'<details><summary>Timeline</summary>'+LBL.filter(function(x){return t[x[0]]}).map(function(x){return '<div class=\"note\">'+x[1]+' · '+wk(t[x[0]])+'</div>'}).join('')+'</details>'
  +(l.photo?'<img data-ph=\"'+l.photo+'\" alt=\"Crumb photo\" style=\"width:100%;border-radius:10px;margin-top:8px\">':'')+(l.notes?'<div style=\"margin-top:6px;font-size:14px\">'+esc(l.notes)+'</div>':'')+'<button class=\"btn s\" data-del=\"'+l.id+'\">Delete</button></div>'}
-function body(id,r,c,am){var AL=function(k,d){var v=parseFloat((r.act||{})[k]);return isNaN(v)?d:v},LV=AL('lv',c.L),ST=Math.round(LV/9),FW=Math.round((LV-ST)/2),PER=Math.round((AL('bf',c.bf)+AL('ww',c.ww)+AL('w',c.w)+LV+AL('sa',c.sl))/c.n),f=r.f||{},fi=function(k,lb){return '<div class=\"lbl\">'+lb+'</div><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-f=\"'+k+'\" value=\"'+esc(f[k]!=null?f[k]:'')+'\">'};
+function body(id,r,c,am){var AL=function(k,d){var v=parseFloat((r.act||{})[k]);return isNaN(v)?d:v},LV=AL('lv',c.L),ST=Math.round(LV/9),FW=Math.round((LV-ST)/2),PER=Math.round((AL('bf',c.bf)+AL('ww',c.ww)+AL('w',c.w)+LV+AL('sa',c.sl))/c.n),f=r.f||{},fi=function(k,lb){return '<div class=\"lbl\">'+lb+'</div><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-f=\"'+k+'\" value=\"'+esc(f[k]!=null&&f[k]!==''&&(k==='mt'||k==='rt'||k==='it')?tv(parseFloat(f[k])):f[k]!=null?f[k]:'')+'\">'};
  switch(id){
- case 'lv':return '<p>Night before: feed the levain 1:4:4 at about 68°F. It peaks in about 14 h. Mix only once it is domed and floats.</p><div class=\"levain\"><span class=\"big\">'+ST+'</span> g starter &nbsp; <span class=\"big\">'+FW+'</span> g water &nbsp; <span class=\"big\">'+FW+'</span> g flour &nbsp;= <b>'+(ST+2*FW)+' g</b></div>';
+ case 'lv':return '<p>Night before: feed '+esc(SN()||'the levain')+' 1:4:4 at about '+td(68)+'. It peaks in about 14 h. Mix only once it is domed and floats.</p><div class=\"levain\"><span class=\"big\">'+dm(ST)+'</span> starter &nbsp; <span class=\"big\">'+dm(FW)+'</span> water &nbsp; <span class=\"big\">'+dm(FW)+'</span> flour &nbsp;= <b>'+dm(ST+2*FW)+'</b></div>';
  case 'au':return '<p>Flour and water only, mixed until no dry flour. Cover, '+S.auto+' min at room temp.</p>'+am('Bread flour','bf',c.bf)+am('Whole wheat','ww',c.ww)+am('Water','w',c.w)+'<div class=\"note\">Next starts the autolyse timer.</div>';
- case 'mx':return '<p>Add levain and salt. Mix with spoon until combined, then fully incorporate with a wet hand for 1-2 minutes.</p>'+am('Levain','lv',c.L)+am('Kosher salt','sa',c.sl)+'<div class=\"g2\"><div>'+fi('mt','Dough temp (°F)')+'</div><div>'+fi('rt','Room temp (°F)')+'</div></div><div class=\"note\">Next starts a 30 min timer for the first fold.</div>';
+ case 'mx':return '<p>Add levain and salt. Mix with spoon until combined, then fully incorporate with a wet hand for 1-2 minutes.</p>'+am('Levain','lv',c.L)+am('Kosher salt','sa',c.sl)+'<div class=\"g2\"><div>'+fi('mt','Dough temp ('+tu()+')')+'</div><div>'+fi('rt','Room temp ('+tu()+')')+'</div></div><div class=\"note\">Next starts a 30 min timer for the first fold.</div>';
  case 'f1':case 'f2':return '<p>Wet your hands and do a stretch and fold.</p><div class=\"note\">Next starts a 30 min timer for the next fold.</div>';
  case 'c1':return '<p>Wet your hands and do a coil fold.</p><div class=\"note\">Next starts a 30 min timer for the next fold.</div>';
  case 'c2':return '<p>Wet your hands and do a coil fold. Then hands off.</p>';
  case 'bk':return '<p>Let the dough rise. Shape when it looks ready.'+(r.ts.mx?' Mixed '+tm(r.ts.mx)+', '+du(r.ts.mx,Date.now())+' ago.':'')+'</p>'+fi('rise','Perceived rise (%)');
- case 'sh':return '<p>Divide into '+c.n+' × '+PER+' g, pre-shape into rounds, seam down, bench 20-30 min uncovered. Final shape as a batard: drag it toward you on an unfloured bench to build tension. Seam up in a 750 g banneton dusted with rice flour. Cover.</p>';
- case 'fr':return '<p>Fridge at 40°F. Bake straight from cold.</p><div class=\"lbl\">Fridge hours (plan)</div><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-s=\"fridge\" value=\"'+S.fridge+'\"><div class=\"note\">Bake around '+tm((r.ts.fr||Date.now())+S.fridge*3600000)+'.</div>';
- case 'pre':return '<p>Preheat the oven and Dutch ovens together to <b>'+S.pre+'°F</b>, 45-60 min.</p><div class=\"note\">Next starts a 45 min timer.</div>';
- case 'ld':return '<p>Score straight from the fridge: one offset slash along the length, lame at 30-45°. Straight into the hot Dutch oven. Drop the oven to <b>'+S.cov+'°F</b> as you load. Covered 20 min.</p><div class=\"note\">Next starts a 20 min timer.</div>';
- case 'lo':return '<p>Lids off. Uncovered at <b>'+S.unc+'°F</b> for 15-20 min. Pull by crust color: deep amber-brown with dark ear edges. Swap the two ovens halfway through.</p>'+fi('it','Internal temp (°F)')+'<div class=\"note\">At or above 206°F is a floor, not the signal. Next starts a 15 min timer.</div>';
+ case 'sh':return '<p>Divide into '+c.n+' × '+dm(PER)+', pre-shape into rounds, seam down, bench 20-30 min uncovered. Final shape as a batard: drag it toward you on an unfloured bench to build tension. Seam up in a '+dm(750)+' banneton dusted with rice flour. Cover.</p>';
+ case 'fr':return '<p>Fridge at '+td(40)+'. Bake straight from cold.</p><div class=\"lbl\">Fridge hours (plan)</div><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-s=\"fridge\" value=\"'+S.fridge+'\"><div class=\"note\">Bake around '+tm((r.ts.fr||Date.now())+S.fridge*3600000)+'.</div>';
+ case 'pre':return '<p>Preheat the oven and Dutch ovens together to <b>'+td(S.pre)+'</b>, 45-60 min.</p><div class=\"note\">Next starts a 45 min timer.</div>';
+ case 'ld':return '<p>Score straight from the fridge: one offset slash along the length, lame at 30-45°. Straight into the hot Dutch oven. Drop the oven to <b>'+td(S.cov)+'</b> as you load. Covered 20 min.</p><div class=\"note\">Next starts a 20 min timer.</div>';
+ case 'lo':return '<p>Lids off. Uncovered at <b>'+td(S.unc)+'</b> for 15-20 min. Pull by crust color: deep amber-brown with dark ear edges. Swap the two ovens halfway through.</p>'+fi('it','Internal temp ('+tu()+')')+'<div class=\"note\">At or above '+td(206)+' is a floor, not the signal. Next starts a 15 min timer.</div>';
  case 'ot':return '<p>Unload right away. Trapped steam softens the crust. Cool on a wire rack, at least 1 h, 90 min preferred.</p><div class=\"note\">Next starts a 90 min cooling timer.</div>';
  default:return '<p>Slice, taste, and save this bake.</p><div class=\"lbl\">Rating</div><div class=\"row\">'+[1,2,3,4,5].map(function(n){return '<button class=\"chip'+((r.rating||4)===n?' on':'')+'\" data-rt=\"'+n+'\">'+n+'★</button>'}).join('')+'</div>'
   +(USER?'<div class=\"lbl\">Crumb photo</div><input type=\"file\" accept=\"image/*\" id=\"photo\">'+(r.ph?'<img data-ph=\"'+esc(r.ph)+'\" alt=\"\" style=\"width:100%;border-radius:10px;margin-top:8px\">':'')+'<div class=\"note\" id=\"pst\"></div>':'<div class=\"note\">Connect sync below to add a photo.</div>')
   +'<div class=\"lbl\">Notes (crumb, ear, crust, taste)</div><textarea id=\"notes\" rows=\"3\">'+esc(r.notes||'')+'</textarea>'}}
-function render(){if(!USER){$('app').innerHTML=READY?'<div class="card"><h2>Sign in</h2><div class="note">Sign in with Google to load your bakes and sync them across devices.</div><button class="btn" data-in="1">Sign in with Google</button></div>':'<div class="note">Loading…</div>';return}var r=run(),c=compute(),ST=steps(),ids=ST.map(function(s){return s.id}),act=r.act||{};
+function render(){var gb=$('gear');if(gb)gb.style.display=USER?'flex':'none';if(!USER){$('app').innerHTML=READY?'<div class="card"><h2>Sign in</h2><div class="note">Sign in with Google to load your bakes and sync them across devices.</div><button class="btn" data-in="1">Sign in with Google</button></div>':'<div class="note">Loading…</div>';return}var r=run(),c=compute(),ST=steps(),ids=ST.map(function(s){return s.id}),act=r.act||{};
  if(ids.indexOf(r.cur)<0)r.cur=ids[0];r.ts=r.ts||{};
- var am=function(lb,k,rec){var a=parseFloat(act[k]),has=!isNaN(a);return '<div class=\"ing\"><span>'+lb+(has&&a!==rec?'<br><small>recipe '+rec+' g</small>':'')+'</span><b>'+(has?a:rec)+' <small>g</small></b></div>'};
- $('eyebrow').textContent='Yeasty Boys · '+(100-S.ww)+'/'+S.ww+' flour · '+S.lev+'% levain · '+S.salt+'% salt';
+ var am=function(lb,k,rec){var a=parseFloat(act[k]),has=!isNaN(a);return '<div class=\"ing\"><span>'+lb+(has&&a!==rec?'<br><small>recipe '+dm(rec)+'</small>':'')+'</span><b>'+dm(has?a:rec)+'</b></div>'};
+ $('sub').textContent='Weights in '+(S.lb?'pounds and ounces':'grams')+', temperatures in '+tu()+'.';var spn=$('sp');if(spDirty){spDirty=false;if(spn&&!spn.hidden)spn.innerHTML=spHtml()}$('eyebrow').textContent=(SN()?SN()+' · ':'')+(100-S.ww)+'/'+S.ww+' flour · '+S.lev+'% levain · '+S.salt+'% salt';
  var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},nm={bf:'Bread flour',ww:'Whole wheat',w:'Water',lv:'Levain',sa:'Kosher salt'};
- var ob=function(lb,k,t){return '<div class=\"ovb\"><div class=\"note\">'+lb+'</div><div class=\"ovt\"><input type=\"number\" inputmode=\"numeric\" value=\"'+S[k]+'\" data-n=\"'+k+'\"><span>°F</span></div><div class=\"ovm\">'+t+'</div></div>'};
+ var ob=function(lb,k,t){return '<div class=\"ovb\"><div class=\"note\">'+lb+'</div><div class=\"ovt\"><input type=\"number\" inputmode=\"numeric\" value=\"'+tv(S[k])+'\" data-n=\"'+k+'\"><span>'+tu()+'</span></div><div class=\"ovm\">'+t+'</div></div>'};
  var rc='<div class=\"card\"><h2>Recipe</h2><div class=\"lbl\">Hydration <b id=\"hydv\" style=\"color:var(--acc)\">'+S.hyd+'%</b></div><input type=\"range\" id=\"hyd\" min=\"60\" max=\"85\" step=\"1\" value=\"'+S.hyd+'\"><div class=\"row\" style=\"justify-content:space-between;font-size:12px;color:var(--mute)\"><span>60%</span><span>85%</span></div>'
   +'<div class=\"lbl\">Batch</div>'+chips([[1,'Single'],[2,'Double'],[3,'Triple']],S.batch,'batch')+'<div class=\"lbl\">Autolyse</div>'+chips([[60,'1 h'],[30,'30 m'],[0,'Skip']],S.auto,'auto')
-  +'<div class=\"g2\"><div><div class=\"lbl\">Flour / loaf (g)</div><input type=\"number\" inputmode=\"numeric\" value=\"'+S.fpl+'\" data-n=\"fpl\"></div><div><div class=\"lbl\">Whole wheat %</div><input type=\"number\" inputmode=\"numeric\" value=\"'+S.ww+'\" data-n=\"ww\"></div><div><div class=\"lbl\">Levain %</div><input type=\"number\" inputmode=\"numeric\" value=\"'+S.lev+'\" data-n=\"lev\"></div><div><div class=\"lbl\">Salt %</div><input type=\"number\" step=\"0.5\" inputmode=\"decimal\" value=\"'+S.salt+'\" data-n=\"salt\"></div></div>'
-  +'<div class=\"sec\">Ingredients</div><div class=\"ig hd\"><span></span><span>Recipe</span><span>Yours</span></div>'+['bf','ww','w','lv','sa'].map(function(k){return '<div class=\"ig\"><span>'+nm[k]+'</span><b>'+rec[k]+' g</b><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-a=\"'+k+'\" placeholder=\"'+rec[k]+'\" value=\"'+esc(act[k]!=null?act[k]:'')+'\"></div>'}).join('')
-  +'<div class=\"note\">Total dough '+c.tot.toLocaleString()+' g · '+c.n+' × '+c.per+' g. Enter what you actually used in the Yours column.</div>'
+  +'<div class=\"g2\"><div><div class=\"lbl\">Flour / loaf ('+wu()+')</div><input type=\"number\" step=\"any\" inputmode=\"decimal\" value=\"'+wv(S.fpl)+'\" data-n=\"fpl\"></div><div><div class=\"lbl\">Whole wheat %</div><input type=\"number\" inputmode=\"numeric\" value=\"'+S.ww+'\" data-n=\"ww\"></div><div><div class=\"lbl\">Levain %</div><input type=\"number\" inputmode=\"numeric\" value=\"'+S.lev+'\" data-n=\"lev\"></div><div><div class=\"lbl\">Salt %</div><input type=\"number\" step=\"0.5\" inputmode=\"decimal\" value=\"'+S.salt+'\" data-n=\"salt\"></div></div>'
+  +'<div class=\"sec\">Ingredients</div><div class=\"ig hd\"><span></span><span>Recipe</span><span>Yours</span></div>'+['bf','ww','w','lv','sa'].map(function(k){return '<div class=\"ig\"><span>'+nm[k]+'</span><b>'+dm(rec[k])+'</b><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-a=\"'+k+'\" placeholder=\"'+wv(rec[k])+'\" value=\"'+esc(act[k]!=null&&act[k]!==''?wv(parseFloat(act[k])):'')+'\"></div>'}).join('')
+  +'<div class=\"note\">Total dough '+dm(c.tot)+' · '+c.n+' × '+dm(c.per)+'. Enter what you actually used in the Yours column.</div>'
   +'<div class=\"sec\">Oven</div><div class=\"g3\">'+ob('Preheat','pre','45-60 min')+ob('Covered','cov','20 min')+ob('Uncovered','unc','15-20 min')+'</div></div>';
  var i=ids.indexOf(r.cur),s=ST[i],last=i===ids.length-1;
  var tl='<div class=\"card\"><h2>Bake</h2><div class=\"hz\">'+ST.map(function(x){return '<button class=\"hs'+(r.ts[x.id]?' done':'')+(x.id===r.cur?' cur':'')+'\" data-go=\"'+x.id+'\"><i></i>'+x.n+'</button>'}).join('')+'</div>'
@@ -192,11 +206,11 @@ function render(){if(!USER){$('app').innerHTML=READY?'<div class="card"><h2>Sign
   +'<button class=\"btn s\" data-rst=\"1\" style=\"margin-top:10px\">Discard this bake</button></div>';
  var lg='<div class=\"card\"><h2>Bake Log</h2>'+(LOG.length?LOG.map(loafHtml).join(''):'<div class=\"note\">No bakes logged yet.</div>')+'</div>';
  $('app').innerHTML='<div class=\"cols\"><div>'+rc+'</div><div>'+tl+'</div></div>'+lg+syncCard();loadPh();
- var hz=document.querySelector('.hs.cur'),bx=document.querySelector('.hz');if(hz&&bx)bx.scrollLeft=hz.offsetLeft-bx.clientWidth/2+35}
-function store(t){var d=t.dataset,r=run();if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=t.value}else if(d.f){r.f=r.f||{};r.f[d.f]=t.value}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
+ var hz=document.querySelector('.hs.cur'),bx=document.querySelector('.hz');if(hz&&bx){var ra=hz.getBoundingClientRect(),rb=bx.getBoundingClientRect();bx.scrollLeft=bx.scrollLeft+(ra.left-rb.left)-(bx.clientWidth-ra.width)/2}}
+function store(t){var d=t.dataset,r=run();if(t.id==='sname'){S.sn=t.value;save();return true}if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=(S.lb&&!isNaN(parseFloat(t.value))?String(wg(parseFloat(t.value))):t.value)}else if(d.f){r.f=r.f||{};r.f[d.f]=(S.tc&&['mt','rt','it'].indexOf(d.f)>=0&&!isNaN(parseFloat(t.value))?String(tf(parseFloat(t.value))):t.value)}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
 document.addEventListener('click',function(e){
  var t=e.target.closest('[data-k],[data-go],[data-next],[data-back],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-tx],[data-rst]');if(!t)return;var d=t.dataset;
- if(d.k){S[d.k]=+d.v}
+ if(d.k){S[d.k]=+d.v;if(d.k==='lb'||d.k==='tc')spDirty=true}
  else if(d.go){run().cur=d.go}
  else if(d.next){nextStep()}
  else if(d.back){var ids=steps().map(function(s){return s.id});run().cur=ids[Math.max(0,ids.indexOf(run().cur)-1)]}
@@ -211,9 +225,9 @@ document.addEventListener('click',function(e){
  save();render();tick()});
 document.addEventListener('change',function(e){var t=e.target;
  if(t.id==='photo'){upPhoto(t.files&&t.files[0]);return}
- if(store(t)){if(t.dataset.a||t.dataset.s)render();return}
+ if(store(t)){if(t.dataset.a||t.dataset.s||t.id==='sname')render();return}
  if(t.id==='hyd'){S.hyd=+t.value}
- else if(t.dataset.n){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[t.dataset.n]=v}
+ else if(t.dataset.n){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0){var nk=t.dataset.n;S[nk]=['pre','cov','unc'].indexOf(nk)>=0?tf(v):nk==='fpl'?wg(v):v}}
  else return;
  save();render()});
 document.addEventListener('input',function(e){var t=e.target;if(t.id==='hyd'){var h=$('hydv');if(h)h.textContent=t.value+'%'}else store(t)});
