@@ -78,7 +78,8 @@ function curSet(){var c={};for(var k in S)if(k!=='ticks'&&k!=='notes')c[k]=S[k];
 function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()))}catch(e){}}
 function save(){STS=Date.now();persist();sched()}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,spDirty=false;
+var OZ=28.3495,spDirty=false,VER='2026-11-25 build 14';
+function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
 water:'M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11zM9.5 14.500a2.5 2.5 0 0 0 2 2.5',
@@ -108,7 +109,7 @@ function acctHtml(){var n=USER.displayName||USER.email||'Signed in',ph=USER.phot
  return '<div class="who"><span class="av">'+ini+(ph?'<img src="'+esc(ph)+'" alt="" referrerpolicy="no-referrer" onerror="this.remove()">':'')+'</span><div><b>'+esc(n)+'</b>'+(USER.displayName&&USER.email?'<div class="note" style="margin:0">'+esc(USER.email)+'</div>':'')+'</div></div>'}
 function spHtml(){if(!USER)return '';return acctHtml()+'<div class="lbl">'+ic('jar')+'Starter name</div><input id="sname" maxlength="40" placeholder="Name your starter" value="'+esc(S.sn||'')+'"><div class="lbl">'+ic('scale')+'Weights</div>'+chips([[0,'Metric'],[1,'US']],S.lb?1:0,'lb')+'<div class="lbl">'+ic('therm')+'Temperature</div>'+chips([[0,'°F'],[1,'°C']],S.tc?1:0,'tc')+'<div class="note">With US weights, recipe boxes take ounces. Saved bakes convert automatically.</div>'
  +'<details><summary>Import from the old GitHub sync</summary><div class="lbl">GitHub username</div><input id="gu" autocapitalize="none" autocorrect="off"><div class="lbl">Data repo name</div><input id="gr" value="sourdough-data" autocapitalize="none" autocorrect="off"><div class="lbl">Read-only access token</div><input id="gt" type="password" autocomplete="off"><button class="btn" data-imp="1">Import my old bakes</button><div class="note" id="imps"></div></details>'
- +'<button class="btn" id="spx" style="margin-top:12px">Done</button><button class="btn" style="background:var(--mute);margin-top:8px" data-out="1">Sign out</button>'}
+ +'<button class="btn" id="spx" style="margin-top:12px">Done</button><button class="btn" style="background:var(--mute);margin-top:8px" data-out="1">Sign out</button><button class="btn" style="background:var(--mute);margin-top:8px" data-rl="1">Reload latest version</button><div class="note" style="text-align:center;margin-top:10px">Version '+VER+'</div>'}
 document.addEventListener('click',function(e){var sp=$('sp'),g=$('gear');if(g.contains(e.target)){var o=sp.hidden;sp.hidden=!o;g.setAttribute('aria-expanded',o);if(o)sp.innerHTML=spHtml();return}if(!sp.hidden&&(e.target.id==='spx'||!sp.contains(e.target))){sp.hidden=true;g.setAttribute('aria-expanded',false)}});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')$('sp').hidden=true});
 var P=null,syncing=false,again=false,stimer=null;
@@ -229,7 +230,7 @@ function render(){var gb=$('gear');if(gb)gb.style.display=USER?'flex':'none';if(
  var hz=document.querySelector('.hs.cur'),bx=document.querySelector('.hz');if(hz&&bx){var ra=hz.getBoundingClientRect(),rb=bx.getBoundingClientRect();bx.scrollLeft=bx.scrollLeft+(ra.left-rb.left)-(bx.clientWidth-ra.width)/2}}
 function store(t){var d=t.dataset,r=run();if(t.id==='sname'){S.sn=t.value;save();return true}if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=(S.lb&&!isNaN(parseFloat(t.value))?String(wg(parseFloat(t.value))):t.value)}else if(d.f){r.f=r.f||{};r.f[d.f]=(S.tc&&['mt','rt','it'].indexOf(d.f)>=0&&!isNaN(parseFloat(t.value))?String(tf(parseFloat(t.value))):t.value)}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
 document.addEventListener('click',function(e){
- var t=e.target.closest('[data-k],[data-go],[data-next],[data-back],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-tx],[data-rst]');if(!t)return;var d=t.dataset;
+ var t=e.target.closest('[data-k],[data-go],[data-next],[data-back],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-rl],[data-tx],[data-rst]');if(!t)return;var d=t.dataset;
  if(d.k){S[d.k]=+d.v;if(d.k==='lb'||d.k==='tc')spDirty=true}
  else if(d.go){run().cur=d.go}
  else if(d.next){nextStep()}
@@ -242,6 +243,7 @@ document.addEventListener('click',function(e){
  else if(d.in){if(!FB){msg('Firebase is not loaded yet.');return}FB.signIn().catch(function(e){msg('Sign-in problem: '+e.message)});return}
  else if(d.out){$('sp').hidden=true;FB.signOut();return}
  else if(d.imp){importOld();return}
+ else if(d.rl){reloadApp();return}
  save();render();tick()});
 document.addEventListener('change',function(e){var t=e.target;
  if(t.id==='photo'){upPhoto(t.files&&t.files[0]);return}
