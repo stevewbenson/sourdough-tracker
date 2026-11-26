@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2f6fa3">
+<script>try{var t=localStorage.getItem("bb-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -11,7 +12,7 @@
 <style>
 @font-face{font-family:'Lily Script One';font-style:normal;font-weight:400;font-display:swap;src:url(data:font/woff2;base64,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) format('woff2')}
 :root{--bg:#ffffff;--card:#fff;--ink:#1d2b3a;--mute:#5d6e80;--line:#dbe3ec;--div:#c3cbd5;--acc:#2f6fa3;--accbg:#d9e9f7;--ok:#dcefe4;--warn:#fdf0bd;--green:#25634a;--hh:56px;--sw:280px;--hdr:#2f6fa3;--brand:'Lily Script One','Brush Script MT','Segoe Script',cursive;--hov:#f0f3f7;--tsh:-1.5px -1.5px 0 #0a1722,1.5px -1.5px 0 #0a1722,-1.5px 1.5px 0 #0a1722,1.5px 1.5px 0 #0a1722,0 -1.5px 0 #0a1722,0 1.5px 0 #0a1722,-1.5px 0 0 #0a1722,1.5px 0 0 #0a1722,2px 2px 0 #0a1722,3px 3px 0 #0a1722,4px 4px 0 #0a1722;box-sizing:border-box}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a23;--card:#1b2530;--ink:#e8eef5;--mute:#93a3b5;--line:#2c3947;--div:#3d4b5b;--acc:#7db6e8;--accbg:#264662;--ok:#1f3a2d;--warn:#4a3f17;--green:#7fd1ad;--hdr:#1f4a6e;--hov:#121a23}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a23;--card:#1b2530;--ink:#e8eef5;--mute:#93a3b5;--line:#2c3947;--div:#3d4b5b;--acc:#7db6e8;--accbg:#264662;--ok:#1f3a2d;--warn:#4a3f17;--green:#7fd1ad;--hdr:#1f4a6e;--hov:#121a23;--btnink:#0b1a28}}:root[data-theme="dark"]{--bg:#121a23;--card:#1b2530;--ink:#e8eef5;--mute:#93a3b5;--line:#2c3947;--div:#3d4b5b;--acc:#7db6e8;--accbg:#264662;--ok:#1f3a2d;--warn:#4a3f17;--green:#7fd1ad;--hdr:#1f4a6e;--hov:#121a23;--btnink:#0b1a28;color-scheme:dark}:root[data-theme="light"]{color-scheme:light}
 *{box-sizing:border-box}html{scroll-padding-top:calc(var(--hh) + env(safe-area-inset-top,0px))}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,"Segoe UI",Roboto,sans-serif}
 main{margin-left:var(--sw);padding:calc(var(--hh) + env(safe-area-inset-top,0px) + 18px) 16px 90px}.pg{max-width:680px;margin:0 auto}
@@ -34,7 +35,7 @@ input[type=range]{padding:0;border:0;background:none;height:34px;accent-color:va
 input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--div);border-radius:10px;padding:10px;width:100%}
 .g2>div{min-width:0}input[type=date],input[type=time]{width:100%;min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;display:block;height:44px;line-height:1.2}
 
-.btn{padding:12px 16px;border:0;border-radius:10px;background:var(--acc);color:#fff;font:inherit;font-weight:700;cursor:pointer;width:100%;margin-top:10px}
+.btn{padding:12px 16px;border:0;border-radius:10px;background:var(--acc);color:var(--btnink,#fff);font:inherit;font-weight:700;cursor:pointer;width:100%;margin-top:10px}
 .btn.s{background:none;color:var(--acc);width:auto;padding:4px 0;margin:0;font-size:13px}
 .loaf{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
 .loaf .h{display:flex;justify-content:space-between;font-weight:700}
@@ -49,8 +50,8 @@ input,select,textarea{font:inherit;color:var(--ink);background:var(--card);borde
 .hs i{display:block;width:16px;height:16px;border-radius:50%;margin:0 auto 4px;border:2px solid var(--div);background:var(--card);position:relative;z-index:1}
 .hs::before{content:'';position:absolute;top:9px;left:-50%;width:100%;height:2px;background:var(--div)}.hs:first-child::before{display:none}
 .hs.done i{background:var(--acc);border-color:var(--acc)}.hs.cur i{border-color:var(--acc);box-shadow:0 0 0 3px var(--accbg)}.hs.cur{color:var(--ink);font-weight:700}@keyframes pulse{0%{box-shadow:0 0 0 3px var(--accbg),0 0 0 3px var(--acc)}100%{box-shadow:0 0 0 3px var(--accbg),0 0 0 12px transparent}}.hs.cur i{animation:pulse 1.8s ease-out infinite}@media (prefers-reduced-motion:reduce){.hs.cur i{animation:none}}
-.tbar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--green);color:#fff;font-weight:700}.tbar.due{background:#b3412b}
-.tbar button{background:rgba(255,255,255,.22);color:#fff;border:0;border-radius:8px;padding:8px 12px;font:inherit}
+.tbar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--green);color:var(--btnink,#fff);font-weight:700}.tbar.due{background:#b3412b}
+.tbar button{background:rgba(255,255,255,.22);color:inherit;border:0;border-radius:8px;padding:8px 12px;font:inherit}
 .bar{display:flex;gap:8px;margin-top:12px}.bar .btn{margin:0}.bar .btn.g{background:var(--mute);width:96px;flex:none}
 details{margin-top:6px;font-size:13px}summary{color:var(--acc);cursor:pointer}
 .who{display:flex;align-items:center;gap:12px;margin-bottom:4px}.av{position:relative;width:46px;height:46px;border-radius:50%;background:var(--accbg);color:var(--acc);font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -74,10 +75,23 @@ details{margin-top:6px;font-size:13px}summary{color:var(--acc);cursor:pointer}
 body.out #nav,body.out #mb{display:none}body.out main{margin-left:0}body.out #brand{display:flex;width:auto}@media (min-width:860px){body.out .tbar{left:0}}
 .ic{width:20px;height:20px;flex:none;color:var(--acc)}.card h2{display:flex;align-items:center;gap:8px}.card h2 .ic{width:22px;height:22px}.in{display:flex;align-items:center;gap:10px}.in .ic{width:24px;height:24px}.lbl .ic,.sec .ic{width:15px;height:15px;margin-right:6px;vertical-align:-3px}.tbar .ic{color:inherit;width:18px;height:18px;margin-right:8px}
 .ovb .ovt+.ovt{margin-top:6px}
+#top h1{flex:1;min-width:0}
+#ha{display:flex;align-items:center;gap:8px;padding-right:12px;flex:none}
+.hb{display:flex;align-items:center;justify-content:center;gap:6px;height:40px;min-width:40px;padding:0 14px;border:2px solid #fff;border-radius:20px;background:transparent;color:#fff;font:inherit;font-weight:700;cursor:pointer}.hb .ic{color:inherit;width:22px;height:22px}.hb.round{width:40px;padding:0;border-radius:50%}.hb.fill{background:#fff;color:#1d4f7c}
+body.out #ha{display:none}
+#nav{display:flex;flex-direction:column}
+.navbot{margin-top:auto;padding:14px 18px 4px;border-top:1px solid var(--div);font-size:13px;color:var(--mute)}
+.ld small{display:block;font-weight:400;color:var(--mute);font-size:13px;margin-top:2px}
+.rrow{display:flex;align-items:center;gap:12px;width:100%;padding:14px 4px;border:0;border-top:1px solid var(--div);background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}.rrow .ld{flex:1;font-weight:700}.rrow .ic{width:20px;height:20px;color:var(--mute);transform:rotate(-90deg)}.rend{border-top:1px solid var(--div)}
+.btn.s+.card{border-top:0;padding-top:10px}
+.po{border-top:1px solid var(--div);padding:14px 0}.poh{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:36px}.pot{display:flex;align-items:center;gap:8px;font-weight:700}.pot .ic{width:20px;height:20px}.pob{margin-top:8px}
+.po.sub{border-top:1px solid var(--line);padding:12px 0 6px}.po.sub:first-child{border-top:0}
+.pb{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--acc);background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}.pb .ic{width:20px;height:20px}.pb.x{border-color:var(--div)}.pb.x .ic{color:var(--mute)}
+.ir{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--div)}.ir b{font-size:18px}
 </style>
 </head>
 <body>
-<header id="top"><button id="mb" aria-label="Menu" data-menu="1"></button><div id="brand"><img src="logo.png" alt=""><span>Sourdough Tracker</span></div><h1 id="ptitle"></h1></header>
+<header id="top"><button id="mb" aria-label="Menu" data-menu="1"></button><div id="brand"><img src="logo.png" alt=""><span>Sourdough Tracker</span></div><h1 id="ptitle"></h1><div id="ha"></div></header>
 <div id="scrim" data-menu="0"></div>
 <nav id="nav" aria-label="Main menu"></nav>
 <main><div class="pg"><div class="note" id="sync"></div><div id="app"></div></div></main>
@@ -89,22 +103,31 @@ var LOG=[];
 try{var raw=localStorage.getItem('bakeboard-log');if(raw)LOG=JSON.parse(raw)||[]}catch(e){}
 try{var st=localStorage.getItem('bakeboard-set');if(st){var o=JSON.parse(st);for(var k in o)if(k!=='ticks'&&k!=='notes')S[k]=o[k]}}catch(e){}
 var DEL=[],STS=0,CFG={};
+var RCP=[];try{RCP=JSON.parse(localStorage.getItem('bb-recipes')||'[]')||[]}catch(e){}
 try{DEL=JSON.parse(localStorage.getItem('bb-del')||'[]');STS=+localStorage.getItem('bb-sts')||0;CFG=JSON.parse(localStorage.getItem('bb-gh')||'{}')}catch(e){}
 function curSet(){var c={};for(var k in S)if(k!=='ticks'&&k!=='notes')c[k]=S[k];return c}
-function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()))}catch(e){}}
+function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()));localStorage.setItem('bb-recipes',JSON.stringify(RCP))}catch(e){}}
 function save(){STS=Date.now();persist();sched()}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-25 build 17';
+var OZ=28.3495,VER='2026-11-25 build 19';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
 water:'M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11zM9.5 14.500a2.5 2.5 0 0 0 2 2.5',
 jar:'M8 3h8v3H8zM7 6h10v13a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2zM9.5 15a1 1 0 1 0 2 0 1 1 0 1 0-2 0M13 12a1.2 1.2 0 1 0 2.4 0 1.2 1.2 0 1 0-2.4 0M12.5 18h.01',
 salt:'M9 9V7a3 3 0 0 1 6 0v2M8 9h8l1 11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1zM10.5 5.500h.01M12 4.500h.01M13.5 5.500h.01M7.5 14h9',
+sun:'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4',
 gear:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z',
 reload:'M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5',
 menu:'M3 6h18M3 12h18M3 18h18',
 chev:'M6 9l6 6 6-6',
+plus:'M12 5v14M5 12h14',
+x:'M18 6L6 18M6 6l12 12',
+play:'M7 4l13 8-13 8z',
+fold:'M4 8c3-3 5-3 8 0s5 3 8 0M4 13c3-3 5-3 8 0s5 3 8 0M4 18c3-3 5-3 8 0s5 3 8 0',
+bubble:'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM9 13h.01M13 10h.01M14 15h.01',
+loaf:'M3 16c0-4.5 4-8 9-8s9 3.5 9 8v1.5H3zM8 12l1.5 2M12 11l1.5 2M16 12l1.5 2',
+snow:'M12 2v20M3.3 7l17.4 10M20.7 7L3.3 17',
 flame:'M12 3c1 3.5 5 5 5 10a5 5 0 0 1-10 0c0-2.5 1.2-3.8 2.5-5 .2 1.5.8 2.2 1.5 2.500C11 8.5 11 5.5 12 3z',
 therm:'M14 14.800V5a2 2 0 0 0-4 0v9.800a4 4 0 1 0 4 0zM12 9v7',
 clock:'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4l2.5 1.500M9 2h6',
@@ -125,49 +148,133 @@ function tf(v){return S.tc?Math.round((v*9/5+32)*10)/10:v}
 function tu(){return '°'+(S.tc?'C':'F')}
 function td(f){return tv(f)+tu()}
 function SN(){return (S.sn||'').trim()}
-var PG=['recipe','bake','loaves','settings','profile'],TT={recipe:'Recipe',bake:'Bake',loaves:'Previous Loaves',settings:'Settings',profile:'Profile'},PAGE='recipe',EXP={};
-try{var sp0=localStorage.getItem('bb-page');if(PG.indexOf(sp0)>=0)PAGE=sp0}catch(e){}
+var THEME='system';try{var t0=localStorage.getItem('bb-theme');if(t0==='light'||t0==='dark')THEME=t0}catch(e){}
+function applyTheme(){var h=document.documentElement;if(THEME==='system')h.removeAttribute('data-theme');else h.setAttribute('data-theme',THEME);var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',getComputedStyle(h).getPropertyValue('--hdr').trim()||'#2f6fa3')}
+try{var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',applyTheme)}catch(e){}
+var PG=['recipes','editor','bakes','settings','profile'],TT={recipes:'Recipes',editor:'Recipe',bakes:'Bakes',settings:'Settings',profile:'Profile'},PAGE='recipes',EXP={},ED=null,EDD=false;
+try{var sp0=localStorage.getItem('bb-page');sp0={recipe:'recipes',bake:'bakes',loaves:'bakes'}[sp0]||sp0;if(PG.indexOf(sp0)>=0&&sp0!=='editor')PAGE=sp0}catch(e){}
 function uname(){return USER.displayName||USER.email||'Signed in'}
 function avHtml(px){var n=uname(),ph=USER.photoURL,ini=esc(String(n).charAt(0).toUpperCase());
  return '<span class="av"'+(px?' style="width:'+px+'px;height:'+px+'px;font-size:'+Math.round(px*.43)+'px"':'')+'>'+ini+(ph?'<img src="'+esc(ph)+'" alt="" referrerpolicy="no-referrer" onerror="this.remove()">':'')+'</span>'}
-function navHtml(){var it=[['recipe','sliders','Recipe'],['bake','clock','Bake'],['loaves','book','Previous Loaves'],['settings','gear','Settings']];
+function navHtml(){var it=[['recipes','sliders','Recipes'],['bakes','clock','Bakes'],['settings','gear','Settings']],cur=PAGE==='editor'?'recipes':PAGE;
  return '<div class="nbrand"><img src="logo.png" alt=""><span>Sourdough Tracker</span></div>'
- +it.map(function(x){return '<button class="ni'+(PAGE===x[0]?' on':'')+'" data-pg="'+x[0]+'">'+ic(x[1])+'<span>'+x[2]+'</span></button>'}).join('')
+ +it.map(function(x){return '<button class="ni'+(cur===x[0]?' on':'')+'" data-pg="'+x[0]+'">'+ic(x[1])+'<span>'+x[2]+'</span></button>'}).join('')
  +'<div class="nh">Account</div><button class="ni'+(PAGE==='profile'?' on':'')+'" data-pg="profile">'+avHtml(0)+'<span class="nm">'+esc(uname())+'</span></button>'
- +'<div class="nh">App</div><div class="ver"><div><small>Version</small><br>'+esc(VER)+'</div><button class="rl" data-rl="1" aria-label="Reload latest version" title="Reload latest version">'+ic('reload')+'</button></div>'}
+ +'<div class="navbot">Version '+esc(VER)+'</div>'}
 function profHtml(){return '<div class="card" style="text-align:center"><div style="display:flex;justify-content:center">'+avHtml(96)+'</div><h2 style="justify-content:center;margin:12px 0 2px">'+esc(uname())+'</h2>'+(USER.displayName&&USER.email?'<div class="note" style="margin:0">'+esc(USER.email)+'</div>':'')+'</div><div class="card"><button class="btn" style="background:var(--mute);margin-top:0" data-out="1">Sign out</button></div>'}
 function setHtml(){var h0='<div class="lbl" style="margin-top:0">';return '<div class="card">'+h0+ic('jar')+'Starter name</div><input id="sname" maxlength="40" placeholder="Name your starter" value="'+esc(S.sn||'')+'"></div>'
  +'<div class="card">'+h0+ic('scale')+'Weights</div>'+chips([[0,'Metric'],[1,'US']],S.lb?1:0,'lb')+'<div class="note">With US weights, recipe boxes take ounces. Saved bakes convert automatically.</div></div>'
  +'<div class="card">'+h0+ic('therm')+'Temperature</div>'+chips([[0,'°F'],[1,'°C']],S.tc?1:0,'tc')+'</div>'
+ +'<div class="card">'+h0+ic('sun')+'Theme</div><div class="row">'+[['system','Auto'],['light','Light'],['dark','Dark']].map(function(v){return '<button class="chip'+(THEME===v[0]?' on':'')+'" data-th="'+v[0]+'">'+v[1]+'</button>'}).join('')+'</div><div class="note">Auto follows your device. This choice applies to this device only.</div></div>'
+ +'<div class="card">'+h0+ic('reload')+'Refresh application</div><button class="btn" data-rl="1" style="margin-top:0">Refresh application</button><div class="note">Loads the latest version of the app. Your recipes and bakes stay saved.</div></div>'
  +'<div class="card"><details style="margin:0"><summary>Import from the old GitHub sync</summary><div class="lbl">GitHub username</div><input id="gu" autocapitalize="none" autocorrect="off"><div class="lbl">Data repo name</div><input id="gr" value="sourdough-data" autocapitalize="none" autocorrect="off"><div class="lbl">Read-only access token</div><input id="gt" type="password" autocomplete="off"><button class="btn" data-imp="1">Import my old bakes</button><div class="note" id="imps"></div></details></div>'}
-function loavesHtml(){if(!LOG.length)return '<div class="card"><div class="note" style="margin:0">No loaves yet. Finish a bake and save it to the Bake Log and it will show up here.</div></div>';
- return '<div class="note" style="margin:0 0 12px">'+LOG.length+(LOG.length>1?' loaves':' loaf')+' baked. Tap one for the full bake log.</div>'+LOG.map(function(l){var o=!!EXP[l.id];return '<div class="lit'+(o?' open':'')+'"><button class="lrow" data-ex="'+l.id+'" aria-expanded="'+o+'"><span class="ld">'+new Date(l.ts).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'})+'</span>'+stars(l.rating)+ic('chev')+'</button>'+(o?'<div class="lx">'+loafHtml(l,1)+'</div>':'')+'</div>'}).join('')}
-function curLog(r,c){var t=r.ts||{},a=r.act||{},f=r.f||{},ks=['bf','ww','w','lv','sa'],nk={bf:'flour',ww:'whole wheat',w:'water',lv:'levain',sa:'salt'},rec={bf:c.bf,ww:c.ww,w:c.L&&c.w,lv:c.L,sa:c.sl};rec.w=c.w;
- var av=function(k){var v=parseFloat(a[k]);return isNaN(v)?rec[k]:v},fv=function(k){var v=parseFloat(f[k]);return isNaN(v)?'':v},
- rows=LBL.filter(function(x){return t[x[0]]}),
- ln=[S.hyd+'% hydration · '+c.n+(c.n>1?' loaves':' loaf')+' · '+(S.auto?S.auto+' min autolyse':'no autolyse'),
-  'Used: '+ks.map(function(k){return nk[k]+' '+dm(av(k))+(av(k)!==rec[k]?' (recipe '+dm(rec[k])+')':'')}).join(', '),
-  [fv('mt')!==''?'dough '+td(fv('mt'))+' at mix':'',fv('rt')!==''?'room '+td(fv('rt')):'',fv('rise')!==''?'perceived rise '+fv('rise')+'%':'',fv('it')!==''?'internal '+td(fv('it')):''].filter(Boolean).join(' · '),
-  [t.mx&&t.bk?'bulk '+du(t.mx,t.bk):'',t.fr&&t.ld?'fridge '+du(t.fr,t.ld):'',t.ld&&t.lo?'covered '+du(t.ld,t.lo)+' at '+td(S.cov):'',t.lo&&t.ot?'uncovered '+du(t.lo,t.ot)+' at '+td(S.unc):''].filter(Boolean).join(' · ')];
+function cp(o){return JSON.parse(JSON.stringify(o))}
+function mrg(d,o){if(o&&typeof o==='object'&&!Array.isArray(o)&&d&&typeof d==='object'){for(var k in o)d[k]=(d[k]&&typeof d[k]==='object'&&!Array.isArray(d[k]))?mrg(d[k],o[k]):o[k];return d}return o===undefined?d:o}
+function setPath(o,p,v){var a=p.split('.');while(a.length>1)o=o[a.shift()];o[a[0]]=v}
+function getPath(o,p){return p.split('.').reduce(function(x,k){return x[k]},o)}
+function newRecipe(){return {id:null,name:'',hyd:S.hyd,batch:S.batch,fpl:S.fpl,ww:S.ww,lev:S.lev,salt:S.salt,
+ lv:{st:'',ratio:'1:4:4',peak:14},au:{on:!!S.auto,min:S.auto===30?30:60},
+ sf:{on:true,n:2},cf:{on:true,n:2},gap:30,bulk:{h:'',rise:''},ps:{on:true,min:25},
+ wp:{on:false,t:78,h:2},cp:{on:true,t:40,h:S.fridge||16},
+ pre:{t:S.pre,m:45},cov:{t:S.cov,m:S.cm},unc:{t:S.unc,m:S.um},rest:{m:90}}}
+function normRecipe(r){return mrg(newRecipe(),r)}
+function hasBake(){return !!(S.run&&S.run.rcp)}
+function fixRun(){var r=S.run;if(!r||r.rcp)return;var n=r.ts?Object.keys(r.ts).length:0;
+ if(n){var R=newRecipe();R.name='Current recipe';R.ps.on=false;r.rcp=R;if(!r.cur)r.cur='lv'}else if(Object.keys(r).length)S.run={}}
+function levainPlan(R,c){var q=String(R.lv.ratio||'1:4:4').split(':').map(Number),b=q[1]||4,f=q[2]||4,st=parseFloat(R.lv.st),auto=isNaN(st)||st<=0;
+ if(auto)st=Math.max(1,Math.round(c.L/(1+b+f)));return {st:st,w:st*b,f:st*f,tot:st*(1+b+f),auto:auto}}
+function recipeSummary(R){var c=compute(R),q=function(a){return a.filter(Boolean).join(' · ')},has=function(x){return x!==''&&x!=null&&!isNaN(parseFloat(x))},
+ fo=[R.sf.on?R.sf.n+' stretch & fold'+(R.sf.n>1?'s':''):'',R.cf.on?R.cf.n+' coil fold'+(R.cf.n>1?'s':''):''].filter(Boolean);
+ return [q([R.hyd+'% hydration',R.batch+'x batch',dm(R.fpl)+' flour per loaf',R.ww+'% whole wheat',R.lev+'% levain',R.salt+'% salt']),
+  'Ingredients: flour '+dm(c.bf)+', whole wheat '+dm(c.ww)+', water '+dm(c.w)+', levain '+dm(c.L)+', salt '+dm(c.sl),
+  'Levain: '+R.lv.ratio+(has(R.lv.st)?', '+dm(R.lv.st)+' starter':'')+(has(R.lv.peak)?', peak in '+R.lv.peak+' h':''),
+  R.au.on?'Autolyse: '+R.au.min+' min':'',
+  fo.length?'Folds: '+fo.join(', ')+', '+R.gap+' min apart':'',
+  (has(R.bulk.h)||has(R.bulk.rise))?'Bulk: '+q([has(R.bulk.h)?R.bulk.h+' h':'',has(R.bulk.rise)?R.bulk.rise+'% rise':'']):'',
+  R.ps.on?'Pre-shape and bench rest: '+R.ps.min+' min':'',
+  R.wp.on?'Warm proof: '+td(R.wp.t)+' for '+R.wp.h+' h':'',
+  R.cp.on?'Cold proof: '+td(R.cp.t)+' for '+R.cp.h+' h':'',
+  'Bake: '+q(['preheat '+td(R.pre.t)+' '+R.pre.m+' min','covered '+td(R.cov.t)+' '+R.cov.m+' min','uncovered '+td(R.unc.t)+' '+R.unc.m+' min','rest '+R.rest.m+' min'])].filter(Boolean)}
+function echips(arr,cur,path){return '<div class="row">'+arr.map(function(v){return '<button class="chip'+(String(v[0])===String(cur)?' on':'')+'" data-ek="'+path+'" data-ev="'+v[0]+'">'+v[1]+'</button>'}).join('')+'</div>'}
+function ef(label,path,val,o){o=o||{};return '<div><div class="lbl">'+label+'</div><input type="number" inputmode="decimal" step="any" data-e="'+path+'"'+(o.u?' data-u="'+o.u+'"':'')+(o.o?' data-o="1"':'')+(o.ph!=null?' placeholder="'+esc(o.ph)+'"':'')+' value="'+esc(val==null?'':val)+'"></div>'}
+function po(title,icn,path,on,bodyHtml,sub){var req=path===null;return '<div class="po'+(sub?' sub':'')+'"><div class="poh"><span class="pot">'+(icn?ic(icn):'')+title+'</span>'+(req?'':'<button class="pb'+(on?' x':'')+'" data-et="'+path+'" aria-label="'+(on?'Remove ':'Add ')+title+'">'+ic(on?'x':'plus')+'</button>')+'</div>'+((req||on)?'<div class="pob">'+bodyHtml+'</div>':'')+'</div>'}
+function ovn(label,k){return po(label,null,null,1,'<div class="g2">'+ef('Temp ('+tu()+')',k+'.t',tv(ED[k].t),{u:'t'})+ef('Time (min)',k+'.m',ED[k].m)+'</div>',1)}
+function editorHtml(){var R=ED,c=compute(R),LP=levainPlan(R,c),nm={bf:'Bread flour',ww:'Whole wheat',w:'Water',lv:'Levain',sa:'Kosher salt'},rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},x3=[[1,'1x'],[2,'2x'],[3,'3x']];
+ var h='<button class="btn s" data-pg="recipes" style="margin-bottom:4px">‹ All recipes</button>'
+ +'<div class="card"><div class="lbl" style="margin-top:0">'+ic('pencil')+'Recipe name</div><input type="text" data-e="name" maxlength="60" placeholder="e.g. Weekend country loaf" value="'+esc(R.name)+'">'
+ +'<div class="lbl">'+ic('water')+'Hydration <b id="hydv" style="color:var(--acc)">'+R.hyd+'%</b></div><input type="range" id="hyd" data-e="hyd" min="60" max="85" step="1" value="'+R.hyd+'"><div class="row" style="justify-content:space-between;font-size:12px;color:var(--mute)"><span>60%</span><span>85%</span></div>'
+ +'<div class="lbl">Batch</div>'+echips(x3,R.batch,'batch')
+ +'<div class="g2">'+ef('Flour / loaf ('+wu()+')','fpl',wv(R.fpl),{u:'w'})+ef('Whole wheat %','ww',R.ww)+ef('Levain %','lev',R.lev)+ef('Salt %','salt',R.salt)+'</div></div>'
+ +'<div class="card"><h2>'+ic('flour')+'Ingredients</h2>'+['bf','ww','w','lv','sa'].map(function(k){return '<div class="ir"><span class="in">'+ic(IK[k])+nm[k]+'</span><b>'+dm(rec[k])+'</b></div>'}).join('')+'<div class="note">Total dough '+dm(c.tot)+' · '+c.n+' × '+dm(c.per)+'.</div></div>'
+ +'<div class="card"><h2>'+ic('sliders')+'Process</h2>'
+ +po('Prepare levain','jar',null,1,'<div class="g2">'+ef('Starter to begin with ('+wu()+')','lv.st',R.lv.st===''?'':wv(R.lv.st),{u:'w',o:1,ph:String(wv(LP.st))})+ef('Time to peak (h)','lv.peak',R.lv.peak,{o:1})+'</div><div class="lbl">Feeding ratio (starter : water : flour)</div>'+echips([['1:1:1','1:1:1'],['1:2:2','1:2:2'],['1:4:4','1:4:4']],R.lv.ratio,'lv.ratio')+'<div class="note">Feed '+dm(LP.st)+' starter with '+dm(LP.w)+' water and '+dm(LP.f)+' flour = '+dm(LP.tot)+' levain. The recipe needs '+dm(c.L)+'.</div>')
+ +po('Autolyse','water','au.on',R.au.on,echips([[30,'30 min'],[60,'60 min']],R.au.min,'au.min'))
+ +po('Mix and folds','fold',null,1,
+   po('Stretch & folds',null,'sf.on',R.sf.on,echips(x3,R.sf.n,'sf.n'),1)
+  +po('Coil folds',null,'cf.on',R.cf.on,echips(x3,R.cf.n,'cf.n'),1)
+  +((R.sf.on||R.cf.on)?'<div class="g2">'+ef('Time between folds (min)','gap',R.gap)+'</div>':''))
+ +po('Bulk ferment','bubble',null,1,'<div class="g2">'+ef('Time (h)','bulk.h',R.bulk.h,{o:1,ph:'e.g. 5'})+ef('Rise target (%)','bulk.rise',R.bulk.rise,{o:1,ph:'e.g. 50'})+'</div>')
+ +po('Pre-shape and bench rest','loaf','ps.on',R.ps.on,'<div class="g2">'+ef('Time (min)','ps.min',R.ps.min)+'</div>')
+ +po('Final shape and proof','loaf',null,1,
+   po('Warm proof',null,'wp.on',R.wp.on,'<div class="g2">'+ef('Temp ('+tu()+')','wp.t',tv(R.wp.t),{u:'t'})+ef('Time (h)','wp.h',R.wp.h)+'</div>',1)
+  +po('Cold proof',null,'cp.on',R.cp.on,'<div class="g2">'+ef('Temp ('+tu()+')','cp.t',tv(R.cp.t),{u:'t'})+ef('Time (h)','cp.h',R.cp.h)+'</div>',1))
+ +po('Bake','flame',null,1,ovn('Preheat','pre')+ovn('Bake covered','cov')+ovn('Bake uncovered','unc')+po('Rest',null,null,1,'<div class="g2">'+ef('Time (min)','rest.m',R.rest.m)+'</div>',1))
+ +'</div>'
+ +'<div class="card"><button class="btn" data-esave="1" style="margin-top:0">Save recipe</button>'+(R.id?'<button class="btn s" data-edel="1" style="margin-top:14px;color:#b3412b">Delete recipe</button>':'')+'</div>';
+ return h}
+function recipesHtml(){if(!RCP.length)return '<div class="card"><div class="note" style="margin:0">No recipes yet. Tap the + button at the top right to create your first recipe.</div></div>';
+ return '<div class="note" style="margin:0 0 10px">'+RCP.length+(RCP.length>1?' recipes':' recipe')+'. Tap one to edit it.</div>'+RCP.map(function(r){return '<button class="rrow" data-open="'+r.id+'"><span class="ld">'+esc(r.name||'Untitled recipe')+'<small>'+esc(r.hyd+'% hydration · '+r.batch+'x · '+r.ww+'% whole wheat')+'</small></span>'+ic('chev')+'</button>'}).join('')+'<div class="rend"></div>'}
+function durLine(t){var q=function(a){return a.filter(Boolean).join(' · ')};return q([t.mx&&t.bk?'bulk '+du(t.mx,t.bk):'',t.ps&&t.sh?'bench rest '+du(t.ps,t.sh):'',t.wp&&(t.fr||t.pre)?'warm proof '+du(t.wp,t.fr||t.pre):'',t.fr&&t.ld?'cold proof '+du(t.fr,t.ld):''])}
+function oldRecipe(l){return [[l.hyd+'% hydration',l.n+(l.n>1?' loaves':' loaf'),l.auto?l.auto+' min autolyse':'no autolyse',l.fridge?'fridge '+l.fridge+' h':''].filter(Boolean).join(' · ')]}
+function logLines(l){var t=l.steps||{},has=function(x){return x!==''&&x!=null},q=function(a){return a.filter(Boolean).join(' · ')};
+ if(!l.steps)return [q([l.st?'Mixed '+t12(l.st):'',l.sh?'shaped '+t12(l.sh):'',has(l.bulk)?'bulk '+l.bulk+' h':'',has(l.rise)?'perceived rise '+l.rise+'%':'']),
+  has(l.bf)?'Used: flour '+dm(l.bf)+', whole wheat '+dm(l.ww)+', water '+dm(l.w)+', levain '+dm(l.lv)+', salt '+dm(l.sa):'',
+  q([has(l.temp)?'dough '+td(l.temp):'',has(l.rm)?'room '+td(l.rm):'']),
+  q([has(l.pre)?'preheat '+td(l.pre):'',has(l.cov)?'covered '+(has(l.cm)?l.cm:'?')+' min at '+td(l.cov):'',has(l.unc)?'uncovered '+(has(l.um)?l.um:'?')+' min at '+td(l.unc):'',has(l.it)?'internal '+td(l.it):''])].filter(Boolean);
+ var u=function(k,nm){return nm+' '+dm(l[k])+(l.rec&&l.rec[k]!==l[k]?' (recipe '+dm(l.rec[k])+')':'')};
+ return ['Used: '+[u('bf','flour'),u('ww','whole wheat'),u('w','water'),u('lv','levain'),u('sa','salt')].join(', '),
+  q([has(l.mt)?'dough '+td(l.mt)+' at mix':'',has(l.rm)?'room '+td(l.rm):'',has(l.rise)?'perceived rise '+l.rise+'%':'']),
+  durLine(t),
+  q(['preheat '+td(l.pre),t.ld&&t.lo?'covered '+du(t.ld,t.lo)+' at '+td(l.cov):'',t.lo&&t.ot?'uncovered '+du(t.lo,t.ot)+' at '+td(l.unc):'',has(l.it)?'internal '+td(l.it):''])].filter(Boolean)}
+function bakeDetail(l){var R=l.rcp,t=l.steps||{},nt=function(x){return '<div class="note">'+esc(x)+'</div>'};
+ var h='<div class="sec" style="margin-top:0;border-top:0;padding-top:12px">'+ic('sliders')+'Recipe used</div>'
+ +((R&&(R.name||l.rn))||l.rn?'<div style="font-weight:700">'+esc((R&&R.name)||l.rn)+'</div>':'<div class="note" style="margin:0">Recipe name was not recorded for this bake.</div>')
+ +(R?recipeSummary(R):oldRecipe(l)).map(nt).join('')
+ +'<div class="sec">'+ic('star')+'How it turned out</div><div>'+stars(l.rating)+'</div>'+(l.notes?'<div style="margin-top:6px;font-size:14px">'+esc(l.notes)+'</div>':'<div class="note">No notes.</div>')+(l.photo?'<img data-ph="'+l.photo+'" alt="Crumb photo" style="width:100%;border-radius:10px;margin-top:8px">':'')
+ +'<div class="sec">'+ic('book')+'Bake log</div>'+logLines(l).map(nt).join('')
+ +(l.steps?'<details open><summary>Timeline</summary>'+LBL.filter(function(x){return t[x[0]]}).map(function(x){return nt(x[1]+' · '+wk(t[x[0]]))}).join('')+'</details>':'')
+ +'<button class="btn s" data-del="'+l.id+'" style="margin-top:12px">Delete this bake</button>';
+ return h}
+function prevList(){if(!LOG.length)return '<div class="note" style="margin:0">No finished bakes yet. When you finish a bake and save it, it is archived here.</div>';
+ return '<div class="note" style="margin:0 0 10px">'+LOG.length+(LOG.length>1?' bakes':' bake')+'. Tap one for the recipe and the full bake log.</div>'+LOG.map(function(l){var o=!!EXP[l.id];
+  return '<div class="lit'+(o?' open':'')+'"><button class="lrow" data-ex="'+l.id+'" aria-expanded="'+o+'"><span class="ld">'+new Date(l.ts).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'})+(l.rn?'<small>'+esc(l.rn)+'</small>':'')+'</span>'+stars(l.rating)+ic('chev')+'</button>'+(o?'<div class="lx">'+bakeDetail(l)+'</div>':'')+'</div>'}).join('')}
+function curLog(r,R,c){var t=r.ts||{},a=r.act||{},f=r.f||{},ks=['bf','ww','w','lv','sa'],nk={bf:'flour',ww:'whole wheat',w:'water',lv:'levain',sa:'salt'},rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},
+ av=function(k){var v=parseFloat(a[k]);return isNaN(v)?rec[k]:v},fv=function(k){var v=parseFloat(f[k]);return isNaN(v)?'':v},
+ rows=LBL.filter(function(x){return t[x[0]]}),q=function(x){return x.filter(Boolean).join(' · ')},
+ ln=[R.hyd+'% hydration · '+c.n+(c.n>1?' loaves':' loaf')+' · '+(R.au.on?R.au.min+' min autolyse':'no autolyse'),
+  'Used: '+ks.map(function(k){return nk[k]+' '+dm(av(k))}).join(', '),
+  q([fv('mt')!==''?'dough '+td(fv('mt'))+' at mix':'',fv('rt')!==''?'room '+td(fv('rt')):'',fv('rise')!==''?'perceived rise '+fv('rise')+'%':'',fv('it')!==''?'internal '+td(fv('it')):'']),
+  q([durLine(t),t.ld&&t.lo?'covered '+du(t.ld,t.lo)+' at '+td(R.cov.t):'',t.lo&&t.ot?'uncovered '+du(t.lo,t.ot)+' at '+td(R.unc.t):''])];
  return '<div class="card"><h2>'+ic('book')+'Current Loaf Log</h2>'+ln.filter(Boolean).map(function(x){return '<div class="note" style="margin:0 0 4px">'+esc(x)+'</div>'}).join('')
   +'<div class="sec">'+ic('clock')+'Timeline</div>'+(rows.length?rows.map(function(x){return '<div class="tr"><span>'+x[1]+'</span><span>'+wk(t[x[0]])+'</span></div>'}).join(''):'<div class="note">No steps recorded yet. Each step is timestamped here as you tap through the bake.</div>')
   +(r.rating?'<div class="sec">Rating <span class="stars">'+'★'.repeat(r.rating)+'</span></div>':'')+(r.notes?'<div class="sec">Notes</div><div style="font-size:14px">'+esc(r.notes)+'</div>':'')+'</div>'}
+function tlHtml(r,R,c,ST,ids){var act=r.act||{},am=function(lb,k,rec){var a=parseFloat(act[k]),has=!isNaN(a);return '<div class="ing"><span class="in">'+ic(IK[k])+'<span>'+lb+(has&&a!==rec?'<br><small>recipe '+dm(rec)+'</small>':'')+'</span></span><b>'+dm(has?a:rec)+'</b></div>'},
+ i=ids.indexOf(r.cur),s=ST[i],last=i===ids.length-1;
+ return '<div class="card"><div class="hz">'+ST.map(function(x){return '<button class="hs'+(r.ts[x.id]?' done':'')+(x.id===r.cur?' cur':'')+'" data-go="'+x.id+'"><i></i>'+x.n+'</button>'}).join('')+'</div>'
+  +'<div class="sec" style="margin-top:4px">'+s.h+'</div>'+(r.ts[s.id]?'<div class="note">Completed '+tm(r.ts[s.id])+'</div>':'')+body(s.id,r,R,c,am)
+  +'<div class="bar">'+(i?'<button class="btn g" data-back="1">Back</button>':'')+(last?'<button class="btn" data-fin="1">Save bake</button>':'<button class="btn" data-next="1">'+btnLbl(s.id)+' · Next</button>')+'</div>'
+  +'<button class="btn s" data-rst="1" style="margin-top:10px">Discard this bake</button></div>'}
+function bakesHtml(){var h='',r=run();
+ if(hasBake()){var R=r.rcp,c=compute(R),ST=stepsFor(R),ids=ST.map(function(s){return s.id});if(ids.indexOf(r.cur)<0)r.cur=ids[0];r.ts=r.ts||{};
+  h+='<div class="eyebrow">Current bake · '+esc(R.name||'Untitled recipe')+'</div>'+tlHtml(r,R,c,ST,ids)+curLog(r,R,c)}
+ else h+='<div class="card"><h2>'+ic('clock')+'No bake in progress</h2><div class="note" style="margin:0 0 12px">Open a recipe and tap Start bake to begin. Your current bake shows up here.</div><button class="btn" data-pg="recipes" style="margin-top:0">Go to Recipes</button></div>';
+ return h+'<div class="card"><h2>'+ic('book')+'Previous bakes</h2>'+prevList()+'</div>'}
 function closeNav(){document.body.classList.remove('dr')}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav()});
 var P=null,syncing=false,again=false,stimer=null;
 function p2(n){return (n<10?'0':'')+n}
 function t12(x){var a=String(x).split(':'),h=+a[0],ap=h>=12?'PM':'AM';return (h%12||12)+':'+a[1]+' '+ap}
-function lh(l){var r=Math.max(0,Math.min(5,l.rating||0));return '<div class="h"><span>'+new Date(l.ts).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})+'</span>'+stars(r)+'</div>'}
 function stars(n){n=Math.max(0,Math.min(5,+n||0));return '<span class="stars">'+'★'.repeat(n)+'<span style="opacity:.3">'+'★'.repeat(5-n)+'</span></span>'}
-function loafOld(l,nh){var d=new Date(l.ts),q=function(a){return a.filter(Boolean).join(' · ')},has=function(x){return x!==''&&x!=null};
- var ln=[q([l.hyd+'% hydration',l.n+' loaves',l.bake,l.auto+' min autolyse']),
-  q([l.st?'Mixed '+t12(l.st):'',l.sh?'shaped '+t12(l.sh):'',has(l.bulk)?'bulk '+l.bulk+' h':'',has(l.fridge)?'fridge '+l.fridge+' h':'',has(l.rise)?'perceived rise '+l.rise+'%':'']),
-  has(l.bf)?'Used: flour '+dm(l.bf)+', whole wheat '+dm(l.ww)+', water '+dm(l.w)+', levain '+dm(l.lv)+', salt '+dm(l.sa):'',
-  q([has(l.temp)?'dough '+td(l.temp)+'':'',has(l.rm)?'room '+td(l.rm)+'':'']),
-  q([has(l.pre)?'preheat '+td(l.pre)+'':'',has(l.cov)?'covered '+(has(l.cm)?l.cm:'?')+' min at '+td(l.cov)+'':'',has(l.unc)?'uncovered '+(has(l.um)?l.um:'?')+' min at '+td(l.unc)+'':'',has(l.it)?'internal '+td(l.it)+'':''])];
- return '<div class="loaf">'+(nh?'':lh(l))
-  +ln.filter(Boolean).map(function(x){return '<div class="note">'+esc(x)+'</div>'}).join('')
-  +(l.photo?'<img data-ph="'+l.photo+'" alt="Crumb photo" style="width:100%;border-radius:10px;margin-top:8px">':'')+(l.notes?'<div style="margin-top:6px;font-size:14px">'+esc(l.notes)+'</div>':'')+'<button class="btn s" data-del="'+l.id+'">Delete</button></div>'}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function gh(path,o){o=o||{};o.headers=Object.assign({Authorization:'Bearer '+CFG.token,Accept:'application/vnd.github+json'},o.headers||{});return fetch('https://api.github.com/repos/'+CFG.owner+'/'+CFG.repo+'/contents/'+path,o)}
 function b64(t){return btoa(unescape(encodeURIComponent(t)))}
@@ -179,10 +286,11 @@ function sched(){clearTimeout(stimer);if(FB&&USER)stimer=setTimeout(function(){F
 window.onUser=function(u,fb){FB=fb;READY=true;
  if(u){var old=null;try{old=localStorage.getItem('bb-uid')}catch(e){}
   try{localStorage.setItem('bb-uid',u.uid)}catch(e){}
-  if(old&&old!==u.uid){try{['bakeboard-log','bakeboard-set','bb-sts','bb-del'].forEach(function(k){localStorage.removeItem(k)})}catch(e){}location.reload();return}}
+  if(old&&old!==u.uid){try{['bakeboard-log','bakeboard-set','bb-sts','bb-del','bb-recipes'].forEach(function(k){localStorage.removeItem(k)})}catch(e){}location.reload();return}}
  USER=u;msg('');render()};
 window.onRemoteSet=function(set,sts){if(set&&sts>STS){for(var k in set)S[k]=set[k];STS=sts;persist();if(!busy())render()}else if(STS>(sts||0)&&FB)FB.pushSet(curSet(),STS)};
 window.onRemoteBakes=function(a){LOG=a.sort(function(x,y){return y.ts-x.ts});persist();if(!busy())render()};
+window.onRemoteRecipes=function(a){RCP=a.sort(function(x,y){return (y.ts||0)-(x.ts||0)});persist();if(!busy())render()};
 var PH={};
 function upPhoto(f){if(!f||!USER)return;var pst=$('pst');if(pst)pst.textContent='Uploading…';
  var im=new Image(),u=URL.createObjectURL(f);
@@ -204,85 +312,100 @@ async function importOld(){var u=$('gu').value.trim(),rp=$('gr').value.trim(),tk
 function init(){setInterval(tick,1000);tick();setTimeout(function(){if(!READY){READY=true;render();msg('Could not load Firebase. Check firebase-config.js and your connection.')}},8000);
  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){})}
 function chips(arr,cur,key,fmt){return '<div class="row">'+arr.map(function(v){return '<button class="chip'+(v[0]===cur?' on':'')+'" data-k="'+key+'" data-v="'+v[0]+'">'+v[1]+'</button>'}).join('')+'</div>'}
-function compute(){var n=S.batch,F=S.fpl*n,ww=Math.round(F*S.ww/100),bf=F-ww,w=Math.round(F*S.hyd/100),L=Math.round(F*S.lev/100),sl=Math.round(F*S.salt/100);var tot=F+w+L+sl;
- var st=Math.round(L/9),fw=Math.round((L-st)/2);return {n:n,F:F,ww:ww,bf:bf,w:w,L:L,sl:sl,tot:tot,per:Math.round(tot/n),st:st,fw:fw}}
+function compute(R){var n=R.batch,F=R.fpl*n,ww=Math.round(F*R.ww/100),bf=F-ww,w=Math.round(F*R.hyd/100),L=Math.round(F*R.lev/100),sl=Math.round(F*R.salt/100),tot=F+w+L+sl;return {n:n,F:F,ww:ww,bf:bf,w:w,L:L,sl:sl,tot:tot,per:Math.round(tot/n)}}
 function run(){return S.run||(S.run={})}
-var STEPS=[{id:'lv',n:'Levain',h:'Prepare levain'},{id:'au',n:'Autolyse',h:'Autolyse'},{id:'mx',n:'Mix',h:'Mix'},{id:'f1',n:'Fold 1',h:'Stretch & fold #1'},{id:'f2',n:'Fold 2',h:'Stretch & fold #2'},{id:'c1',n:'Coil 1',h:'Coil fold #1'},{id:'c2',n:'Coil 2',h:'Coil fold #2'},{id:'bk',n:'Bulk',h:'Bulk ferment'},{id:'sh',n:'Shape',h:'Shape'},{id:'fr',n:'Fridge',h:'Into the fridge'},{id:'pre',n:'Preheat',h:'Preheat the oven'},{id:'ld',n:'Load',h:'Score and load (covered)'},{id:'lo',n:'Lids off',h:'Lids off (uncovered)'},{id:'ot',n:'Out',h:'Out of the oven'},{id:'fn',n:'Finish',h:'Finish'}];
-var BTN={lv:'Levain fed',au:'Autolyse started',mx:'Mixed',f1:'Fold done',f2:'Fold done',c1:'Coil done',c2:'Coil done',bk:'Ready to shape',sh:'Shaped',fr:'In the fridge',pre:'Oven preheating',ld:'Loaded',lo:'Lids off',ot:'Out of the oven'};
-var TM={mx:30,f1:30,f2:30,c1:30,pre:45,ld:20,lo:15,ot:90},TL={au:'Time to mix',mx:'Stretch & fold #1',f1:'Stretch & fold #2',f2:'Coil fold #1',c1:'Coil fold #2',pre:'Oven ready: score and load',ld:'Lids off',lo:'Check the crust',ot:'Ready to slice'};
-var LBL=[['lv','Levain fed'],['au','Autolyse'],['mx','Mixed'],['f1','Fold 1'],['f2','Fold 2'],['c1','Coil 1'],['c2','Coil 2'],['bk','Shape ready'],['sh','Shaped'],['fr','Fridge'],['pre','Preheat'],['ld','Loaded'],['lo','Lids off'],['ot','Out']];
-function steps(){return STEPS.filter(function(s){return s.id!=='au'||S.auto})}
+var LBL=[['lv','Levain fed'],['au','Autolyse'],['mx','Mixed'],['f1','Fold 1'],['f2','Fold 2'],['f3','Fold 3'],['c1','Coil 1'],['c2','Coil 2'],['c3','Coil 3'],['bk','Shape ready'],['ps','Pre-shaped'],['sh','Shaped'],['wp','Warm proof'],['fr','Cold proof'],['pre','Preheat'],['ld','Loaded'],['lo','Lids off'],['ot','Out']];
+function stepsFor(R){var a=[{id:'lv',n:'Levain',h:'Prepare levain'}],i;
+ if(R.au.on)a.push({id:'au',n:'Autolyse',h:'Autolyse'});
+ a.push({id:'mx',n:'Mix',h:'Mix'});
+ for(i=1;i<=(R.sf.on?R.sf.n:0);i++)a.push({id:'f'+i,n:'Fold '+i,h:'Stretch & fold #'+i});
+ for(i=1;i<=(R.cf.on?R.cf.n:0);i++)a.push({id:'c'+i,n:'Coil '+i,h:'Coil fold #'+i});
+ a.push({id:'bk',n:'Bulk',h:'Bulk ferment'});
+ if(R.ps.on)a.push({id:'ps',n:'Pre-shape',h:'Pre-shape and bench rest'});
+ a.push({id:'sh',n:'Shape',h:'Final shape'});
+ if(R.wp.on)a.push({id:'wp',n:'Warm proof',h:'Warm proof'});
+ if(R.cp.on)a.push({id:'fr',n:'Cold proof',h:'Cold proof'});
+ a.push({id:'pre',n:'Preheat',h:'Preheat the oven'},{id:'ld',n:'Load',h:'Score and load (covered)'},{id:'lo',n:'Lids off',h:'Lids off (uncovered)'},{id:'ot',n:'Out',h:'Out of the oven'},{id:'fn',n:'Finish',h:'Finish'});return a}
+function curIds(){return hasBake()?stepsFor(run().rcp).map(function(s){return s.id}):[]}
+function btnLbl(id){if(/^f\d$/.test(id))return 'Fold done';if(/^c\d$/.test(id))return 'Coil done';return {lv:'Levain fed',au:'Autolyse started',mx:'Mixed',bk:'Ready to shape',ps:'Pre-shaped',sh:'Shaped',wp:'Proof started',fr:'In the fridge',pre:'Oven preheating',ld:'Loaded',lo:'Lids off',ot:'Out of the oven'}[id]||'Done'}
+function foldName(id){return (id[0]==='f'?'Stretch & fold #':'Coil fold #')+id[1]}
+function hm(m){m=Math.round(m);if(m<60)return m+' min';var h=Math.floor(m/60),r=m%60;return h+' h'+(r?' '+r+' min':'')}
+function stepTimer(id,R,r){var t=r.ts||{},ids=stepsFor(R).map(function(s){return s.id}),nx=ids[ids.indexOf(id)+1],isF=function(x){return /^[fc]\d$/.test(x||'')},m=0,l='';
+ if(id==='lv'){m=(+R.lv.peak||0)*60;l='Levain should be peaking'}
+ else if(id==='au'){m=+R.au.min;l='Time to mix'}
+ else if(id==='mx'||isF(id)){if(isF(nx)&&+R.gap>0){m=+R.gap;l=foldName(nx)}else if(+R.bulk.h>0){m=Math.round(((t.mx||Date.now())+R.bulk.h*3600000-Date.now())/60000);l='Bulk target reached: check the rise'}}
+ else if(id==='ps'){m=+R.ps.min;l='Bench rest done: final shape'}
+ else if(id==='wp'){m=Math.round(R.wp.h*60);l='Warm proof done'}
+ else if(id==='fr'){m=Math.round(R.cp.h*60);l='Cold proof done: time to bake'}
+ else if(id==='pre'){m=+R.pre.m;l='Oven ready: score and load'}
+ else if(id==='ld'){m=+R.cov.m;l='Lids off'}
+ else if(id==='lo'){m=+R.unc.m;l='Check the crust'}
+ else if(id==='ot'){m=+R.rest.m;l='Ready to slice'}
+ return m>0?{m:m,l:l}:null}
 function tm(x){return new Date(x).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
 function wk(x){return new Date(x).toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'})}
 function du(a,b){if(!a||!b)return '';var m=Math.round((b-a)/60000);return m>=60?Math.floor(m/60)+' h '+m%60+' min':m+' min'}
 var beeped=0;
+function fmtT(d){var h=Math.floor(d/3600),m=Math.floor(d%3600/60),s=d%60;return h?h+':'+p2(m)+':'+p2(s):m+':'+p2(s)}
 function tick(){var b=$('tbar'),t=run().tm;if(!b)return;if(!t){b.style.display='none';return}
  var d=Math.round((t.end-Date.now())/1000);b.style.display='flex';b.className='tbar'+(d<=0?' due':'');
- $('tt').textContent=d>0?t.label+' in '+Math.floor(d/60)+':'+p2(d%60):t.label+' — now!';
+ $('tt').textContent=d>0?t.label+' in '+fmtT(d):t.label+' — now!';
  if(d<=0&&d>-60&&beeped!==t.end){beeped=t.end;try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}try{var a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(function(){o.stop()},700)}catch(e){}}}
-function nextStep(){var r=run(),ids=steps().map(function(s){return s.id}),i=ids.indexOf(r.cur),id=ids[i],m=id==='au'?S.auto:id==='ld'?S.cm:id==='lo'?S.um:TM[id];r.ts=r.ts||{};r.ts[id]=Date.now();
- r.tm=m?{end:Date.now()+m*60000,label:TL[id]}:null;r.cur=ids[Math.min(i+1,ids.length-1)]}
-function finish(){var r=run(),a=r.act||{},f=r.f||{},t=r.ts||{},c=compute(),N=function(x){var v=parseFloat(x);return isNaN(v)?'':v},u=function(k,rec){var v=parseFloat(a[k]);return isNaN(v)?rec:v};
- var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},e={id:Date.now(),ts:t.mx||t.au||t.lv||Date.now(),hyd:S.hyd,n:S.batch,auto:S.auto,fridge:S.fridge,bf:u('bf',rec.bf),ww:u('ww',rec.ww),w:u('w',rec.w),lv:u('lv',rec.lv),sa:u('sa',rec.sa),rec:rec,mt:N(f.mt),rm:N(f.rt),rise:N(f.rise),it:N(f.it),pre:S.pre,cov:S.cov,unc:S.unc,steps:t,rating:r.rating||4,photo:r.ph||'',notes:(r.notes||'').trim()};
+function nextStep(){var r=run(),R=r.rcp,ids=stepsFor(R).map(function(s){return s.id}),i=ids.indexOf(r.cur),id=ids[i];r.ts=r.ts||{};r.ts[id]=Date.now();
+ var T=stepTimer(id,R,r);r.tm=T?{end:Date.now()+T.m*60000,label:T.l}:null;r.cur=ids[Math.min(i+1,ids.length-1)]}
+function finish(){var r=run(),R=cp(r.rcp),a=r.act||{},f=r.f||{},t=r.ts||{},c=compute(R),N=function(x){var v=parseFloat(x);return isNaN(v)?'':v},u=function(k,rec){var v=parseFloat(a[k]);return isNaN(v)?rec:v};
+ var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},e={id:Date.now(),ts:t.mx||t.au||t.lv||Date.now(),hyd:R.hyd,n:R.batch,auto:R.au.on?R.au.min:0,fridge:R.cp.on?R.cp.h:0,bf:u('bf',rec.bf),ww:u('ww',rec.ww),w:u('w',rec.w),lv:u('lv',rec.lv),sa:u('sa',rec.sa),rec:rec,mt:N(f.mt),rm:N(f.rt),rise:N(f.rise),it:N(f.it),pre:R.pre.t,cov:R.cov.t,unc:R.unc.t,cm:R.cov.m,um:R.unc.m,steps:t,rating:r.rating||4,photo:r.ph||'',notes:(r.notes||'').trim(),rid:R.id||'',rn:R.name||'',rcp:R};
  LOG.unshift(e);LOG.sort(function(a,b){return b.ts-a.ts});S.run={}}
-function loafHtml(l,nh){if(!l.steps)return loafOld(l,nh);var t=l.steps,has=function(x){return x!==''&&x!=null},
- u=function(k,nm){return nm+' '+dm(l[k])+(l.rec&&l.rec[k]!==l[k]?' (recipe '+dm(l.rec[k])+')':'')},
- ln=[l.hyd+'% hydration · '+l.n+(l.n>1?' loaves':' loaf'),'Used: '+[u('bf','flour'),u('ww','whole wheat'),u('w','water'),u('lv','levain'),u('sa','salt')].join(', '),
- [has(l.mt)?'dough '+td(l.mt)+' at mix':'',has(l.rm)?'room '+td(l.rm)+'':'',has(l.rise)?'perceived rise '+l.rise+'%':'',t.mx&&t.bk?'bulk '+du(t.mx,t.bk):'',t.fr&&t.ld?'fridge '+du(t.fr,t.ld):''].filter(Boolean).join(' · '),
- ['preheat '+td(l.pre)+'',t.ld&&t.lo?'covered '+du(t.ld,t.lo)+' at '+td(l.cov)+'':'',t.lo&&t.ot?'uncovered '+du(t.lo,t.ot)+' at '+td(l.unc)+'':'',has(l.it)?'internal '+td(l.it)+'':''].filter(Boolean).join(' · ')];
- return '<div class="loaf">'+(nh?'':lh(l))
- +ln.filter(Boolean).map(function(x){return '<div class=\"note\">'+esc(x)+'</div>'}).join('')
- +'<details'+(nh?' open':'')+'><summary>Timeline</summary>'+LBL.filter(function(x){return t[x[0]]}).map(function(x){return '<div class=\"note\">'+x[1]+' · '+wk(t[x[0]])+'</div>'}).join('')+'</details>'
- +(l.photo?'<img data-ph=\"'+l.photo+'\" alt=\"Crumb photo\" style=\"width:100%;border-radius:10px;margin-top:8px\">':'')+(l.notes?'<div style=\"margin-top:6px;font-size:14px\">'+esc(l.notes)+'</div>':'')+'<button class=\"btn s\" data-del=\"'+l.id+'\">Delete</button></div>'}
-function body(id,r,c,am){var AL=function(k,d){var v=parseFloat((r.act||{})[k]);return isNaN(v)?d:v},LV=AL('lv',c.L),ST=Math.round(LV/9),FW=Math.round((LV-ST)/2),PER=Math.round((AL('bf',c.bf)+AL('ww',c.ww)+AL('w',c.w)+LV+AL('sa',c.sl))/c.n),f=r.f||{},fi=function(k,lb){return '<div class=\"lbl\">'+(k==='rise'?'':ic('therm'))+lb+'</div><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-f=\"'+k+'\" value=\"'+esc(f[k]!=null&&f[k]!==''&&(k==='mt'||k==='rt'||k==='it')?tv(parseFloat(f[k])):f[k]!=null?f[k]:'')+'\">'};
+function body(id,r,R,c,am){var f=r.f||{},fi=function(k,lb){return '<div class="lbl">'+(k==='rise'?'':ic('therm'))+lb+'</div><input type="number" inputmode="decimal" step="any" data-f="'+k+'" value="'+esc(f[k]!=null&&f[k]!==''&&(k==='mt'||k==='rt'||k==='it')?tv(parseFloat(f[k])):f[k]!=null?f[k]:'')+'">'},
+ T=stepTimer(id,R,r),nt=T?'<div class="note">Next starts a '+hm(T.m)+' timer.</div>':'',LP=levainPlan(R,c),fm=/^f(\d)$/.exec(id),cm=/^c(\d)$/.exec(id);
+ if(fm)return '<p>Wet your hands and do a stretch and fold ('+fm[1]+' of '+R.sf.n+').</p>'+nt;
+ if(cm)return '<p>Wet your hands and do a coil fold ('+cm[1]+' of '+R.cf.n+').'+(T?'':' Then hands off.')+'</p>'+nt;
  switch(id){
- case 'lv':return '<p>Night before: feed '+esc(SN()||'the levain')+' 1:4:4 at about '+td(68)+'. It peaks in about 14 h. Mix only once it is domed and floats.</p><div class=\"levain\"><span class=\"big\">'+dm(ST)+'</span> starter &nbsp; <span class=\"big\">'+dm(FW)+'</span> water &nbsp; <span class=\"big\">'+dm(FW)+'</span> flour &nbsp;= <b>'+dm(ST+2*FW)+'</b></div>';
- case 'au':return '<p>Flour and water only, mixed until no dry flour. Cover, '+S.auto+' min at room temp.</p>'+am('Bread flour','bf',c.bf)+am('Whole wheat','ww',c.ww)+am('Water','w',c.w)+'<div class=\"note\">Next starts the autolyse timer.</div>';
- case 'mx':return '<p>Add levain and salt. Mix with spoon until combined, then fully incorporate with a wet hand for 1-2 minutes.</p>'+am('Levain','lv',c.L)+am('Kosher salt','sa',c.sl)+'<div class=\"g2\"><div>'+fi('mt','Dough temp ('+tu()+')')+'</div><div>'+fi('rt','Room temp ('+tu()+')')+'</div></div><div class=\"note\">Next starts a 30 min timer for the first fold.</div>';
- case 'f1':case 'f2':return '<p>Wet your hands and do a stretch and fold.</p><div class=\"note\">Next starts a 30 min timer for the next fold.</div>';
- case 'c1':return '<p>Wet your hands and do a coil fold.</p><div class=\"note\">Next starts a 30 min timer for the next fold.</div>';
- case 'c2':return '<p>Wet your hands and do a coil fold. Then hands off.</p>';
- case 'bk':return '<p>Let the dough rise. Shape when it looks ready.'+(r.ts.mx?' Mixed '+tm(r.ts.mx)+', '+du(r.ts.mx,Date.now())+' ago.':'')+'</p>'+fi('rise','Perceived rise (%)');
- case 'sh':return '<p>Divide into '+c.n+' × '+dm(PER)+', pre-shape into rounds, seam down, bench 20-30 min uncovered. Final shape as a batard: drag it toward you on an unfloured bench to build tension. Seam up in a '+dm(750)+' banneton dusted with rice flour. Cover.</p>';
- case 'fr':return '<p>Fridge at '+td(40)+'. Bake straight from cold.</p><div class=\"lbl\">Fridge hours (plan)</div><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-s=\"fridge\" value=\"'+S.fridge+'\"><div class=\"note\">Bake around '+tm((r.ts.fr||Date.now())+S.fridge*3600000)+'.</div>';
- case 'pre':return '<p>Preheat the oven and Dutch ovens together to <b>'+td(S.pre)+'</b>, 45-60 min.</p><div class=\"note\">Next starts a 45 min timer.</div>';
- case 'ld':return '<p>Score straight from the fridge: one offset slash along the length, lame at 30-45°. Straight into the hot Dutch oven. Drop the oven to <b>'+td(S.cov)+'</b> as you load. Covered '+S.cm+' min.</p><div class=\"note\">Next starts a '+S.cm+' min timer.</div>';
- case 'lo':return '<p>Lids off. Uncovered at <b>'+td(S.unc)+'</b> for '+S.um+' min. Pull by crust color: deep amber-brown with dark ear edges.</p>'+fi('it','Internal temp ('+tu()+')')+'<div class=\"note\">At or above '+td(206)+' is a floor, not the signal. Next starts a '+S.um+' min timer.</div>';
- case 'ot':return '<p>Unload right away. Trapped steam softens the crust. Cool on a wire rack, at least 1 h, 90 min preferred.</p><div class=\"note\">Next starts a 90 min cooling timer.</div>';
- default:return '<p>Slice, taste, and save this bake.</p><div class=\"lbl\">'+ic('star')+'Rating</div><div class=\"row\">'+[1,2,3,4,5].map(function(n){return '<button class=\"chip'+((r.rating||4)===n?' on':'')+'\" data-rt=\"'+n+'\">'+n+'★</button>'}).join('')+'</div>'
-  +(USER?'<div class=\"lbl\">'+ic('camera')+'Crumb photo</div><input type=\"file\" accept=\"image/*\" id=\"photo\">'+(r.ph?'<img data-ph=\"'+esc(r.ph)+'\" alt=\"\" style=\"width:100%;border-radius:10px;margin-top:8px\">':'')+'<div class=\"note\" id=\"pst\"></div>':'<div class=\"note\">Connect sync below to add a photo.</div>')
-  +'<div class=\"lbl\">'+ic('pencil')+'Notes (crumb, ear, crust, taste)</div><textarea id=\"notes\" rows=\"3\">'+esc(r.notes||'')+'</textarea>'}}
-function render(){document.body.classList.toggle('out',!USER);if(!USER){closeNav();$('ptitle').textContent='Sign in';$('nav').innerHTML='';$('app').innerHTML=READY?'<div class="card"><h2>Sign in</h2><div class="note">Sign in with Google to load your bakes and sync them across devices.</div><button class="btn" data-in="1">Sign in with Google</button></div>':'<div class="note">Loading…</div>';return}var r=run(),c=compute(),ST=steps(),ids=ST.map(function(s){return s.id}),act=r.act||{};
- if(ids.indexOf(r.cur)<0)r.cur=ids[0];r.ts=r.ts||{};
- var am=function(lb,k,rec){var a=parseFloat(act[k]),has=!isNaN(a);return '<div class=\"ing\"><span class=\"in\">'+ic(IK[k])+'<span>'+lb+(has&&a!==rec?'<br><small>recipe '+dm(rec)+'</small>':'')+'</span></span><b>'+dm(has?a:rec)+'</b></div>'};
- var eyeb=(SN()?SN()+' · ':'')+(100-S.ww)+'/'+S.ww+' flour · '+S.lev+'% levain · '+S.salt+'% salt';
- var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},nm={bf:'Bread flour',ww:'Whole wheat',w:'Water',lv:'Levain',sa:'Kosher salt'};
- var ob=function(lb,k,t,mk){return '<div class=\"ovb\"><div class=\"note\">'+lb+'</div><div class=\"ovt\"><input type=\"number\" inputmode=\"numeric\" value=\"'+tv(S[k])+'\" data-n=\"'+k+'\"><span>'+tu()+'</span></div>'+(mk?'<div class=\"ovt\"><input type=\"number\" inputmode=\"numeric\" min=\"1\" value=\"'+S[mk]+'\" data-n=\"'+mk+'\"><span>min</span></div>':'<div class=\"ovm\">'+t+'</div>')+'</div>'};
- var rc='<div class=\"card\"><div class=\"lbl\" style=\"margin-top:0\">'+ic('water')+'Hydration <b id=\"hydv\" style=\"color:var(--acc)\">'+S.hyd+'%</b></div><input type=\"range\" id=\"hyd\" min=\"60\" max=\"85\" step=\"1\" value=\"'+S.hyd+'\"><div class=\"row\" style=\"justify-content:space-between;font-size:12px;color:var(--mute)\"><span>60%</span><span>85%</span></div>'
-  +'<div class=\"lbl\">Batch</div>'+chips([[1,'Single'],[2,'Double'],[3,'Triple']],S.batch,'batch')+'<div class=\"lbl\">Autolyse</div>'+chips([[60,'1 h'],[30,'30 m'],[0,'Skip']],S.auto,'auto')
-  +'<div class=\"g2\"><div><div class=\"lbl\">Flour / loaf ('+wu()+')</div><input type=\"number\" step=\"any\" inputmode=\"decimal\" value=\"'+wv(S.fpl)+'\" data-n=\"fpl\"></div><div><div class=\"lbl\">Whole wheat %</div><input type=\"number\" inputmode=\"numeric\" value=\"'+S.ww+'\" data-n=\"ww\"></div><div><div class=\"lbl\">Levain %</div><input type=\"number\" inputmode=\"numeric\" value=\"'+S.lev+'\" data-n=\"lev\"></div><div><div class=\"lbl\">Salt %</div><input type=\"number\" step=\"0.5\" inputmode=\"decimal\" value=\"'+S.salt+'\" data-n=\"salt\"></div></div>'
-  +'<div class=\"sec\">'+ic('flour')+'Ingredients</div><div class=\"ig hd\"><span></span><span>Recipe</span><span>Yours</span></div>'+['bf','ww','w','lv','sa'].map(function(k){return '<div class=\"ig\"><span class=\"in\">'+ic(IK[k])+nm[k]+'</span><b>'+dm(rec[k])+'</b><input type=\"number\" inputmode=\"decimal\" step=\"any\" data-a=\"'+k+'\" placeholder=\"'+wv(rec[k])+'\" value=\"'+esc(act[k]!=null&&act[k]!==''?wv(parseFloat(act[k])):'')+'\"></div>'}).join('')
-  +'<div class=\"note\">Total dough '+dm(c.tot)+' · '+c.n+' × '+dm(c.per)+'. Enter what you actually used in the Yours column.</div>'
-  +'<div class=\"sec\">'+ic('flame')+'Oven</div><div class=\"g3\">'+ob('Preheat','pre','45-60 min')+ob('Covered','cov','','cm')+ob('Uncovered','unc','','um')+'</div></div>';
- var i=ids.indexOf(r.cur),s=ST[i],last=i===ids.length-1;
- var tl='<div class=\"card\"><div class=\"hz\">'+ST.map(function(x){return '<button class=\"hs'+(r.ts[x.id]?' done':'')+(x.id===r.cur?' cur':'')+'\" data-go=\"'+x.id+'\"><i></i>'+x.n+'</button>'}).join('')+'</div>'
-  +'<div class=\"sec\" style=\"margin-top:4px\">'+s.h+'</div>'+(r.ts[s.id]?'<div class=\"note\">Completed '+tm(r.ts[s.id])+'</div>':'')+body(s.id,r,c,am)
-  +'<div class=\"bar\">'+(i?'<button class=\"btn g\" data-back=\"1\">Back</button>':'')+(last?'<button class=\"btn\" data-fin=\"1\">Save to Bake Log</button>':'<button class=\"btn\" data-next=\"1\">'+BTN[s.id]+' · Next</button>')+'</div>'
-  +'<button class=\"btn s\" data-rst=\"1\" style=\"margin-top:10px\">Discard this bake</button></div>';
- var pages={recipe:'<div class=\"eyebrow\">'+esc(eyeb)+'</div>'+rc,bake:tl+curLog(r,c),loaves:loavesHtml(),settings:setHtml(),profile:profHtml()};
- if(!pages[PAGE])PAGE='recipe';
- $('app').innerHTML=pages[PAGE];$('ptitle').textContent=TT[PAGE];$('nav').innerHTML=navHtml();loadPh();
+ case 'lv':return '<p>Feed '+esc(SN()||'the levain')+' '+esc(R.lv.ratio)+' at about '+td(68)+'.'+(+R.lv.peak>0?' It peaks in about '+R.lv.peak+' h.':'')+' Mix only once it is domed and floats.</p><div class="levain"><span class="big">'+dm(LP.st)+'</span> starter &nbsp; <span class="big">'+dm(LP.w)+'</span> water &nbsp; <span class="big">'+dm(LP.f)+'</span> flour &nbsp;= <b>'+dm(LP.tot)+'</b></div>'+nt;
+ case 'au':return '<p>Flour and water only, mixed until no dry flour. Cover, '+R.au.min+' min at room temp.</p>'+am('Bread flour','bf',c.bf)+am('Whole wheat','ww',c.ww)+am('Water','w',c.w)+'<div class="note">Next starts the autolyse timer.</div>';
+ case 'mx':return '<p>Add levain and salt. Mix with spoon until combined, then fully incorporate with a wet hand for 1-2 minutes.</p>'+am('Levain','lv',c.L)+am('Kosher salt','sa',c.sl)+'<div class="g2"><div>'+fi('mt','Dough temp ('+tu()+')')+'</div><div>'+fi('rt','Room temp ('+tu()+')')+'</div></div>'+nt;
+ case 'bk':return '<p>Let the dough rise. Shape when it looks ready.'+((+R.bulk.h>0||+R.bulk.rise>0)?' Target: '+[+R.bulk.h>0?hm(R.bulk.h*60):'',+R.bulk.rise>0?'about '+R.bulk.rise+'% rise':''].filter(Boolean).join(', ')+'.':'')+(r.ts.mx?' Mixed '+tm(r.ts.mx)+', '+du(r.ts.mx,Date.now())+' ago.':'')+'</p>'+fi('rise','Perceived rise (%)');
+ case 'ps':return '<p>Divide into '+c.n+' × '+dm(c.per)+', pre-shape into rounds, seam down, and bench rest '+R.ps.min+' min uncovered.</p>'+nt;
+ case 'sh':return '<p>'+(R.ps.on?'':'Divide into '+c.n+' × '+dm(c.per)+'. ')+'Final shape as a batard: drag it toward you on an unfloured bench to build tension. Seam up in a '+dm(750)+' banneton dusted with rice flour. Cover.</p>';
+ case 'wp':return '<p>Warm proof at '+td(R.wp.t)+' for '+hm(R.wp.h*60)+'.</p>'+nt;
+ case 'fr':return '<p>Cold proof in the fridge at '+td(R.cp.t)+' for '+hm(R.cp.h*60)+'. Bake straight from cold.</p><div class="note">Bake around '+tm((r.ts.fr||Date.now())+R.cp.h*3600000)+'.</div>'+nt;
+ case 'pre':return '<p>Preheat the oven and Dutch ovens together to <b>'+td(R.pre.t)+'</b>, '+R.pre.m+' min.</p>'+nt;
+ case 'ld':return '<p>Score straight from the fridge: one offset slash along the length, lame at 30-45°. Straight into the hot Dutch oven. Drop the oven to <b>'+td(R.cov.t)+'</b> as you load. Covered '+R.cov.m+' min.</p>'+nt;
+ case 'lo':return '<p>Lids off. Uncovered at <b>'+td(R.unc.t)+'</b> for '+R.unc.m+' min. Pull by crust color: deep amber-brown with dark ear edges.</p>'+fi('it','Internal temp ('+tu()+')')+'<div class="note">At or above '+td(206)+' is a floor, not the signal.</div>'+nt;
+ case 'ot':return '<p>Unload right away. Trapped steam softens the crust. Cool on a wire rack for '+hm(R.rest.m)+'.</p>'+nt;
+ default:return '<p>Slice, taste, and save this bake.</p><div class="lbl">'+ic('star')+'Rating</div><div class="row">'+[1,2,3,4,5].map(function(n){return '<button class="chip'+((r.rating||4)===n?' on':'')+'" data-rt="'+n+'">'+n+'★</button>'}).join('')+'</div>'
+  +(USER?'<div class="lbl">'+ic('camera')+'Crumb photo</div><input type="file" accept="image/*" id="photo">'+(r.ph?'<img data-ph="'+esc(r.ph)+'" alt="" style="width:100%;border-radius:10px;margin-top:8px">':'')+'<div class="note" id="pst"></div>':'<div class="note">Connect sync below to add a photo.</div>')
+  +'<div class="lbl">'+ic('pencil')+'Notes (crumb, ear, crust, taste)</div><textarea id="notes" rows="3">'+esc(r.notes||'')+'</textarea>'}}
+function render(){document.body.classList.toggle('out',!USER);
+ if(!USER){closeNav();$('ptitle').textContent='Sign in';$('ha').innerHTML='';$('nav').innerHTML='';$('app').innerHTML=READY?'<div class="card"><h2>Sign in</h2><div class="note">Sign in with Google to load your recipes and bakes and sync them across devices.</div><button class="btn" data-in="1">Sign in with Google</button></div>':'<div class="note">Loading…</div>';return}
+ fixRun();if(PG.indexOf(PAGE)<0||(PAGE==='editor'&&!ED))PAGE='recipes';
+ $('app').innerHTML=PAGE==='recipes'?recipesHtml():PAGE==='editor'?editorHtml():PAGE==='bakes'?bakesHtml():PAGE==='settings'?setHtml():profHtml();
+ $('ptitle').textContent=PAGE==='editor'?(ED.id?'Edit recipe':'New recipe'):TT[PAGE];
+ $('ha').innerHTML=PAGE==='recipes'?'<button class="hb round" data-new="1" aria-label="New recipe" title="New recipe">'+ic('plus')+'</button>':PAGE==='editor'?'<button class="hb fill" data-start="1">'+ic('play')+'Start bake</button>':'';
+ $('nav').innerHTML=navHtml();loadPh();
  var hz=document.querySelector('.hs.cur'),bx=document.querySelector('.hz');if(hz&&bx){var ra=hz.getBoundingClientRect(),rb=bx.getBoundingClientRect();bx.scrollLeft=bx.scrollLeft+(ra.left-rb.left)-(bx.clientWidth-ra.width)/2}}
 function store(t){var d=t.dataset,r=run();if(t.id==='sname'){S.sn=t.value;save();return true}if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=(S.lb&&!isNaN(parseFloat(t.value))?String(wg(parseFloat(t.value))):t.value)}else if(d.f){r.f=r.f||{};r.f[d.f]=(S.tc&&['mt','rt','it'].indexOf(d.f)>=0&&!isNaN(parseFloat(t.value))?String(tf(parseFloat(t.value))):t.value)}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
 document.addEventListener('click',function(e){
- var t=e.target.closest('[data-k],[data-go],[data-next],[data-back],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-rl],[data-tx],[data-rst],[data-pg],[data-ex],[data-menu]');if(!t)return;var d=t.dataset;
- if(d.pg){PAGE=d.pg;try{localStorage.setItem('bb-page',PAGE)}catch(e){}closeNav();render();window.scrollTo(0,0);return}
+ var t=e.target.closest('[data-k],[data-go],[data-next],[data-back],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-rl],[data-tx],[data-rst],[data-pg],[data-ex],[data-menu],[data-th],[data-new],[data-open],[data-start],[data-esave],[data-edel],[data-ek],[data-et]');if(!t)return;var d=t.dataset;
+ var go=function(p){PAGE=p;try{localStorage.setItem('bb-page',p==='editor'?'recipes':p)}catch(e){}closeNav();render();window.scrollTo(0,0)};
+ if(d.pg){if(PAGE==='editor'&&d.pg!=='editor'){if(EDD&&!confirm('Discard unsaved changes to this recipe?'))return;ED=null;EDD=false}go(d.pg);return}
+ if(d.th){THEME=d.th;try{if(THEME==='system')localStorage.removeItem('bb-theme');else localStorage.setItem('bb-theme',THEME)}catch(e){}applyTheme();render();return}
  if(d.ex){EXP[d.ex]=!EXP[d.ex];render();return}
  if(d.menu!=null){document.body.classList.toggle('dr',d.menu==='1'&&!document.body.classList.contains('dr'));return}
+ if(d.new){ED=newRecipe();EDD=false;go('editor');return}
+ if(d.open){var rr=RCP.filter(function(x){return String(x.id)===d.open})[0];if(!rr)return;ED=normRecipe(cp(rr));EDD=false;go('editor');return}
+ if(d.ek&&ED){setPath(ED,d.ek,/^-?\d+(\.\d+)?$/.test(d.ev)?+d.ev:d.ev);EDD=true;render();return}
+ if(d.et&&ED){setPath(ED,d.et,!getPath(ED,d.et));EDD=true;render();return}
+ if(d.esave&&ED){if(!String(ED.name).trim()){alert('Give this recipe a name first.');return}
+  var R1=cp(ED);R1.name=R1.name.trim();R1.id=R1.id||Date.now();R1.ts=Date.now();RCP=RCP.filter(function(x){return String(x.id)!==String(R1.id)});RCP.unshift(R1);persist();if(FB)FB.pushRecipe(R1);ED=null;EDD=false;go('recipes');return}
+ if(d.edel&&ED){if(!confirm('Delete this recipe? Past bakes keep their own copy of it.'))return;var id0=ED.id;RCP=RCP.filter(function(x){return String(x.id)!==String(id0)});persist();if(FB&&id0)FB.delRecipe(id0);ED=null;EDD=false;go('recipes');return}
+ if(d.start&&ED){if(hasBake()&&!confirm('A bake is already in progress. Replace it with this recipe?'))return;
+  var R0=cp(ED);if(!String(R0.name).trim())R0.name='Untitled recipe';S.run={rcp:R0,cur:'lv',ts:{}};ED=null;EDD=false;save();go('bakes');tick();return}
+ if((d.go||d.next||d.back||d.fin||d.rt||d.rst)&&!hasBake())return;
  if(d.k){S[d.k]=+d.v}
  else if(d.go){run().cur=d.go}
  else if(d.next){nextStep()}
- else if(d.back){var ids=steps().map(function(s){return s.id});run().cur=ids[Math.max(0,ids.indexOf(run().cur)-1)]}
+ else if(d.back){var ids=curIds();run().cur=ids[Math.max(0,ids.indexOf(run().cur)-1)]}
  else if(d.rt){run().rating=+d.rt}
  else if(d.fin){finish();FB.pushBake(LOG[0])}
  else if(d.tx){run().tm=null}
@@ -295,13 +418,12 @@ document.addEventListener('click',function(e){
  save();render();tick()});
 document.addEventListener('change',function(e){var t=e.target;
  if(t.id==='photo'){upPhoto(t.files&&t.files[0]);return}
- if(store(t)){if(t.dataset.a||t.dataset.s||t.id==='sname')render();return}
- if(t.id==='hyd'){S.hyd=+t.value}
- else if(t.dataset.n){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0){var nk=t.dataset.n;S[nk]=['pre','cov','unc'].indexOf(nk)>=0?tf(v):nk==='fpl'?wg(v):v}}
- else return;
- save();render()});
-document.addEventListener('input',function(e){var t=e.target;if(t.id==='hyd'){var h=$('hydv');if(h)h.textContent=t.value+'%'}else store(t)});
-$('mb').innerHTML=ic('menu');render();init();
+ if(t.dataset.e&&ED){var p=t.dataset.e,v=t.value;
+  if(t.type==='number'||t.type==='range'){var n=parseFloat(v);if(isNaN(n)||n<0){if(!t.dataset.o){render();return}v=''}else v=t.dataset.u==='w'?wg(n):t.dataset.u==='t'?tf(n):n}
+  setPath(ED,p,v);EDD=true;render();return}
+ if(store(t)){if(t.dataset.a||t.dataset.s||t.id==='sname')render();return}});
+document.addEventListener('input',function(e){var t=e.target;if(t.id==='hyd'){var h=$('hydv');if(h)h.textContent=t.value+'%'}else if(t.dataset.e&&ED&&t.type==='text'){setPath(ED,t.dataset.e,t.value);EDD=true}else store(t)});
+$('mb').innerHTML=ic('menu');applyTheme();render();init();
 </script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
@@ -314,12 +436,15 @@ const X={signIn:()=>{const p=new GoogleAuthProvider();p.setCustomParameters({pro
  pushSet:(set,sts)=>{if(uid)setDoc(doc(db,'users',uid),{set:cl(set),sts}).catch(er)},
  pushBake:e=>{if(uid)setDoc(doc(db,'users',uid,'bakes',String(e.id)),cl(e)).catch(er)},
  delBake:id=>{if(uid)deleteDoc(doc(db,'users',uid,'bakes',String(id))).catch(er)},
+ pushRecipe:e=>{if(uid)setDoc(doc(db,'users',uid,'recipes',String(e.id)),cl(e)).catch(er)},
+ delRecipe:id=>{if(uid)deleteDoc(doc(db,'users',uid,'recipes',String(id))).catch(er)},
  putPhoto:(id,d)=>{if(uid)setDoc(doc(db,'users',uid,'photos',id),{d}).catch(er)},
  getPhoto:async id=>{const s=await getDoc(doc(db,'users',uid,'photos',id));if(!s.exists())throw 0;return s.data().d}};
 getRedirectResult(auth).catch(e=>{const m=document.getElementById('sync');if(m)m.textContent='Sign-in problem: '+e.message});
 onAuthStateChanged(auth,u=>{un.forEach(f=>f());un=[];uid=u?u.uid:null;
  if(u){un.push(onSnapshot(doc(db,'users',uid),s=>{const d=s.exists()?s.data():{};window.onRemoteSet(d.set||null,d.sts||0)}));
-  un.push(onSnapshot(collection(db,'users',uid,'bakes'),s=>window.onRemoteBakes(s.docs.map(x=>x.data()))))}
+  un.push(onSnapshot(collection(db,'users',uid,'bakes'),s=>window.onRemoteBakes(s.docs.map(x=>x.data()))));
+  un.push(onSnapshot(collection(db,'users',uid,'recipes'),s=>window.onRemoteRecipes(s.docs.map(x=>x.data()))))}
  window.onUser(u,X)});
 </script>
 </body>
