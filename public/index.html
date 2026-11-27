@@ -105,9 +105,10 @@ body.out #ha{display:none}
 .trk{height:6px;background:var(--accbg);position:relative}.trf{position:absolute;left:0;top:0;bottom:0;background:var(--acc)}
 .mks{display:flex;margin:0 0 4px}.mk{flex:1;min-width:0;border:0;background:none;color:var(--mute);font:inherit;font-size:11px;padding:6px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}.mk .ic{width:18px;height:18px;color:var(--mute)}.mk.done .ic{color:var(--acc);fill:var(--acc)}.mk.cur{color:var(--ink);font-weight:700}.mk.cur .ic{color:var(--acc)}
 .trn{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px 0}
-.tdisp{background:var(--hov);border-top:1px solid var(--div);border-bottom:1px solid var(--div);text-align:center;font-size:30px;font-weight:700;padding:10px;margin:6px 0 0}.tdisp.due{background:#b3412b;color:#fff}
+.tdisp{background:var(--hov);border-top:1px solid var(--div);border-bottom:1px solid var(--div);text-align:center;font-size:30px;font-weight:700;padding:10px;margin:6px 0 0}.tdisp.due{background:var(--green);color:var(--btnink,#fff)}
 .tlbl{text-align:center;font-size:13px;color:var(--mute);margin:6px 0}
 .stp{text-align:center;margin-top:10px}.stt{color:var(--acc);font-size:19px;font-weight:700;margin-bottom:2px}.stp p{color:var(--mute);margin:6px 0}.stp .note{text-align:center}.stp .lbl{text-align:left}.stp .g2{text-align:left}.stp .add{color:var(--acc);font-style:italic;margin:2px 0}.stp .add b{font-size:18px}.stp .levain{text-align:center}.stp .row{justify-content:center}.stp input,.stp textarea{text-align:left}
+.cont{margin:16px 0 4px;padding:10px 0 16px;background:var(--hov);text-align:center}.cont[hidden]{display:none}.contt{color:var(--green);font-size:22px;margin:4px 0 10px}.pill.cpill{display:inline-flex;width:auto;margin:0;padding:13px 46px;background:var(--green);color:var(--btnink,#fff)}
 </style>
 </head>
 <body>
@@ -128,7 +129,7 @@ function curSet(){var c={};for(var k in S)if(k!=='ticks'&&k!=='notes')c[k]=S[k];
 function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()));localStorage.setItem('bb-recipes',JSON.stringify(RCP))}catch(e){}}
 function save(){STS=Date.now();persist();sched()}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-26 build 21';
+var OZ=28.3495,VER='2026-11-26 build 22';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -313,9 +314,17 @@ function tabsHtml(r,tab){return '<div class="tabs">'+[['plan','Planning'],['ferm
 function transport(r){var t=r.tm,pl=t&&!t.paused;
  return '<div class="trn"><button class="ib" data-tr="prev" aria-label="Previous step" title="Previous step">'+icf('skipb')+'</button><button class="ib" data-tr="reset" aria-label="Restart timer" title="Restart timer">'+ic('replay')+'</button><button class="ib big" data-tr="play" aria-label="'+(pl?'Pause':'Start')+' timer" title="'+(pl?'Pause':'Start')+' timer">'+icf(pl?'pause':'play')+'</button><button class="ib" data-tr="edit" aria-label="Edit timer" title="Edit timer">'+ic('pencil')+'</button><button class="ib" data-tr="next" aria-label="Done, next step" title="Done, next step">'+icf('skipf')+'</button></div>'}
 function timerDisp(r){var i=tmInfo(r.tm);return '<div class="tdisp'+(i.due?' due':'')+'"><span id="tdisp">'+i.txt+'</span></div><div class="tlbl" id="tlbl">'+esc(i.lb)+'</div>'}
+function contLbl(id,R){var ids=stepsFor(R).map(function(s){return s.id}),lastF=null,pr=['ps','sh','wp','fr'].filter(function(i){return ids.indexOf(i)>=0}),lp=pr[pr.length-1];
+ ids.forEach(function(i){if(/^[fc]\d$/.test(i))lastF=i});
+ if(lastF){if(id===lastF)return 'Folds Complete'}else if(id==='mx')return 'Mixing Complete';
+ if(id==='bk')return 'Bulk Complete';
+ if(id===lp)return {fr:'Cold Proof Complete',wp:'Warm Proof Complete',sh:'Shaping Complete',ps:'Pre-shape Complete'}[id];
+ return {pre:'Preheat Complete',lo:'Baking Complete',ot:'Cooling Complete'}[id]||null}
+function contReady(r){var t=r.tm;return !t||(!t.paused&&t.end<=Date.now())}
+function contHtml(r,R){var L=contLbl(r.cur,R);if(!L)return '';return '<div class="cont" id="cont"'+(contReady(r)?'':' hidden')+'><div class="contt">'+L+'</div><button class="pill cpill" data-tr="next">Continue</button></div>'}
 function stepPanel(r,R,c){var s=stepsFor(R).filter(function(x){return x.id===r.cur})[0],act=r.act||{},
  am=function(lb,k,rec){var a=parseFloat(act[k]),v=isNaN(a)?rec:a;return '<div class="add"><b>'+dm(v)+'</b> '+lb+'</div>'};
- return '<div class="stp"><div class="stt">'+s.h+'</div>'+(r.ts[s.id]?'<div class="note">Completed '+tm(r.ts[s.id])+'</div>':'')+body(s.id,r,R,c,am)+incHtml(s.id,R)+'</div>'}
+ return '<div class="stp"><div class="stt">'+s.h+'</div>'+(r.ts[s.id]?'<div class="note">Completed '+tm(r.ts[s.id])+'</div>':'')+body(s.id,r,R,c,am)+incHtml(s.id,R)+contHtml(r,R)+'</div>'}
 function logPanel(r,ST){var t=r.ts||{},rows=ST.filter(function(s){return t[s.id]});return '<div class="card"><h2>'+ic('book')+'Log</h2>'+(rows.length?rows.map(function(s){return '<div class="tr"><span>'+lblOf(s.id)+'</span><span>'+wk(t[s.id])+'</span></div>'}).join(''):'<div class="note" style="margin:0">Steps are timestamped here as you complete them.</div>')+'</div>'}
 function overview(r,R,ST,tab){var t=r.ts||{},order=['plan','ferm','bake','done'],past=order.indexOf(r.st)>order.indexOf(tab);
  return '<div class="note" style="text-align:center;margin:0 0 8px">'+(past?'This part of the bake is finished.':'This part of the bake has not started yet.')+'</div>'+ST.map(function(s){return '<div class="tr"><span>'+s.h+'</span><span>'+(t[s.id]?wk(t[s.id]):'—')+'</span></div>'}).join('')}
@@ -427,7 +436,7 @@ var beeped=0;
 function fmtT(d){var h=Math.floor(d/3600),m=Math.floor(d%3600/60),s=d%60;return h?h+':'+p2(m)+':'+p2(s):m+':'+p2(s)}
 function tmInfo(t){if(!t)return {txt:'--:--',lb:'No timer for this step. Tap play or the pencil to set one.',due:false};var d=Math.round((t.paused?t.rem:t.end-Date.now())/1000);return {txt:d>0?fmtT(d):'0:00',lb:(d>0||t.paused?t.label:t.label+' — time is up')+(t.idle?' — tap play to start':t.paused?' (paused)':''),due:d<=0&&!t.paused}}
 function tick(){var t=run().tm,el=$('tdisp');
- if(el){var i=tmInfo(t);el.textContent=i.txt;el.parentNode.classList.toggle('due',i.due);var lb=$('tlbl');if(lb)lb.textContent=i.lb}
+ if(el){var i=tmInfo(t);el.textContent=i.txt;el.parentNode.classList.toggle('due',i.due);var lb=$('tlbl');if(lb)lb.textContent=i.lb;var cb=$('cont');if(cb&&cb.hidden&&contReady(run()))cb.hidden=false}
  if(t&&!t.paused){var d=Math.round((t.end-Date.now())/1000);
   if(d<=0&&d>-60&&beeped!==t.end){beeped=t.end;if(SND){try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}try{var a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(function(){o.stop()},700)}catch(e){}}}}}
 function autoTimer(r){var D=stepTimer(r.cur,r.rcp,r);r.tm=D?{m:D.m,end:Date.now()+D.m*60000,label:D.l}:null}
