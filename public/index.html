@@ -128,7 +128,7 @@ function curSet(){var c={};for(var k in S)if(k!=='ticks'&&k!=='notes')c[k]=S[k];
 function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()));localStorage.setItem('bb-recipes',JSON.stringify(RCP))}catch(e){}}
 function save(){STS=Date.now();persist();sched()}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-26 build 20';
+var OZ=28.3495,VER='2026-11-26 build 21';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -205,7 +205,7 @@ function newRecipe(){return {id:null,name:'',hyd:S.hyd,batch:S.batch,fpl:S.fpl,w
  pre:{t:S.pre,m:45},cov:{t:S.cov,m:S.cm},unc:{t:S.unc,m:S.um},rest:{m:90}}}
 function normRecipe(r){return mrg(newRecipe(),r)}
 function hasBake(){return !!(S.run&&S.run.rcp)}
-function fixRun(){var r=S.run;if(!r)return;
+function fixRun(){var r=S.run;if(!r)return;if(r.tm&&!r.tm.m)r.tm.m=Math.max(1,Math.round(((r.tm.end||Date.now())-Date.now())/60000));
  if(!r.rcp){var n=r.ts?Object.keys(r.ts).length:0;if(n){var R=newRecipe();R.name='Current recipe';R.ps.on=false;r.rcp=R;if(!r.cur)r.cur='lv';r.st=grpOf(r.cur)}else if(Object.keys(r).length)S.run={}}
  else if(!r.st)r.st=(r.ts&&Object.keys(r.ts).length)?grpOf(r.cur||'lv'):'plan'}
 function levainPlan(R,c){var q=String(R.lv.ratio||'1:4:4').split(':').map(Number),b=q[1]||4,f=q[2]||4,st=parseFloat(R.lv.st),auto=isNaN(st)||st<=0;
@@ -307,11 +307,11 @@ function lblOf(id){var x=LBL.filter(function(y){return y[0]===id})[0];return x?x
 function askTimer(r){var v=prompt('Timer length in minutes (leave empty to clear)',r.tm?r.tm.m:'');if(v===null)return;var m=parseFloat(v);r.tm=m>0?{m:m,end:Date.now()+m*60000,label:r.tm?r.tm.label:'Timer'}:null}
 function setStage(r,g){var ids=stepsFor(r.rcp).map(function(s){return s.id}),t=r.ts||{};
  if(g==='plan'){r.st='plan';BTAB=null;return}
- var inG=ids.filter(function(i){return grpOf(i)===g});r.cur=g==='done'?'fn':(inG.filter(function(i){return !t[i]})[0]||inG[0]);r.st=g;r.tm=null;BTAB=null}
+ var inG=ids.filter(function(i){return grpOf(i)===g});r.cur=g==='done'?'fn':(inG.filter(function(i){return !t[i]})[0]||inG[0]);r.st=g;BTAB=null;idleTimer(r)}
 function pill(g){return '<button class="pill" data-stg="'+g+'">'+ic('arrow')+'Change status to '+({ferm:'fermenting',bake:'baking',done:'completed'}[g])+'</button>'}
 function tabsHtml(r,tab){return '<div class="tabs">'+[['plan','Planning'],['ferm','Fermenting'],['bake','Baking'],['done','Completed']].map(function(x){return '<button class="tab'+(tab===x[0]?' on':'')+(r.st===x[0]&&tab!==x[0]?' cs':'')+'" data-bt="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>'}
 function transport(r){var t=r.tm,pl=t&&!t.paused;
- return '<div class="trn"><button class="ib" data-tr="prev" aria-label="Previous step" title="Previous step">'+icf('skipb')+'</button><button class="ib" data-tr="reset" aria-label="Restart timer" title="Restart timer">'+ic('replay')+'</button><button class="ib big" data-tr="play" aria-label="'+(pl?'Pause':'Start')+' timer" title="'+(pl?'Pause':'Start')+' timer">'+icf(pl?'pause':'play')+'</button><button class="ib" data-tr="edit" aria-label="Edit timer" title="Edit timer">'+ic('pencil')+'</button><button class="ib" data-tr="next" aria-label="Done, next step" title="Done, next step">'+icf('skipf')+'</button></div><div class="tlbl" style="margin:-2px 0 4px">Right icon: '+esc(btnLbl(r.cur))+', then next step</div>'}
+ return '<div class="trn"><button class="ib" data-tr="prev" aria-label="Previous step" title="Previous step">'+icf('skipb')+'</button><button class="ib" data-tr="reset" aria-label="Restart timer" title="Restart timer">'+ic('replay')+'</button><button class="ib big" data-tr="play" aria-label="'+(pl?'Pause':'Start')+' timer" title="'+(pl?'Pause':'Start')+' timer">'+icf(pl?'pause':'play')+'</button><button class="ib" data-tr="edit" aria-label="Edit timer" title="Edit timer">'+ic('pencil')+'</button><button class="ib" data-tr="next" aria-label="Done, next step" title="Done, next step">'+icf('skipf')+'</button></div>'}
 function timerDisp(r){var i=tmInfo(r.tm);return '<div class="tdisp'+(i.due?' due':'')+'"><span id="tdisp">'+i.txt+'</span></div><div class="tlbl" id="tlbl">'+esc(i.lb)+'</div>'}
 function stepPanel(r,R,c){var s=stepsFor(R).filter(function(x){return x.id===r.cur})[0],act=r.act||{},
  am=function(lb,k,rec){var a=parseFloat(act[k]),v=isNaN(a)?rec:a;return '<div class="add"><b>'+dm(v)+'</b> '+lb+'</div>'};
@@ -407,46 +407,50 @@ function btnLbl(id){if(/^f\d$/.test(id))return 'Fold done';if(/^c\d$/.test(id))r
 function foldName(id){return (id[0]==='f'?'Stretch & fold #':'Coil fold #')+id[1]}
 function hm(m){m=Math.round(m);if(m<60)return m+' min';var h=Math.floor(m/60),r=m%60;return h+' h'+(r?' '+r+' min':'')}
 function stepTimer(id,R,r){var t=r.ts||{},ids=stepsFor(R).map(function(s){return s.id}),nx=ids[ids.indexOf(id)+1],isF=function(x){return /^[fc]\d$/.test(x||'')},m=0,l='';
- if(id==='lv'){m=(+R.lv.peak||0)*60;l='Levain should be peaking'}
- else if(id==='au'){m=+R.au.min;l='Time to mix'}
- else if(id==='mx'||isF(id)){if(isF(nx)&&+R.gap>0){m=+R.gap;l=foldName(nx)}else if(+R.bulk.h>0){m=Math.round(((t.mx||Date.now())+R.bulk.h*3600000-Date.now())/60000);l='Bulk target reached: check the rise'}}
- else if(id==='ps'){m=+R.ps.min;l='Bench rest done: final shape'}
- else if(id==='wp'){m=Math.round(R.wp.h*60);l='Warm proof done'}
- else if(id==='fr'){m=Math.round(R.cp.h*60);l='Cold proof done: time to bake'}
- else if(id==='pre'){m=+R.pre.m;l='Oven ready: score and load'}
- else if(id==='ld'){m=+R.cov.m;l='Lids off'}
- else if(id==='lo'){m=+R.unc.m;l='Check the crust'}
- else if(id==='ot'){m=+R.rest.m;l='Ready to slice'}
+ if(id==='lv'){m=(+R.lv.peak||0)*60;l='Time to peak'}
+ else if(id==='au'){m=+R.au.min;l='Autolyse'}
+ else if(id==='mx'){if(isF(nx)&&+R.gap>0){m=+R.gap;l='Rest until first fold'}}
+ else if(isF(id)){if(isF(nx)&&+R.gap>0){m=+R.gap;l='Rest until next fold'}}
+ else if(id==='bk'){if(+R.bulk.h>0){var el=t.mx?(Date.now()-t.mx)/60000:0;m=Math.max(0,Math.round(R.bulk.h*60-el));l='Bulk time remaining'}}
+ else if(id==='ps'){m=+R.ps.min;l='Bench rest'}
+ else if(id==='wp'){m=Math.round(R.wp.h*60);l='Warm proof'}
+ else if(id==='fr'){m=Math.round(R.cp.h*60);l='Cold proof'}
+ else if(id==='pre'){m=+R.pre.m;l='Preheat'}
+ else if(id==='ld'){m=+R.cov.m;l='Covered bake'}
+ else if(id==='lo'){m=+R.unc.m;l='Uncovered bake'}
+ else if(id==='ot'){m=+R.rest.m;l='Cooling'}
  return m>0?{m:m,l:l}:null}
 function tm(x){return new Date(x).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
 function wk(x){return new Date(x).toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'})}
 function du(a,b){if(!a||!b)return '';var m=Math.round((b-a)/60000);return m>=60?Math.floor(m/60)+' h '+m%60+' min':m+' min'}
 var beeped=0;
 function fmtT(d){var h=Math.floor(d/3600),m=Math.floor(d%3600/60),s=d%60;return h?h+':'+p2(m)+':'+p2(s):m+':'+p2(s)}
-function tmInfo(t){if(!t)return {txt:'--:--',lb:'No timer set. Tap play or the pencil to set one.',due:false};var d=Math.round((t.paused?t.rem:t.end-Date.now())/1000);return {txt:d>0?fmtT(d):'0:00',lb:(d>0||t.paused?t.label:t.label+' — now!')+(t.paused?' (paused)':''),due:d<=0&&!t.paused}}
+function tmInfo(t){if(!t)return {txt:'--:--',lb:'No timer for this step. Tap play or the pencil to set one.',due:false};var d=Math.round((t.paused?t.rem:t.end-Date.now())/1000);return {txt:d>0?fmtT(d):'0:00',lb:(d>0||t.paused?t.label:t.label+' — time is up')+(t.idle?' — tap play to start':t.paused?' (paused)':''),due:d<=0&&!t.paused}}
 function tick(){var t=run().tm,el=$('tdisp');
  if(el){var i=tmInfo(t);el.textContent=i.txt;el.parentNode.classList.toggle('due',i.due);var lb=$('tlbl');if(lb)lb.textContent=i.lb}
  if(t&&!t.paused){var d=Math.round((t.end-Date.now())/1000);
   if(d<=0&&d>-60&&beeped!==t.end){beeped=t.end;if(SND){try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}try{var a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(function(){o.stop()},700)}catch(e){}}}}}
+function autoTimer(r){var D=stepTimer(r.cur,r.rcp,r);r.tm=D?{m:D.m,end:Date.now()+D.m*60000,label:D.l}:null}
+function idleTimer(r){var D=stepTimer(r.cur,r.rcp,r);r.tm=D?{m:D.m,paused:true,idle:true,rem:D.m*60000,label:D.l}:null}
 function nextStep(){var r=run(),R=r.rcp,ids=stepsFor(R).map(function(s){return s.id}),i=ids.indexOf(r.cur),id=ids[i];r.ts=r.ts||{};r.ts[id]=Date.now();
- var T=stepTimer(id,R,r);r.tm=T?{m:T.m,end:Date.now()+T.m*60000,label:T.l}:null;r.cur=ids[Math.min(i+1,ids.length-1)];syncSt(r)}
-function prevStep(){var r=run(),ids=curIds(),i=ids.indexOf(r.cur);r.cur=ids[Math.max(0,i-1)];syncSt(r)}
+ r.cur=ids[Math.min(i+1,ids.length-1)];syncSt(r);autoTimer(r)}
+function prevStep(){var r=run(),ids=curIds(),i=ids.indexOf(r.cur);r.cur=ids[Math.max(0,i-1)];syncSt(r);idleTimer(r)}
 function finish(){var r=run(),R=cp(r.rcp),a=r.act||{},f=r.f||{},t=r.ts||{},c=compute(R),N=function(x){var v=parseFloat(x);return isNaN(v)?'':v},u=function(k,rec){var v=parseFloat(a[k]);return isNaN(v)?rec:v};
  var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},e={id:Date.now(),ts:t.mx||t.au||t.lv||Date.now(),hyd:R.hyd,n:R.batch,auto:R.au.on?R.au.min:0,fridge:R.cp.on?R.cp.h:0,bf:u('bf',rec.bf),ww:u('ww',rec.ww),w:u('w',rec.w),lv:u('lv',rec.lv),sa:u('sa',rec.sa),rec:rec,mt:N(f.mt),rm:N(f.rt),rise:N(f.rise),it:N(f.it),pre:R.pre.t,cov:R.cov.t,unc:R.unc.t,cm:R.cov.m,um:R.unc.m,steps:t,rating:r.rating||4,photo:r.ph||'',notes:(r.notes||'').trim(),rid:R.id||'',rn:R.name||'',rcp:R};
  LOG.unshift(e);LOG.sort(function(a,b){return b.ts-a.ts});S.run={}}
 function body(id,r,R,c,am){var f=r.f||{},fi=function(k,lb){return '<div class="lbl">'+(k==='rise'?'':ic('therm'))+lb+'</div><input type="number" inputmode="decimal" step="any" data-f="'+k+'" value="'+esc(f[k]!=null&&f[k]!==''&&(k==='mt'||k==='rt'||k==='it')?tv(parseFloat(f[k])):f[k]!=null?f[k]:'')+'">'},
- T=stepTimer(id,R,r),nt=T?'<div class="note">Next starts a '+hm(T.m)+' timer.</div>':'',LP=levainPlan(R,c),fm=/^f(\d)$/.exec(id),cm=/^c(\d)$/.exec(id);
+ T=stepTimer(id,R,r),nt='',LP=levainPlan(R,c),fm=/^f(\d)$/.exec(id),cm=/^c(\d)$/.exec(id);
  if(fm)return '<p>Wet your hands and do a stretch and fold ('+fm[1]+' of '+R.sf.n+').</p>'+nt;
  if(cm)return '<p>Wet your hands and do a coil fold ('+cm[1]+' of '+R.cf.n+').'+(T?'':' Then hands off.')+'</p>'+nt;
  switch(id){
  case 'lv':return '<p>Feed '+esc(SN()||'the levain')+' '+esc(R.lv.ratio)+' at about '+td(68)+'.'+(+R.lv.peak>0?' It peaks in about '+R.lv.peak+' h.':'')+' Mix only once it is domed and floats.</p><div class="levain"><span class="big">'+dm(LP.st)+'</span> starter &nbsp; <span class="big">'+dm(LP.w)+'</span> water &nbsp; <span class="big">'+dm(LP.f)+'</span> flour &nbsp;= <b>'+dm(LP.tot)+'</b></div>'+nt;
- case 'au':return '<p>Flour and water only, mixed until no dry flour. Cover, '+R.au.min+' min at room temp.</p>'+am('Bread flour','bf',c.bf)+am('Whole wheat','ww',c.ww)+am('Water','w',c.w)+'<div class="note">Next starts the autolyse timer.</div>';
+ case 'au':return '<p>Flour and water only, mixed until no dry flour. Cover, '+R.au.min+' min at room temp.</p>'+am('Bread flour','bf',c.bf)+am('Whole wheat','ww',c.ww)+am('Water','w',c.w)+'';
  case 'mx':return '<p>Add levain and salt. Mix with spoon until combined, then fully incorporate with a wet hand for 1-2 minutes.</p>'+am('Levain','lv',c.L)+am('Kosher salt','sa',c.sl)+'<div class="g2"><div>'+fi('mt','Dough temp ('+tu()+')')+'</div><div>'+fi('rt','Room temp ('+tu()+')')+'</div></div>'+nt;
  case 'bk':return '<p>Let the dough rise. Shape when it looks ready.'+((+R.bulk.h>0||+R.bulk.rise>0)?' Target: '+[+R.bulk.h>0?hm(R.bulk.h*60):'',+R.bulk.rise>0?'about '+R.bulk.rise+'% rise':''].filter(Boolean).join(', ')+'.':'')+(r.ts.mx?' Mixed '+tm(r.ts.mx)+', '+du(r.ts.mx,Date.now())+' ago.':'')+'</p>'+fi('rise','Perceived rise (%)');
  case 'ps':return '<p>Divide into '+c.n+' × '+dm(c.per)+', pre-shape into rounds, seam down, and bench rest '+R.ps.min+' min uncovered.</p>'+nt;
  case 'sh':return '<p>'+(R.ps.on?'':'Divide into '+c.n+' × '+dm(c.per)+'. ')+'Final shape as a batard: drag it toward you on an unfloured bench to build tension. Seam up in a '+dm(750)+' banneton dusted with rice flour. Cover.</p>';
  case 'wp':return '<p>Warm proof at '+td(R.wp.t)+' for '+hm(R.wp.h*60)+'.</p>'+nt;
- case 'fr':return '<p>Cold proof in the fridge at '+td(R.cp.t)+' for '+hm(R.cp.h*60)+'. Bake straight from cold.</p><div class="note">Bake around '+tm((r.ts.fr||Date.now())+R.cp.h*3600000)+'.</div>'+nt;
+ case 'fr':return '<p>Cold proof in the fridge at '+td(R.cp.t)+' for '+hm(R.cp.h*60)+'. Bake straight from cold.</p><div class="note">Bake around '+tm(r.tm&&r.tm.end?r.tm.end:Date.now()+R.cp.h*3600000)+'.</div>'+nt;
  case 'pre':return '<p>Preheat the oven and Dutch ovens together to <b>'+td(R.pre.t)+'</b>, '+R.pre.m+' min.</p>'+nt;
  case 'ld':return '<p>Score straight from the fridge: one offset slash along the length, lame at 30-45°. Straight into the hot Dutch oven. Drop the oven to <b>'+td(R.cov.t)+'</b> as you load. Covered '+R.cov.m+' min.</p>'+nt;
  case 'lo':return '<p>Lids off. Uncovered at <b>'+td(R.unc.t)+'</b> for '+R.unc.m+' min. Pull by crust color: deep amber-brown with dark ear edges.</p>'+fi('it','Internal temp ('+tu()+')')+'<div class="note">At or above '+td(206)+' is a floor, not the signal.</div>'+nt;
@@ -489,19 +493,19 @@ document.addEventListener('click',function(e){
   var R0=cp(ED);if(!String(R0.name).trim())R0.name='Untitled recipe';S.run={rcp:R0,st:'plan',cur:'lv',ts:{}};ED=null;EDD=false;BTAB='plan';save();go('bakes');tick();return}
  if((d.go||d.fin||d.rt||d.rst||d.tr||d.stg||d.phg!=null)&&!hasBake())return;
  if(d.stg){setStage(run(),d.stg);save();render();window.scrollTo(0,0);tick();return}
- if(d.phg!=null){var r3=run(),tb=BTAB||r3.st,t3=r3.ts||{},S3=stepsFor(r3.rcp).filter(function(s){return grpOf(s.id)===tb&&phOf(s.id,tb)===+d.phg}),tg=S3.filter(function(s){return !t3[s.id]})[0]||S3[0];if(tg){r3.cur=tg.id;syncSt(r3)}save();render();return}
+ if(d.phg!=null){var r3=run(),tb=BTAB||r3.st,t3=r3.ts||{},S3=stepsFor(r3.rcp).filter(function(s){return grpOf(s.id)===tb&&phOf(s.id,tb)===+d.phg}),tg=S3.filter(function(s){return !t3[s.id]})[0]||S3[0];if(tg&&tg.id!==r3.cur){r3.cur=tg.id;syncSt(r3);idleTimer(r3)}save();render();return}
  if(d.tr){var r2=run();
   if(d.tr==='next')nextStep();
   else if(d.tr==='prev')prevStep();
-  else if(d.tr==='reset'){if(r2.tm){r2.tm.paused=false;delete r2.tm.rem;r2.tm.end=Date.now()+r2.tm.m*60000}}
+  else if(d.tr==='reset'){if(r2.tm){r2.tm.paused=false;delete r2.tm.rem;delete r2.tm.idle;r2.tm.end=Date.now()+r2.tm.m*60000}}
   else if(d.tr==='edit')askTimer(r2);
   else if(d.tr==='play'){var tm0=r2.tm;
-   if(tm0&&tm0.paused){tm0.end=Date.now()+tm0.rem;tm0.paused=false;delete tm0.rem}
+   if(tm0&&tm0.paused){tm0.end=Date.now()+tm0.rem;tm0.paused=false;delete tm0.rem;delete tm0.idle}
    else if(tm0){tm0.rem=Math.max(0,tm0.end-Date.now());tm0.paused=true}
-   else{var ids=curIds(),pv=ids[ids.indexOf(r2.cur)-1],TT0=pv?stepTimer(pv,r2.rcp,r2):null;if(TT0)r2.tm={m:TT0.m,end:Date.now()+TT0.m*60000,label:TT0.l};else askTimer(r2)}}
+   else askTimer(r2)}
   save();render();tick();return}
  if(d.k){S[d.k]=+d.v}
- else if(d.go){run().cur=d.go;syncSt(run())}
+ else if(d.go){var rg=run();if(rg.cur!==d.go){rg.cur=d.go;syncSt(rg);idleTimer(rg)}}
  else if(d.rt){run().rating=+d.rt}
  else if(d.fin){finish();FB.pushBake(LOG[0]);BTAB=null}
  else if(d.rst){if(!confirm('Discard this bake in progress?'))return;S.run={};BTAB=null}
