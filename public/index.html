@@ -129,7 +129,7 @@ function curSet(){var c={};for(var k in S)if(k!=='ticks'&&k!=='notes')c[k]=S[k];
 function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()));localStorage.setItem('bb-recipes',JSON.stringify(RCP))}catch(e){}}
 function save(){STS=Date.now();persist();sched()}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-27 build 23';
+var OZ=28.3495,VER='2026-11-27 build 24';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -319,7 +319,7 @@ function tabsHtml(r,tab){return '<div class="tabs">'+[['plan','Planning'],['ferm
 function transport(r){var t=r.tm,pl=t&&!t.paused;
  return '<div class="trn"><button class="ib" data-tr="prev" aria-label="Previous step" title="Previous step">'+icf('skipb')+'</button><button class="ib" data-tr="reset" aria-label="Restart timer" title="Restart timer">'+ic('replay')+'</button><button class="ib big" data-tr="play" aria-label="'+(pl?'Pause':'Start')+' timer" title="'+(pl?'Pause':'Start')+' timer">'+icf(pl?'pause':'play')+'</button><button class="ib" data-tr="edit" aria-label="Edit timer" title="Edit timer">'+ic('pencil')+'</button><button class="ib" data-tr="next" aria-label="Done, next step" title="Done, next step">'+icf('skipf')+'</button></div>'}
 function timerDisp(r){var i,dn=r.rcp&&contLbl(r.cur,r.rcp)&&r.ts&&r.ts[r.cur];
- if(dn)return '<div class="tdisp due"><span id="tdisp" data-done="1">Done</span></div><div class="tlbl" id="tlbl">Step complete</div>';
+ if(dn)return '';
  i=tmInfo(r.tm);return '<div class="tdisp'+(i.due?' due':'')+'"><span id="tdisp">'+i.txt+'</span></div><div class="tlbl" id="tlbl">'+esc(i.lb)+'</div>'}
 function contLbl(id,R){var ids=stepsFor(R).map(function(s){return s.id}),lastF=null,pr=['ps','sh','wp','fr'].filter(function(i){return ids.indexOf(i)>=0}),lp=pr[pr.length-1];
  ids.forEach(function(i){if(/^[fc]\d$/.test(i))lastF=i});
@@ -447,7 +447,7 @@ var beeped=0;
 function fmtT(d){var h=Math.floor(d/3600),m=Math.floor(d%3600/60),s=d%60;return h?h+':'+p2(m)+':'+p2(s):m+':'+p2(s)}
 function tmInfo(t){if(!t)return {txt:'--:--',lb:'No timer for this step. Tap play or the pencil to set one.',due:false};var d=Math.round((t.paused?t.rem:t.end-Date.now())/1000);return {txt:d>0?fmtT(d):'0:00',lb:(d>0||t.paused?t.label:t.label+' — time is up')+(t.idle?' — tap play to start':t.paused?' (paused)':''),due:d<=0&&!t.paused}}
 function tick(){var t=run().tm,el=$('tdisp');
- if(el&&!el.dataset.done){var i=tmInfo(t);el.textContent=i.txt;el.parentNode.classList.toggle('due',i.due);var lb=$('tlbl');if(lb)lb.textContent=i.lb}
+ if(el){var i=tmInfo(t);el.textContent=i.txt;el.parentNode.classList.toggle('due',i.due);var lb=$('tlbl');if(lb)lb.textContent=i.lb}
  if(t&&!t.paused){var d=Math.round((t.end-Date.now())/1000);
   if(d<=0&&d>-60&&beeped!==t.end){beeped=t.end;if(SND){try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}try{var a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(function(){o.stop()},700)}catch(e){}}}}}
 function autoTimer(r){var D=stepTimer(r.cur,r.rcp,r);r.tm=D?{m:D.m,end:Date.now()+D.m*60000,label:D.l}:null}
