@@ -102,13 +102,13 @@ body.out #ha{display:none}
 .trh{display:flex;align-items:center;justify-content:space-between;background:var(--hov);padding:4px 6px 4px 14px;min-height:52px}.trt{display:flex;align-items:center;gap:10px;font-size:17px;color:var(--mute)}.trt .ic{width:24px;height:24px}
 .ib{width:44px;height:44px;border:0;background:none;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;flex:none}.ib .ic{color:inherit;width:24px;height:24px}.ib.big .ic{width:34px;height:34px}.ib:hover{background:var(--hov)}
 .phs{display:flex;border-bottom:1px solid var(--div)}.phb{flex:1;min-width:0;padding:12px 2px;border:0;border-left:1px solid var(--line);background:none;color:var(--mute);font:inherit;font-size:13px;font-weight:700;line-height:1.2;cursor:pointer}.phb:first-child{border-left:0}.phb.on{color:var(--acc)}
-.trk{height:6px;background:var(--accbg);position:relative}.trf{position:absolute;left:0;top:0;bottom:0;background:var(--acc)}
+.trk{height:6px;background:var(--accbg);position:relative}.trf{position:absolute;left:0;top:0;bottom:0;background:var(--acc);transition:width .6s ease}
 .mks{display:flex;margin:0 0 4px}.mk{flex:1;min-width:0;border:0;background:none;color:var(--mute);font:inherit;font-size:11px;padding:6px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}.mk .ic{width:18px;height:18px;color:var(--mute)}.mk.done .ic{color:var(--acc);fill:var(--acc)}.mk.cur{color:var(--ink);font-weight:700}.mk.cur .ic{color:var(--acc)}
 .trn{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px 0}
 .tdisp{background:var(--hov);border-top:1px solid var(--div);border-bottom:1px solid var(--div);text-align:center;font-size:30px;font-weight:700;padding:10px;margin:6px 0 0}.tdisp.due{background:var(--green);color:var(--btnink,#fff)}
 .tlbl{text-align:center;font-size:13px;color:var(--mute);margin:6px 0}
 .stp{text-align:center;margin-top:10px}.stt{color:var(--acc);font-size:19px;font-weight:700;margin-bottom:2px}.stp p{color:var(--mute);margin:6px 0}.stp .note{text-align:center}.stp .lbl{text-align:left}.stp .g2{text-align:left}.stp .add{color:var(--acc);font-style:italic;margin:2px 0}.stp .add b{font-size:18px}.stp .levain{text-align:center}.stp .row{justify-content:center}.stp input,.stp textarea{text-align:left}
-.cont{margin:16px 0 4px;padding:10px 0 16px;background:var(--hov);text-align:center}.cont[hidden]{display:none}.contt{color:var(--green);font-size:22px;margin:4px 0 10px}.pill.cpill{display:inline-flex;width:auto;margin:0;padding:13px 46px;background:var(--green);color:var(--btnink,#fff)}
+.cont{margin:16px 0 4px;padding:10px 0 16px;background:var(--hov);text-align:center}.cont[hidden]{display:none}.contt{color:var(--green);font-size:22px;margin:4px 0 10px}.pill.cpill{display:inline-flex;width:auto;margin:0;padding:13px 46px;background:var(--acc);color:var(--btnink,#fff)}@keyframes cin{from{opacity:0}to{opacity:1}}.cont{animation:cin .35s ease .6s both}
 </style>
 </head>
 <body>
@@ -129,7 +129,7 @@ function curSet(){var c={};for(var k in S)if(k!=='ticks'&&k!=='notes')c[k]=S[k];
 function persist(){try{localStorage.setItem('bb-sts',STS);localStorage.setItem('bb-del',JSON.stringify(DEL));localStorage.setItem('bakeboard-log',JSON.stringify(LOG));localStorage.setItem('bakeboard-set',JSON.stringify(curSet()));localStorage.setItem('bb-recipes',JSON.stringify(RCP))}catch(e){}}
 function save(){STS=Date.now();persist();sched()}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-26 build 22';
+var OZ=28.3495,VER='2026-11-27 build 23';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -274,6 +274,11 @@ function logLines(l){var t=l.steps||{},has=function(x){return x!==''&&x!=null},q
   has(l.bf)?'Used: flour '+dm(l.bf)+', whole wheat '+dm(l.ww)+', water '+dm(l.w)+', levain '+dm(l.lv)+', salt '+dm(l.sa):'',
   q([has(l.temp)?'dough '+td(l.temp):'',has(l.rm)?'room '+td(l.rm):'']),
   q([has(l.pre)?'preheat '+td(l.pre):'',has(l.cov)?'covered '+(has(l.cm)?l.cm:'?')+' min at '+td(l.cov):'',has(l.unc)?'uncovered '+(has(l.um)?l.um:'?')+' min at '+td(l.unc):'',has(l.it)?'internal '+td(l.it):''])].filter(Boolean);
+ if(l.tv===2&&l.rcp){var Dn=durNew(t,l.rcp),dl=function(n){var x=Dn.filter(function(y){return y[0]===n})[0];return x&&x[1]?x[1]:''},u2=function(k,nm){return nm+' '+dm(l[k])+(l.rec&&l.rec[k]!==l[k]?' (recipe '+dm(l.rec[k])+')':'')};
+  return ['Used: '+[u2('bf','flour'),u2('ww','whole wheat'),u2('w','water'),u2('lv','levain'),u2('sa','salt')].join(', '),
+   q([has(l.mt)?'dough '+td(l.mt)+' at mix':'',has(l.rm)?'room '+td(l.rm):'',has(l.rise)?'perceived rise '+l.rise+'%':'']),
+   q(Dn.filter(function(y){return y[1]&&['Covered bake','Uncovered bake'].indexOf(y[0])<0}).map(function(y){return y[0].toLowerCase()+' '+y[1]})),
+   q(['preheat '+td(l.pre),dl('Covered bake')?'covered '+dl('Covered bake')+' at '+td(l.cov):'',dl('Uncovered bake')?'uncovered '+dl('Uncovered bake')+' at '+td(l.unc):'',has(l.it)?'internal '+td(l.it):''])].filter(Boolean)}
  var u=function(k,nm){return nm+' '+dm(l[k])+(l.rec&&l.rec[k]!==l[k]?' (recipe '+dm(l.rec[k])+')':'')};
  return ['Used: '+[u('bf','flour'),u('ww','whole wheat'),u('w','water'),u('lv','levain'),u('sa','salt')].join(', '),
   q([has(l.mt)?'dough '+td(l.mt)+' at mix':'',has(l.rm)?'room '+td(l.rm):'',has(l.rise)?'perceived rise '+l.rise+'%':'']),
@@ -313,15 +318,20 @@ function pill(g){return '<button class="pill" data-stg="'+g+'">'+ic('arrow')+'Ch
 function tabsHtml(r,tab){return '<div class="tabs">'+[['plan','Planning'],['ferm','Fermenting'],['bake','Baking'],['done','Completed']].map(function(x){return '<button class="tab'+(tab===x[0]?' on':'')+(r.st===x[0]&&tab!==x[0]?' cs':'')+'" data-bt="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>'}
 function transport(r){var t=r.tm,pl=t&&!t.paused;
  return '<div class="trn"><button class="ib" data-tr="prev" aria-label="Previous step" title="Previous step">'+icf('skipb')+'</button><button class="ib" data-tr="reset" aria-label="Restart timer" title="Restart timer">'+ic('replay')+'</button><button class="ib big" data-tr="play" aria-label="'+(pl?'Pause':'Start')+' timer" title="'+(pl?'Pause':'Start')+' timer">'+icf(pl?'pause':'play')+'</button><button class="ib" data-tr="edit" aria-label="Edit timer" title="Edit timer">'+ic('pencil')+'</button><button class="ib" data-tr="next" aria-label="Done, next step" title="Done, next step">'+icf('skipf')+'</button></div>'}
-function timerDisp(r){var i=tmInfo(r.tm);return '<div class="tdisp'+(i.due?' due':'')+'"><span id="tdisp">'+i.txt+'</span></div><div class="tlbl" id="tlbl">'+esc(i.lb)+'</div>'}
+function timerDisp(r){var i,dn=r.rcp&&contLbl(r.cur,r.rcp)&&r.ts&&r.ts[r.cur];
+ if(dn)return '<div class="tdisp due"><span id="tdisp" data-done="1">Done</span></div><div class="tlbl" id="tlbl">Step complete</div>';
+ i=tmInfo(r.tm);return '<div class="tdisp'+(i.due?' due':'')+'"><span id="tdisp">'+i.txt+'</span></div><div class="tlbl" id="tlbl">'+esc(i.lb)+'</div>'}
 function contLbl(id,R){var ids=stepsFor(R).map(function(s){return s.id}),lastF=null,pr=['ps','sh','wp','fr'].filter(function(i){return ids.indexOf(i)>=0}),lp=pr[pr.length-1];
  ids.forEach(function(i){if(/^[fc]\d$/.test(i))lastF=i});
  if(lastF){if(id===lastF)return 'Folds Complete'}else if(id==='mx')return 'Mixing Complete';
  if(id==='bk')return 'Bulk Complete';
  if(id===lp)return {fr:'Cold Proof Complete',wp:'Warm Proof Complete',sh:'Shaping Complete',ps:'Pre-shape Complete'}[id];
  return {pre:'Preheat Complete',lo:'Baking Complete',ot:'Cooling Complete'}[id]||null}
-function contReady(r){var t=r.tm;return !t||(!t.paused&&t.end<=Date.now())}
-function contHtml(r,R){var L=contLbl(r.cur,R);if(!L)return '';return '<div class="cont" id="cont"'+(contReady(r)?'':' hidden')+'><div class="contt">'+L+'</div><button class="pill cpill" data-tr="next">Continue</button></div>'}
+var LB={key:'',w:0};
+function barHtml(key,wd){var pw=LB.key===key?LB.w:wd;LB={key:key,w:wd};return '<div class="trk"><div class="trf" style="width:'+pw+'%" data-w="'+wd+'"></div></div>'}
+function barFill(){var f=document.querySelector('.trf');if(f&&f.dataset.w&&f.style.width!==f.dataset.w+'%')requestAnimationFrame(function(){requestAnimationFrame(function(){f.style.width=f.dataset.w+'%'})})}
+function contHtml(r,R){var L=contLbl(r.cur,R);if(!L)return '';var dn=!!(r.ts&&r.ts[r.cur]);
+ return '<div class="cont" id="cont"'+(dn?'':' hidden')+'><div class="contt">'+L+'</div>'+(r.cur==='ot'?pill('done'):'<button class="pill cpill" data-tr="next">Continue</button>')+'</div>'}
 function stepPanel(r,R,c){var s=stepsFor(R).filter(function(x){return x.id===r.cur})[0],act=r.act||{},
  am=function(lb,k,rec){var a=parseFloat(act[k]),v=isNaN(a)?rec:a;return '<div class="add"><b>'+dm(v)+'</b> '+lb+'</div>'};
  return '<div class="stp"><div class="stt">'+s.h+'</div>'+(r.ts[s.id]?'<div class="note">Completed '+tm(r.ts[s.id])+'</div>':'')+body(s.id,r,R,c,am)+incHtml(s.id,R)+contHtml(r,R)+'</div>'}
@@ -333,13 +343,14 @@ function trackHtml(r,R,tab){var c=compute(R),t=r.ts||{},ST=stepsFor(R).filter(fu
  var L=tab==='bake'?PHB:PHF,pi=phOf(r.cur,tab),pids=ST.filter(function(s){return phOf(s.id,tab)===pi}),dn=pids.filter(function(s){return t[s.id]}).length;
  return '<div class="trh"><span class="trt">'+ic('clock')+(tab==='bake'?'Baking Tracker':'Dough Tracker')+'</span><button class="ib" data-snd="1" aria-label="Sound '+(SND?'on':'off')+'" title="Sound '+(SND?'on':'off')+'">'+ic(SND?'vol':'mute')+'</button></div>'
  +'<div class="phs">'+L.map(function(p,i){return '<button class="phb'+(i===pi?' on':'')+'" data-phg="'+i+'">'+p[1]+'</button>'}).join('')+'</div>'
- +'<div class="trk"><div class="trf" style="width:'+Math.round(dn/pids.length*100)+'%"></div></div>'
+ +barHtml(tab+':'+pi,Math.round(dn/pids.length*100))
  +'<div class="mks">'+pids.map(function(s){return '<button class="mk'+(t[s.id]?' done':'')+(s.id===r.cur?' cur':'')+'" data-go="'+s.id+'">'+ic('water')+'<span>'+s.n+'</span></button>'}).join('')+'</div>'
  +transport(r)+timerDisp(r)+stepPanel(r,R,c)+logPanel(r,ST)}
+function durNew(t,R){var ids=stepsFor(R).map(function(s){return s.id}),pv=function(id){return t[ids[ids.indexOf(id)-1]]},d=function(a,b){return a&&b?du(a,b):''};
+ return [['Bulk',d(pv('mx'),t.bk)],['Bench rest',d(pv('ps'),t.ps)],['Warm proof',d(pv('wp'),t.wp)],['Cold proof',d(pv('fr'),t.fr)],['Covered bake',d(pv('ld'),t.ld)],['Uncovered bake',d(pv('lo'),t.lo)],['Cooling',d(pv('ot'),t.ot)]]}
 function statRows(r,R){var t=r.ts||{},f=r.f||{},ks=Object.keys(t).map(function(k){return t[k]}).filter(Boolean),fv=function(k){var v=parseFloat(f[k]);return isNaN(v)?'':v},rows=[],add=function(l,v){if(v!==''&&v!=null)rows.push([l,v])};
  if(ks.length){var a0=Math.min.apply(null,ks),a1=Math.max.apply(null,ks);add('Started',wk(a0));add('Total time',du(a0,r.st==='done'?a1:Math.max(a1,Date.now())))}
- add('Bulk',t.mx&&t.bk?du(t.mx,t.bk):'');add('Bench rest',t.ps&&t.sh?du(t.ps,t.sh):'');add('Warm proof',t.wp&&(t.fr||t.pre)?du(t.wp,t.fr||t.pre):'');add('Cold proof',t.fr&&t.ld?du(t.fr,t.ld):'');
- add('Covered bake',t.ld&&t.lo?du(t.ld,t.lo)+' at '+td(R.cov.t):'');add('Uncovered bake',t.lo&&t.ot?du(t.lo,t.ot)+' at '+td(R.unc.t):'');
+ durNew(t,R).forEach(function(x){add(x[0],x[1]?(x[0]==='Covered bake'?x[1]+' at '+td(R.cov.t):x[0]==='Uncovered bake'?x[1]+' at '+td(R.unc.t):x[1]):'')});
  add('Dough temp',fv('mt')!==''?td(fv('mt')):'');add('Room temp',fv('rt')!==''?td(fv('rt')):'');add('Perceived rise',fv('rise')!==''?fv('rise')+'%':'');add('Internal temp',fv('it')!==''?td(fv('it')):'');return rows}
 function doneHtml(r,R){var c=compute(R),t=r.ts||{},cur=r.st==='done',nt=function(x){return '<div class="note">'+esc(x)+'</div>'},act=r.act||{},
  av=function(k,rec){var v=parseFloat(act[k]);return isNaN(v)?rec:v},tr=function(a,b){return '<div class="tr"><span>'+a+'</span><span>'+b+'</span></div>'},h='';
@@ -436,16 +447,18 @@ var beeped=0;
 function fmtT(d){var h=Math.floor(d/3600),m=Math.floor(d%3600/60),s=d%60;return h?h+':'+p2(m)+':'+p2(s):m+':'+p2(s)}
 function tmInfo(t){if(!t)return {txt:'--:--',lb:'No timer for this step. Tap play or the pencil to set one.',due:false};var d=Math.round((t.paused?t.rem:t.end-Date.now())/1000);return {txt:d>0?fmtT(d):'0:00',lb:(d>0||t.paused?t.label:t.label+' — time is up')+(t.idle?' — tap play to start':t.paused?' (paused)':''),due:d<=0&&!t.paused}}
 function tick(){var t=run().tm,el=$('tdisp');
- if(el){var i=tmInfo(t);el.textContent=i.txt;el.parentNode.classList.toggle('due',i.due);var lb=$('tlbl');if(lb)lb.textContent=i.lb;var cb=$('cont');if(cb&&cb.hidden&&contReady(run()))cb.hidden=false}
+ if(el&&!el.dataset.done){var i=tmInfo(t);el.textContent=i.txt;el.parentNode.classList.toggle('due',i.due);var lb=$('tlbl');if(lb)lb.textContent=i.lb}
  if(t&&!t.paused){var d=Math.round((t.end-Date.now())/1000);
   if(d<=0&&d>-60&&beeped!==t.end){beeped=t.end;if(SND){try{navigator.vibrate&&navigator.vibrate([300,150,300])}catch(e){}try{var a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();setTimeout(function(){o.stop()},700)}catch(e){}}}}}
 function autoTimer(r){var D=stepTimer(r.cur,r.rcp,r);r.tm=D?{m:D.m,end:Date.now()+D.m*60000,label:D.l}:null}
 function idleTimer(r){var D=stepTimer(r.cur,r.rcp,r);r.tm=D?{m:D.m,paused:true,idle:true,rem:D.m*60000,label:D.l}:null}
-function nextStep(){var r=run(),R=r.rcp,ids=stepsFor(R).map(function(s){return s.id}),i=ids.indexOf(r.cur),id=ids[i];r.ts=r.ts||{};r.ts[id]=Date.now();
+function nextStep(){var r=run(),R=r.rcp,ids=stepsFor(R).map(function(s){return s.id}),i=ids.indexOf(r.cur),id=ids[i],end=!!contLbl(id,R);r.ts=r.ts||{};
+ if(end&&!r.ts[id]){r.ts[id]=Date.now();r.tm=null;return}
+ if(!(end&&r.ts[id]))r.ts[id]=Date.now();
  r.cur=ids[Math.min(i+1,ids.length-1)];syncSt(r);autoTimer(r)}
 function prevStep(){var r=run(),ids=curIds(),i=ids.indexOf(r.cur);r.cur=ids[Math.max(0,i-1)];syncSt(r);idleTimer(r)}
 function finish(){var r=run(),R=cp(r.rcp),a=r.act||{},f=r.f||{},t=r.ts||{},c=compute(R),N=function(x){var v=parseFloat(x);return isNaN(v)?'':v},u=function(k,rec){var v=parseFloat(a[k]);return isNaN(v)?rec:v};
- var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},e={id:Date.now(),ts:t.mx||t.au||t.lv||Date.now(),hyd:R.hyd,n:R.batch,auto:R.au.on?R.au.min:0,fridge:R.cp.on?R.cp.h:0,bf:u('bf',rec.bf),ww:u('ww',rec.ww),w:u('w',rec.w),lv:u('lv',rec.lv),sa:u('sa',rec.sa),rec:rec,mt:N(f.mt),rm:N(f.rt),rise:N(f.rise),it:N(f.it),pre:R.pre.t,cov:R.cov.t,unc:R.unc.t,cm:R.cov.m,um:R.unc.m,steps:t,rating:r.rating||4,photo:r.ph||'',notes:(r.notes||'').trim(),rid:R.id||'',rn:R.name||'',rcp:R};
+ var rec={bf:c.bf,ww:c.ww,w:c.w,lv:c.L,sa:c.sl},e={id:Date.now(),ts:t.mx||t.au||t.lv||Date.now(),hyd:R.hyd,n:R.batch,auto:R.au.on?R.au.min:0,fridge:R.cp.on?R.cp.h:0,bf:u('bf',rec.bf),ww:u('ww',rec.ww),w:u('w',rec.w),lv:u('lv',rec.lv),sa:u('sa',rec.sa),rec:rec,mt:N(f.mt),rm:N(f.rt),rise:N(f.rise),it:N(f.it),pre:R.pre.t,cov:R.cov.t,unc:R.unc.t,cm:R.cov.m,um:R.unc.m,steps:t,rating:r.rating||4,photo:r.ph||'',notes:(r.notes||'').trim(),rid:R.id||'',rn:R.name||'',rcp:R,tv:2};
  LOG.unshift(e);LOG.sort(function(a,b){return b.ts-a.ts});S.run={}}
 function body(id,r,R,c,am){var f=r.f||{},fi=function(k,lb){return '<div class="lbl">'+(k==='rise'?'':ic('therm'))+lb+'</div><input type="number" inputmode="decimal" step="any" data-f="'+k+'" value="'+esc(f[k]!=null&&f[k]!==''&&(k==='mt'||k==='rt'||k==='it')?tv(parseFloat(f[k])):f[k]!=null?f[k]:'')+'">'},
  T=stepTimer(id,R,r),nt='',LP=levainPlan(R,c),fm=/^f(\d)$/.exec(id),cm=/^c(\d)$/.exec(id);
@@ -473,7 +486,7 @@ function render(){document.body.classList.toggle('out',!USER);
  $('app').innerHTML=PAGE==='recipes'?recipesHtml():PAGE==='editor'?editorHtml():PAGE==='bakes'?bakesHtml():PAGE==='settings'?setHtml():profHtml();
  $('ptitle').textContent=PAGE==='editor'?(ED.id?'Edit recipe':'New recipe'):TT[PAGE];
  $('ha').innerHTML=PAGE==='recipes'?'<button class="hb round" data-new="1" aria-label="New recipe" title="New recipe">'+ic('plus')+'</button>':PAGE==='editor'?'<button class="hb fill" data-start="1">'+ic('play')+'Start bake</button>':'';
- $('nav').innerHTML=navHtml();loadPh();
+ $('nav').innerHTML=navHtml();loadPh();barFill();
  var hz=document.querySelector('.hs.cur'),bx=document.querySelector('.hz');if(hz&&bx){var ra=hz.getBoundingClientRect(),rb=bx.getBoundingClientRect();bx.scrollLeft=bx.scrollLeft+(ra.left-rb.left)-(bx.clientWidth-ra.width)/2}}
 function store(t){var d=t.dataset,r=run();if(t.id==='sname'){S.sn=t.value;save();return true}if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=(S.lb&&!isNaN(parseFloat(t.value))?String(wg(parseFloat(t.value))):t.value)}else if(d.f){r.f=r.f||{};r.f[d.f]=(S.tc&&['mt','rt','it'].indexOf(d.f)>=0&&!isNaN(parseFloat(t.value))?String(tf(parseFloat(t.value))):t.value)}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
 document.addEventListener('click',function(e){
