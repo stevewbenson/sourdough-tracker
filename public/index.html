@@ -117,6 +117,7 @@ body.out #ha{display:none}
 #top h1.long{white-space:normal;font-size:16px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .mk .ic{overflow:visible}.mk{padding-bottom:8px}
 .so{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 12px}.so .ic{width:16px;height:16px;color:inherit}
+#brand,.nbrand{align-items:flex-end}#brand{padding-bottom:9px}.nbrand{padding-bottom:10px}#brand span,.nbrand span{font-size:30px;line-height:1}#brand img,.nbrand img{height:36px}
 </style>
 </head>
 <body>
@@ -139,7 +140,7 @@ function save(){STS=Date.now();if(S.run&&S.run.rcp)S.run.mt=STS;persist();sched(
 function flush(){clearTimeout(stimer);if(FB&&USER)FB.pushSet(curSet(),STS)}
 function endRun(){S.run={mt:Date.now()};setBV(false)}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-28 build 29';
+var OZ=28.3495,VER='2026-11-28 build 30';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -178,7 +179,8 @@ pin:'M12 2L6 10A7.5 7.5 0 1 0 18 10z',
 signout:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9',
 scale:'M12 3v18M5 21h14M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z'},
 IK={bf:'flour',ww:'wheat',w:'water',lv:'jar',sa:'salt'};
-function ic(n){return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+ICP[n]+'"/></svg>'}
+var ICF={mbook:'M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454Zm-40 176q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q47-23 96.5-35.5T260-800q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 101.5 12.5T898-752q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59Z',assign:'M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h168q13-36 43.5-58t68.5-22q38 0 68.5 22t43.5 58h168q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm80-160h280v-80H280v80Zm0-160h400v-80H280v80Zm0-160h400v-80H280v80Zm200-190q13 0 21.5-8.5T510-820q0-13-8.5-21.5T480-850q-13 0-21.5 8.5T450-820q0 13 8.5 21.5T480-790Z',cog:'m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z'};
+function ic(n){if(ICF[n])return '<svg class="ic" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"><path d="'+ICF[n]+'"/></svg>';return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+ICP[n]+'"/></svg>'}
 function dm(g){g=+g;if(!S.lb)return Math.round(g).toLocaleString()+' g';var o=g/OZ,lb=Math.floor(o/16+1e-9),r=Math.round((o-lb*16)*10)/10;if(r>=16){lb++;r=0}return lb?lb+' lb '+r+' oz':r+' oz'}
 function wv(g){return S.lb?Math.round(g/OZ*100)/100:g}
 function wg(v){return S.lb?Math.round(v*OZ*10)/10:v}
@@ -196,7 +198,7 @@ try{var sp0=localStorage.getItem('bb-page');sp0={recipe:'recipes',bake:'bakes',l
 function uname(){return USER.displayName||USER.email||'Signed in'}
 function avHtml(px){var n=uname(),ph=USER.photoURL,ini=esc(String(n).charAt(0).toUpperCase());
  return '<span class="av"'+(px?' style="width:'+px+'px;height:'+px+'px;font-size:'+Math.round(px*.43)+'px"':'')+'>'+ini+(ph?'<img src="'+esc(ph)+'" alt="" referrerpolicy="no-referrer" onerror="this.remove()">':'')+'</span>'}
-function navHtml(){var it=[['recipes','sliders','Recipes'],['bakes','clock','Bakes'],['settings','gear','Settings']],cur=PAGE==='editor'?'recipes':PAGE;
+function navHtml(){var it=[['recipes','mbook','Recipes'],['bakes','assign','Bakes'],['settings','cog','Settings']],cur=PAGE==='editor'?'recipes':PAGE;
  return '<div class="nbrand"><img src="logo.png" alt=""><span>Sourdough</span></div>'
  +it.map(function(x){return '<button class="ni'+(cur===x[0]?' on':'')+'" data-pg="'+x[0]+'">'+ic(x[1])+'<span>'+x[2]+'</span></button>'}).join('')
  +'<div class="nh">Account</div><button class="ni'+(PAGE==='profile'?' on':'')+'" data-pg="profile">'+avHtml(0)+'<span class="nm">'+esc(uname())+'</span></button>'
