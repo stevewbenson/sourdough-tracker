@@ -143,7 +143,7 @@ function save(){STS=Date.now();if(S.run&&S.run.rcp)S.run.mt=STS;persist();sched(
 function flush(){clearTimeout(stimer);if(FB&&USER)FB.pushSet(curSet(),STS)}
 function endRun(){S.run={mt:Date.now()};setBV(false)}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-28 build 39';
+var OZ=28.3495,VER='2026-11-28 build 41';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -197,7 +197,7 @@ var THEME='system';try{var t0=localStorage.getItem('bb-theme');if(t0==='light'||
 function applyTheme(){var h=document.documentElement;if(THEME==='system')h.removeAttribute('data-theme');else h.setAttribute('data-theme',THEME);var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',getComputedStyle(h).getPropertyValue('--hdr').trim()||'#2f6fa3')}
 try{var mq=window.matchMedia('(prefers-color-scheme: dark)');if(mq.addEventListener)mq.addEventListener('change',applyTheme)}catch(e){}
 var PG=['recipes','editor','bakes','settings','profile'],TT={recipes:'Recipes',editor:'Recipe',bakes:'Bakes',settings:'Settings',profile:'Profile'},PAGE='recipes',EXP={},ED=null,EDD=false;
-try{var sp0=localStorage.getItem('bb-page');sp0={recipe:'recipes',bake:'bakes',loaves:'bakes'}[sp0]||sp0;if(PG.indexOf(sp0)>=0&&sp0!=='editor')PAGE=sp0}catch(e){}
+try{var sp0=localStorage.getItem('bb-page');sp0={recipe:'recipes',bake:'bakes',loaves:'bakes'}[sp0]||sp0;if(PG.indexOf(sp0)>=0&&sp0!=='editor'&&sp0!=='profile')PAGE=sp0}catch(e){}
 function uname(){return USER.displayName||USER.email||'Signed in'}
 function avHtml(px){var n=uname(),ph=USER.photoURL,ini=esc(String(n).charAt(0).toUpperCase());
  return '<span class="av"'+(px?' style="width:'+px+'px;height:'+px+'px;font-size:'+Math.round(px*.43)+'px"':'')+'>'+ini+(ph?'<img src="'+esc(ph)+'" alt="" referrerpolicy="no-referrer" onerror="this.remove()">':'')+'</span>'}
@@ -208,7 +208,7 @@ function navHtml(){var it=[['recipes','mbook','Recipes'],['bakes','assign','Bake
  +'<div class="navbot">Version '+esc(VER)+'</div>'}
 function memSince(){var d=null;try{var c=USER.metadata&&USER.metadata.creationTime;if(c)d=new Date(c)}catch(e){}
  if(!d||isNaN(d)){var a=[];LOG.forEach(function(l){if(l.ts)a.push(+l.ts)});RCP.forEach(function(r){if(r.ts)a.push(+r.ts)});if(a.length)d=new Date(Math.min.apply(null,a))}
- return d&&!isNaN(d)?'<div class="note" style="margin:2px 0 0">Member since '+p2(d.getMonth()+1)+'-'+p2(d.getDate())+'-'+d.getFullYear()+'</div>':''}
+ return d&&!isNaN(d)?'<div class="note" style="margin:2px 0 0">Member since '+['January','February','March','April','May','June','July','August','September','October','November','December'][d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+'</div>':''}
 var AM='in',AEM='';
 function authHtml(){var up=AM==='up';
  return '<div class="card"><h2>'+(up?'Create account':'Sign in')+'</h2><div class="note">'+(up?'Create an account with your email to keep your recipes and bakes and sync them across devices.':'Sign in to load your recipes and bakes and sync them across devices.')+'</div>'
@@ -426,6 +426,7 @@ window.onUser=function(u,fb){FB=fb;READY=true;
  if(u){var old=null;try{old=localStorage.getItem('bb-uid')}catch(e){}
   try{localStorage.setItem('bb-uid',u.uid)}catch(e){}
   if(old&&old!==u.uid){try{['bakeboard-log','bakeboard-set','bb-sts','bb-del','bb-recipes'].forEach(function(k){localStorage.removeItem(k)})}catch(e){}location.reload();return}}
+ if(!u){PAGE='recipes';try{localStorage.setItem('bb-page','recipes')}catch(e){}}
  USER=u;msg('');render()};
 window.onRemoteSet=function(set,sts){if(set&&sts>STS){var lr=S.run,keep=lr&&lr.rcp&&(lr.mt||0)>((set.run&&set.run.mt)||0);for(var k in set)S[k]=set[k];if(keep){S.run=lr;S.bn=Math.max(+S.bn||0,+lr.bn||0)}STS=sts;persist();if(keep)sched();if(!busy())render()}else if(STS>(sts||0)&&FB)FB.pushSet(curSet(),STS)};
 window.onRemoteBakes=function(a){LOG=a.sort(function(x,y){return y.ts-x.ts});persist();if(!busy())render()};
