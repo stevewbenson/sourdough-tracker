@@ -143,7 +143,7 @@ function save(){STS=Date.now();if(S.run&&S.run.rcp)S.run.mt=STS;persist();sched(
 function flush(){clearTimeout(stimer);if(FB&&USER)FB.pushSet(curSet(),STS)}
 function endRun(){S.run={mt:Date.now()};setBV(false)}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-28 build 38';
+var OZ=28.3495,VER='2026-11-28 build 39';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -209,6 +209,17 @@ function navHtml(){var it=[['recipes','mbook','Recipes'],['bakes','assign','Bake
 function memSince(){var d=null;try{var c=USER.metadata&&USER.metadata.creationTime;if(c)d=new Date(c)}catch(e){}
  if(!d||isNaN(d)){var a=[];LOG.forEach(function(l){if(l.ts)a.push(+l.ts)});RCP.forEach(function(r){if(r.ts)a.push(+r.ts)});if(a.length)d=new Date(Math.min.apply(null,a))}
  return d&&!isNaN(d)?'<div class="note" style="margin:2px 0 0">Member since '+p2(d.getMonth()+1)+'-'+p2(d.getDate())+'-'+d.getFullYear()+'</div>':''}
+var AM='in',AEM='';
+function authHtml(){var up=AM==='up';
+ return '<div class="card"><h2>'+(up?'Create account':'Sign in')+'</h2><div class="note">'+(up?'Create an account with your email to keep your recipes and bakes and sync them across devices.':'Sign in to load your recipes and bakes and sync them across devices.')+'</div>'
+ +'<form id="aform" novalidate>'
+ +(up?'<div class="lbl">Name</div><input id="anm" data-auth="1" type="text" autocomplete="name" placeholder="Your name">':'')
+ +'<div class="lbl">Email</div><input id="aem" data-auth="1" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" value="'+esc(AEM)+'">'
+ +'<div class="lbl">Password</div><input id="apw" data-auth="1" type="password" autocomplete="'+(up?'new-password':'current-password')+'"'+(up?' placeholder="At least 6 characters"':'')+'>'
+ +'<div class="note" id="aerr" role="alert" style="margin:8px 0 0;min-height:1.2em"></div>'
+ +'<button class="btn" type="submit">'+(up?'Create account':'Sign in')+'</button></form>'
+ +'<div style="display:flex;justify-content:space-between;gap:12px;margin-top:12px"><button class="btn s" type="button" data-auth-act="toggle">'+(up?'Have an account? Sign in':'Create an account')+'</button>'+(up?'':'<button class="btn s" type="button" data-auth-act="reset">Forgot password?</button>')+'</div></div>'
+ +'<div class="card"><div class="note" style="text-align:center;margin:0 0 8px">or</div><button class="btn ghost" data-in="1" style="margin-top:0">Sign in with Google</button></div>'}
 function profHtml(){return '<div class="card" style="text-align:center"><div style="display:flex;justify-content:center">'+avHtml(96)+'</div><h2 style="justify-content:center;margin:12px 0 2px">'+esc(uname())+'</h2>'+(USER.displayName&&USER.email?'<div class="note" style="margin:0">'+esc(USER.email)+'</div>':'')+memSince()+'</div><div class="card" style="text-align:center"><button class="sb so" data-out="1">'+ic('signout')+'Sign out</button></div>'}
 function setHtml(){var rows=function(a){return a.join('')};
  return sgrp('General',erow('jar','Starter name','<input class="sin" id="sname" maxlength="40" placeholder="Name your starter" value="'+esc(S.sn||'')+'">')+erow('book','Next bake number','<input class="sin" id="nbake" type="number" inputmode="numeric" min="1" step="1" value="'+((+S.bn||0)+1)+'">')+'<div class="note" style="padding:4px 8px 0">The next bake you start gets this number, then it counts up from there.</div>'+erow('sun','Theme',sbs([['system','Auto'],['light','Light'],['dark','Dark']],THEME,function(v){return 'data-th="'+v+'"'}))+'<div class="note" style="padding:4px 8px 0">Auto follows your device. Theme applies to this device only.</div>')
@@ -516,14 +527,14 @@ function body(id,r,R,c,am){var f=r.f||{},fi=function(k,lb){return '<div class="l
   +(USER?'<div class="lbl">'+ic('camera')+'Crumb photo</div><input type="file" accept="image/*" id="photo">'+(r.ph?'<img data-ph="'+esc(r.ph)+'" alt="" style="width:100%;border-radius:10px;margin-top:8px">':'')+'<div class="note" id="pst"></div>':'<div class="note">Connect sync below to add a photo.</div>')
   +'<div class="lbl">'+ic('pencil')+'Notes (crumb, ear, crust, taste)</div><textarea id="notes" rows="3">'+esc(r.notes||'')+'</textarea>'}}
 function render(){document.body.classList.toggle('out',!USER);
- if(!USER){closeNav();$('ptitle').textContent='Sign in';$('ha').innerHTML='';$('nav').innerHTML='';$('app').innerHTML=READY?'<div class="card"><h2>Sign in</h2><div class="note">Sign in with Google to load your recipes and bakes and sync them across devices.</div><button class="btn" data-in="1">Sign in with Google</button></div>':'<div class="note">Loading…</div>';return}
+ if(!USER){closeNav();$('ptitle').textContent='Sign in';$('ha').innerHTML='';$('nav').innerHTML='';$('app').innerHTML=READY?authHtml():'<div class="note">Loading…</div>';return}
  fixRun();checkDone();if(PG.indexOf(PAGE)<0||(PAGE==='editor'&&!ED))PAGE='recipes';
  $('app').innerHTML=PAGE==='recipes'?recipesHtml():PAGE==='editor'?editorHtml():PAGE==='bakes'?bakesHtml():PAGE==='settings'?setHtml():profHtml();
  $('ptitle').textContent=PAGE==='editor'?(ED.id?'Edit recipe':'New recipe'):inBake()?bakeName(run()):TT[PAGE];$('ptitle').className=inBake()?'long':'';
  $('ha').innerHTML=PAGE==='recipes'?'<button class="hb addc" data-new="1" aria-label="New recipe" title="New recipe">'+ic('addc')+'</button>':PAGE==='editor'?'<button class="hb fill" data-start="1">'+ic('play')+'Start bake</button>':inBake()?'<button class="hb round" data-bclose="1" aria-label="Close bake" title="Close bake">'+ic('x')+'</button>':'';
  $('nav').innerHTML=navHtml();loadPh();barFill();
  var hz=document.querySelector('.hs.cur'),bx=document.querySelector('.hz');if(hz&&bx){var ra=hz.getBoundingClientRect(),rb=bx.getBoundingClientRect();bx.scrollLeft=bx.scrollLeft+(ra.left-rb.left)-(bx.clientWidth-ra.width)/2}}
-function store(t){var d=t.dataset,r=run();if(t.id==='sname'){S.sn=t.value;save();return true}if(t.id==='nbake'){var nb=parseInt(t.value,10);if(nb>=1){S.bn=nb-1;save()}return true}if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=(S.lb&&!isNaN(parseFloat(t.value))?String(wg(parseFloat(t.value))):t.value)}else if(d.f){r.f=r.f||{};r.f[d.f]=(S.tc&&['mt','rt','it'].indexOf(d.f)>=0&&!isNaN(parseFloat(t.value))?String(tf(parseFloat(t.value))):t.value)}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
+function store(t){if(t.dataset.auth)return false;var d=t.dataset,r=run();if(t.id==='sname'){S.sn=t.value;save();return true}if(t.id==='nbake'){var nb=parseInt(t.value,10);if(nb>=1){S.bn=nb-1;save()}return true}if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=(S.lb&&!isNaN(parseFloat(t.value))?String(wg(parseFloat(t.value))):t.value)}else if(d.f){r.f=r.f||{};r.f[d.f]=(S.tc&&['mt','rt','it'].indexOf(d.f)>=0&&!isNaN(parseFloat(t.value))?String(tf(parseFloat(t.value))):t.value)}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
 document.addEventListener('click',function(e){
  var t=e.target.closest('[data-k],[data-go],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-rl],[data-rst],[data-pg],[data-ex],[data-menu],[data-th],[data-new],[data-open],[data-start],[data-esave],[data-edel],[data-ecopy],[data-copy],[data-ek],[data-et],[data-bt],[data-stg],[data-tr],[data-phg],[data-snd],[data-over],[data-saveas],[data-incadd],[data-incdel],[data-bopen],[data-bclose],[data-pbo]');if(!t)return;var d=t.dataset;
  var go=function(p){PAGE=p;try{localStorage.setItem('bb-page',p==='editor'?'recipes':p)}catch(e){}closeNav();render();window.scrollTo(0,0)};
@@ -618,16 +629,34 @@ document.addEventListener('click',function(e){
 document.addEventListener('click',function(e){var b=e.target.closest('[data-swdel],[data-swrdel],[data-swstart]');if(!b)return;e.stopPropagation();var r=b.parentNode.querySelector('.lrow,.rr'),d=b.dataset;
  if(d.swdel)delBakeRow(d.swdel,r);else if(d.swrdel)delRcpRow(d.swrdel,r);else startRow(d.swstart,r)});
 })();
+(function(){function aerr(t,ok){var e=$('aerr');if(e){e.textContent=t||'';e.style.color=ok?'var(--green)':'#c62828'}}
+var AC={'auth/invalid-credential':'Email or password is not correct.','auth/wrong-password':'Email or password is not correct.','auth/user-not-found':'Email or password is not correct.','auth/invalid-email':'That email address does not look right.','auth/email-already-in-use':'An account with that email already exists. Try signing in instead.','auth/weak-password':'Password must be at least 6 characters.','auth/too-many-requests':'Too many attempts. Wait a few minutes and try again.','auth/network-request-failed':'No connection. Check your internet and try again.','auth/operation-not-allowed':'Email sign-in is not turned on in Firebase yet.','auth/missing-password':'Enter your password.'};
+function amsg(e){return AC[e&&e.code]||('Sign-in problem: '+((e&&e.message)||e))}
+function readF(){var em=$('aem'),pw=$('apw'),nm=$('anm');if(em)AEM=em.value.trim();return{em:AEM,pw:pw?pw.value:'',nm:nm?nm.value.trim():''}}
+document.addEventListener('submit',function(e){if(e.target.id!=='aform')return;e.preventDefault();
+ if(!FB){aerr('Firebase is not loaded yet.');return}
+ var f=readF();if(!f.em||f.em.indexOf('@')<1){aerr('Enter a valid email address.');return}if(!f.pw){aerr('Enter your password.');return}
+ if(AM==='up'&&f.pw.length<6){aerr('Password must be at least 6 characters.');return}
+ var b=e.target.querySelector('button[type=submit]');if(b)b.disabled=true;aerr('');
+ (AM==='up'?FB.emailUp(f.nm,f.em,f.pw):FB.emailIn(f.em,f.pw)).catch(function(er){if(b)b.disabled=false;aerr(amsg(er))})});
+document.addEventListener('click',function(e){var t=e.target.closest('[data-auth-act]');if(!t)return;var a=t.dataset.authAct;
+ if(a==='toggle'){readF();AM=AM==='up'?'in':'up';render();return}
+ if(a==='reset'){var f=readF();if(!FB){aerr('Firebase is not loaded yet.');return}if(!f.em||f.em.indexOf('@')<1){aerr('Type your email above first, then tap Forgot password.');return}
+  FB.reset(f.em).then(function(){aerr('If an account exists for '+f.em+', a password reset email is on its way. Check your spam folder too.',true)}).catch(function(er){aerr(amsg(er))})}});
+})();
 $('mb').innerHTML=ic('menu');applyTheme();render();init();
 </script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import{getAuth,GoogleAuthProvider,signInWithRedirect,getRedirectResult,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import{getAuth,GoogleAuthProvider,signInWithRedirect,getRedirectResult,onAuthStateChanged,signOut,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,updateProfile}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import{initializeFirestore,persistentLocalCache,persistentMultipleTabManager,doc,setDoc,getDoc,deleteDoc,collection,onSnapshot}from"https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 import{firebaseConfig}from"./firebase-config.js";
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=initializeFirestore(app,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
 let uid=null,un=[];const cl=x=>JSON.parse(JSON.stringify(x)),er=e=>console.error(e);
 const X={signIn:()=>{const p=new GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return signInWithRedirect(auth,p)},signOut:()=>signOut(auth),
+ emailIn:(e,p)=>signInWithEmailAndPassword(auth,e,p),
+ emailUp:async(n,e,p)=>{const c=await createUserWithEmailAndPassword(auth,e,p);if(n){try{await updateProfile(c.user,{displayName:n});window.onUser(auth.currentUser,X)}catch(x){er(x)}}return c},
+ reset:e=>sendPasswordResetEmail(auth,e),
  pushSet:(set,sts)=>{if(uid)setDoc(doc(db,'users',uid),{set:cl(set),sts}).catch(er)},
  pushBake:e=>{if(uid)setDoc(doc(db,'users',uid,'bakes',String(e.id)),cl(e)).catch(er)},
  delBake:id=>{if(uid)deleteDoc(doc(db,'users',uid,'bakes',String(id))).catch(er)},
