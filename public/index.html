@@ -117,8 +117,9 @@ body.out #ha{display:none}
 #top h1.long{white-space:normal;font-size:16px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .mk .ic{overflow:visible}.mk{padding-bottom:8px}
 .so{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:7px 12px}.so .ic{width:16px;height:16px;color:inherit}
-#brand,.nbrand{align-items:center}#brand span,.nbrand span{font-size:30px;line-height:1;position:relative;top:3.5px}#brand img,.nbrand img{height:36px}
+#brand,.nbrand{align-items:center}#brand span,.nbrand span{font-size:30px;line-height:1;position:relative;top:3.5px}#brand img,.nbrand img{height:32px;position:relative;top:-2px}
 .hb.addc{border:0;padding:0;width:44px;min-width:44px;border-radius:50%}.hb.addc .ic{width:40px;height:40px}
+.sgrp{margin:0}.sgrp .srow{padding:6px 0}.srow+.srow:before{left:0}.sri .ic{width:22px;height:22px;color:var(--acc)}.sgrp .note{padding-left:0!important;padding-right:0!important}
 </style>
 </head>
 <body>
@@ -141,7 +142,7 @@ function save(){STS=Date.now();if(S.run&&S.run.rcp)S.run.mt=STS;persist();sched(
 function flush(){clearTimeout(stimer);if(FB&&USER)FB.pushSet(curSet(),STS)}
 function endRun(){S.run={mt:Date.now()};setBV(false)}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-28 build 34';
+var OZ=28.3495,VER='2026-11-28 build 35';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -248,7 +249,7 @@ function recipeSummary(R){var c=compute(R),q=function(a){return a.filter(Boolean
 function sbs(arr,cur,at){return '<div class="sbs">'+arr.map(function(v){return '<button class="sb'+(String(v[0])===String(cur)?' on':'')+'" '+at(v[0])+'>'+v[1]+'</button>'}).join('')+'</div>'}
 function echips(arr,cur,path){return sbs(arr,cur,function(v){return 'data-ek="'+path+'" data-ev="'+v+'"'})}
 function erow(icn,label,inner){return '<div class="srow"><span class="sri">'+ic(icn)+'</span><span class="sl">'+label+'</span>'+inner+'</div>'}
-function sgrp(title,rows){return '<div class="sgrp"><div class="sgh"><span>'+title+'</span></div>'+rows+'</div>'}
+function sgrp(title,rows){var ic0={General:'sliders',Units:'scale',Application:'gear'}[title]||'gear';return '<div class="card sgrp"><h2>'+ic(ic0)+title+'</h2>'+rows+'</div>'}
 function ef(label,path,val,o){o=o||{};return '<div><div class="lbl">'+label+'</div><input type="number" inputmode="decimal" step="any" data-e="'+path+'"'+(o.u?' data-u="'+o.u+'"':'')+(o.o?' data-o="1"':'')+(o.ph!=null?' placeholder="'+esc(o.ph)+'"':'')+' value="'+esc(val==null?'':val)+'"></div>'}
 function po(title,icn,path,on,bodyHtml,sub){var req=path===null;return '<div class="po'+(sub?' sub':'')+'"><div class="poh"><span class="pot">'+(icn?ic(icn):'')+title+'</span>'+(req?'':'<button class="pb'+(on?' x':'')+'" data-et="'+path+'" aria-label="'+(on?'Remove ':'Add ')+title+'">'+ic(on?'x':'plus')+'</button>')+'</div>'+((req||on)?'<div class="pob">'+bodyHtml+'</div>':'')+'</div>'}
 var FR=null;
