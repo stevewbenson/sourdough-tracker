@@ -90,7 +90,7 @@ body.out #ha{display:none}
 .po.sub{border-top:1px solid var(--line);padding:12px 0 6px}.po.sub:first-child{border-top:0}
 .pb{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--acc);background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}.pb .ic{width:20px;height:20px}.pb.x{border-color:var(--div)}.pb.x .ic{color:var(--mute)}
 .ir{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--div)}.ir b{font-size:18px}
-.btn.ghost{background:none;color:var(--acc);border:2px solid var(--acc)}
+.btn.ghost{background:none;color:var(--acc);border:2px solid var(--acc)}.bar .btn.ghost{flex:1;min-width:0;padding:12px 8px}
 .sbs{display:flex;gap:6px;flex-wrap:wrap}
 .sb{padding:9px 12px;border:2px solid var(--ink);border-radius:9px;background:var(--card);color:var(--ink);font:inherit;font-weight:700;font-size:14px;line-height:1;cursor:pointer}.sb.on{background:var(--acc);border-color:var(--acc);color:var(--btnink,#fff)}
 .sgrp{margin:0 0 18px}.sgh{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:8px 14px;background:var(--hov);border-left:3px solid var(--div);border-radius:4px;font-weight:700;font-size:18px;color:var(--mute)}
@@ -143,7 +143,7 @@ function save(){STS=Date.now();if(S.run&&S.run.rcp)S.run.mt=STS;persist();sched(
 function flush(){clearTimeout(stimer);if(FB&&USER)FB.pushSet(curSet(),STS)}
 function endRun(){S.run={mt:Date.now()};setBV(false)}
 function $(id){return document.getElementById(id)}
-var OZ=28.3495,VER='2026-11-28 build 37';
+var OZ=28.3495,VER='2026-11-28 build 38';
 function reloadApp(){var p=[];if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(a){return Promise.all(a.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n!=='bb-ph'}).map(function(n){return caches.delete(n)}))}));Promise.all(p).catch(function(){}).then(function(){location.reload()})}
 var ICP={flour:'M9 3h6l-1 3c2.5 1.5 4 4 4 7 0 4-2.5 8-6 8s-6-4-6-8c0-3 1.5-5.5 4-7zM9.5 6h5M10 13h4',
 wheat:'M12 22V8M12 8C10.5 6.8 10.5 4.8 12 3c1.5 1.8 1.5 3.8 0 5zM12 12c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 12c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4zM12 17c-2.5 0-4-1.5-4-4 2.5 0 4 1.5 4 4zM12 17c2.5 0 4-1.5 4-4-2.5 0-4 1.5-4 4z',
@@ -396,7 +396,7 @@ function doneHtml(r,R){var c=compute(R),t=r.ts||{},cur=r.st==='done',nt=function
 function planHtml(r,R){var orig=R.id&&RCP.filter(function(x){return String(x.id)===String(R.id)})[0];
  return (r.st==='plan'?'<button class="pill" data-stg="ferm">'+ic('arrow')+'Change status to fermenting</button>':'')
  +'<div class="note" style="margin:0 0 6px">Changes here apply to this bake only.'+(orig?' Your saved recipe stays as it is unless you overwrite it below.':'')+'</div>'
- +recipeForm(R)+(orig?'<div class="card"><button class="btn ghost" data-over="1" style="margin-top:0">Overwrite original recipe</button><div class="note">Replaces “'+esc(orig.name)+'” in your recipes with the settings above.</div></div>':'')}
+ +recipeForm(R)+'<div class="card"><div class="bar" style="margin-top:0">'+(orig?'<button class="btn ghost" data-over="1">Overwrite original recipe</button>':'')+'<button class="btn ghost" data-saveas="1">Create new recipe</button></div><div class="note">'+(orig?'Overwrite replaces “'+esc(orig.name)+'” in your recipes with the settings above. ':'')+'Create new recipe saves the settings above as a separate recipe and keeps your others as they are.</div></div>'}
 function closeNav(){document.body.classList.remove('dr')}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNav()});
 var P=null,syncing=false,again=false,stimer=null;
@@ -525,7 +525,7 @@ function render(){document.body.classList.toggle('out',!USER);
  var hz=document.querySelector('.hs.cur'),bx=document.querySelector('.hz');if(hz&&bx){var ra=hz.getBoundingClientRect(),rb=bx.getBoundingClientRect();bx.scrollLeft=bx.scrollLeft+(ra.left-rb.left)-(bx.clientWidth-ra.width)/2}}
 function store(t){var d=t.dataset,r=run();if(t.id==='sname'){S.sn=t.value;save();return true}if(t.id==='nbake'){var nb=parseInt(t.value,10);if(nb>=1){S.bn=nb-1;save()}return true}if(t.id==='notes')r.notes=t.value;else if(d.a){r.act=r.act||{};if(t.value==='')delete r.act[d.a];else r.act[d.a]=(S.lb&&!isNaN(parseFloat(t.value))?String(wg(parseFloat(t.value))):t.value)}else if(d.f){r.f=r.f||{};r.f[d.f]=(S.tc&&['mt','rt','it'].indexOf(d.f)>=0&&!isNaN(parseFloat(t.value))?String(tf(parseFloat(t.value))):t.value)}else if(d.s){var v=parseFloat(t.value);if(!isNaN(v)&&v>=0)S[d.s]=v}else return false;save();return true}
 document.addEventListener('click',function(e){
- var t=e.target.closest('[data-k],[data-go],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-rl],[data-rst],[data-pg],[data-ex],[data-menu],[data-th],[data-new],[data-open],[data-start],[data-esave],[data-edel],[data-ecopy],[data-copy],[data-ek],[data-et],[data-bt],[data-stg],[data-tr],[data-phg],[data-snd],[data-over],[data-incadd],[data-incdel],[data-bopen],[data-bclose],[data-pbo]');if(!t)return;var d=t.dataset;
+ var t=e.target.closest('[data-k],[data-go],[data-fin],[data-rt],[data-del],[data-in],[data-out],[data-imp],[data-rl],[data-rst],[data-pg],[data-ex],[data-menu],[data-th],[data-new],[data-open],[data-start],[data-esave],[data-edel],[data-ecopy],[data-copy],[data-ek],[data-et],[data-bt],[data-stg],[data-tr],[data-phg],[data-snd],[data-over],[data-saveas],[data-incadd],[data-incdel],[data-bopen],[data-bclose],[data-pbo]');if(!t)return;var d=t.dataset;
  var go=function(p){PAGE=p;try{localStorage.setItem('bb-page',p==='editor'?'recipes':p)}catch(e){}closeNav();render();window.scrollTo(0,0)};
  if(d.pg){if(PAGE==='editor'&&d.pg!=='editor'){if(EDD&&!confirm('Discard unsaved changes to this recipe?'))return;ED=null;EDD=false}if(d.pg==='bakes')setBV(false);go(d.pg);return}
  if(d.bopen){if(hasBake()){setBV(true);BTAB=null;render();window.scrollTo(0,0);tick()}return}
@@ -545,6 +545,7 @@ document.addEventListener('click',function(e){
  if(d.et&&T){setPath(T,d.et,!getPath(T,d.et));touch();if(PAGE==='bakes')fixCur(run());render();return}
  if(d.incadd&&T){T.inc=T.inc||[];T.inc.push({n:'',a:'',at:'mx'});touch();render();return}
  if(d.incdel!=null&&T&&T.inc){T.inc.splice(+d.incdel,1);touch();render();return}
+ if(d.saveas&&hasBake()){var Rs=run().rcp,nm=prompt('Name for the new recipe:',(String(Rs.name||'').trim()||'Untitled recipe')+' (new)');if(nm===null)return;nm=nm.trim();if(!nm)return;var Ns=cp(Rs);Ns.id=Date.now();Ns.name=nm;Ns.ts=Date.now();RCP.unshift(Ns);persist();if(FB)FB.pushRecipe(Ns);Rs.id=Ns.id;Rs.name=nm;save();msg('New recipe saved.');setTimeout(function(){msg('')},3000);render();return}
  if(d.over&&hasBake()){var R9=run().rcp,ix=RCP.map(function(x){return String(x.id)}).indexOf(String(R9.id));if(ix<0)return;if(!confirm('Overwrite your saved recipe "'+R9.name+'" with the changes from this bake?'))return;var N9=cp(R9);N9.ts=Date.now();RCP.splice(ix,1);RCP.unshift(N9);persist();if(FB)FB.pushRecipe(N9);msg('Original recipe updated.');setTimeout(function(){msg('')},3000);render();return}
  if(d.esave&&ED){if(!String(ED.name).trim()){alert('Give this recipe a name first.');return}
   var R1=cp(ED);R1.name=R1.name.trim();R1.id=R1.id||Date.now();R1.ts=Date.now();RCP=RCP.filter(function(x){return String(x.id)!==String(R1.id)});RCP.unshift(R1);persist();if(FB)FB.pushRecipe(R1);ED=null;EDD=false;go('recipes');return}
